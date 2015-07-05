@@ -1,0 +1,20 @@
+{
+  "name": "maturaarbeit",
+  "version": "1.0.0",
+  "description": "Maturaarbeit zu Interaktiven Diagrammen",
+  "main": "none",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmathys/maturaarbeit.git"
+  },
+  "author": "Max Mathys",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmathys/maturaarbeit/issues"
+  },
+  "homepage": "https://github.com/mmathys/maturaarbeit#readme",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-server-livereload": "^1.4.0"
+  }
+}
