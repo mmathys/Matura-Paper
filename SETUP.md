@@ -6,6 +6,5 @@ Node.js is required
 
 ##  Running the project
 
-- `gulp <test identifier>`
-
-You can find the different tests under `/tests`
+- `gulp init` (Used to initialize the project libraries, can be run only once)
+- `gulp develop`
