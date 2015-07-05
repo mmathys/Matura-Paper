@@ -24,4 +24,3 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 	- Trendlinien
 - Zustandsabhängige Informationsanzeige
 	- Bei Tooltip dazugehörige Informationen anzeigen (Mapping)
-	
