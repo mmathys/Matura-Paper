@@ -28,9 +28,8 @@ gulp.task('lint', function() {
 });
 
 gulp.task('libs', function() {
-  gulp.src('common/lib/*.css')
-    .pipe(minifyCss({compatibility: 'ie8'}))
-    .pipe(gulp.dest('dist/js'));
+  gulp.src('common/lib/*.js')
+  .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('files', function() {
