@@ -9,6 +9,8 @@ Wir verwenden den Diagrammtyp **Scatterplot**, teilweise mit *Interpolation* als
 ## Untersuchungsaspekte des *Scatterplots*
 Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
+- Datenparsing
+	- Importieren der Daten, JSON...
 - Achsen
 	- Beschriftungen: Range, Ticks...
 - Navigation
