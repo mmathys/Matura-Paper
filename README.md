@@ -4,13 +4,13 @@ Maturitätsarbeit Max Mathys
 ## Ziel
 Diese Arbeit soll Methoden in interaktiven Diagrammen darstellen, die zum verbesserten Informationsertrag führen sollen.
 
-Wir verwenden den Diagrammtyp **Scatterplot**, teilweise mit *Interpolation* als Beispiel. Alle Methoden werden
+Wir verwenden den Diagrammtyp **Scatterplot**, teilweise mit *Interpolation* als Beispiel. Alle Methoden werden.
 
 ## Untersuchungsaspekte des *Scatterplots*
 Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
-- Datenparsing
-	- Importieren der Daten, JSON...
+- Einfügen
+	- Importieren der Daten: Aus Excel oder aus sonstigem Tabellenprogramm: Paste that shit, csv Format
 - Achsen
 	- Beschriftungen: Range, Ticks...
 - Navigation
