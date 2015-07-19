@@ -33,4 +33,4 @@ Man muss dafür sorgen, dass die Darstellungen auch wirklich den Informationsert
 
 - *Die für das Projekt relevanten Algorithmen sind nicht dokumentiert.* bzw. *Alle angewendeten Algorithmen stammen aus dem d3-Projekt, somit hat der Autor gar nichts **selber** geleistet in dieser Hinsicht, sondern fast nur Tutorials aus dem Internet befolgt.*
 
-Man sollte klar abtrennen, für welche Aspekte der Arbeit und wieso man d3 verwendet hat.
+Man sollte klar abtrennen, für welche Aspekte der Arbeit und wieso man d3 verwendet hat.m
