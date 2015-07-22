@@ -6,7 +6,7 @@ var xScale = d3.time.scale();
 var yScale = d3.scale.linear();
 
 // Höhe und Breite des gesamten SVG-Elements definieren
-var w = 700;
+var w = 850;
 var h = 400;
 
 // Wertebereich der Achsenskalierungen definieren. Hier ist die Anzahl der Pixel

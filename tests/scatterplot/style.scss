@@ -1,3 +1,5 @@
+$graph-borders-color: #000;
+
 #visualization-container {
   display: flex;
   justify-content: center;
@@ -6,4 +8,14 @@
 
 #visualization {
 
+}
+
+.domain {
+  fill: none;
+  stroke: $graph-borders-color;
+}
+
+.tick > line {
+  fill: none;
+  stroke: $graph-borders-color;
 }
