@@ -93,7 +93,7 @@ d3.csv('data.csv', function(err, data) {
     transform.y = d3.event.translate[1];
     scale = d3.event.scale;
 
-    // TODO: force update the circles.
+    // Punkte berechnen.
     v.selectAll("circle")
       .attr("transform", "translate("+transform.x+","+transform.y+")");
   }
@@ -106,8 +106,8 @@ d3.csv('data.csv', function(err, data) {
   // Unterstützung für Zoom hinzufügen (d3)
     .call(zoom);
 
-  // Maske für den Graph: Wir wollen nicht, dass Punkte aus unserem definierten
-  // Feld auftauchen.
+  // SVG-Maske für den Graph: Wir wollen nicht, dass Punkte aus unserem
+  // definierten Feld auftauchen.
   v.append("mask")
     .attr("id", "mask")
     .append("rect")
