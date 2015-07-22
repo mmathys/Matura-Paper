@@ -5,9 +5,15 @@ var format = d3.time.format('%Y-%m-%d');
 var xScale = d3.time.scale();
 var yScale = d3.scale.linear();
 
-// Höhe und Breite des gesamten SVG-Elements definieren
+// Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
+// Graphs
 var w = 850;
 var h = 400;
+var graphTransform = {xtop: 50, ytop: 0, xbottom:0, ybottom:50};
+
+// Global Zoomvariablen
+var transform = {x:0,y:0};
+var scale = 1;
 
 // Wertebereich der Achsenskalierungen definieren. Hier ist die Anzahl der Pixel
 // gemeint, über die sich die Achsen erstrecken. Die x-Achse und die y-Achse
@@ -63,13 +69,57 @@ d3.csv('data.csv', function(err, data) {
   xScale.domain(xWertebereich);
   yScale.domain(yWertebereich);
 
+  // Zoom hinzufügen, das durch d3 unterstützt wird
+  var zoom = d3.behavior.zoom()
+    .x(xScale)
+    .y(yScale)
+    .scaleExtent([1, 60])
+    .on("zoom", zoomed);
+
+  // die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
+  // wendet werden kann, obwohl sie erst später definiert wird.
+  var graph = null;
+
+  // Mit der Funktion 'zoomed' werden die x-Achse und die y-Achse aktualisiert
+  function zoomed() {
+    // Achsen neu zeichnen
+    xAxisContainer.call(xAxis);
+    yAxisContainer.call(yAxis);
+
+    // Den Graphen entsprechend anpassen:
+
+    // Methode 2: Zoomvariablen setzen und die Position die Punkte transformieren
+    transform.x = d3.event.translate[0];
+    transform.y = d3.event.translate[1];
+    scale = d3.event.scale;
+
+    // TODO: force update the circles.
+    v.selectAll("circle")
+      .attr("transform", "translate("+transform.x+","+transform.y+")");
+  }
+
   // SVG-Element mit id 'visualization' extrahieren
   var v = d3.select("#visualization")
     .attr("width", w)
-    .attr("height", h);
+    .attr("height", h)
 
-  var graph = v.append("g")
-    .attr("transform", "translate(50,0)")
+  // Unterstützung für Zoom hinzufügen (d3)
+    .call(zoom);
+
+  // Maske für den Graph: Wir wollen nicht, dass Punkte aus unserem definierten
+  // Feld auftauchen.
+  v.append("mask")
+    .attr("id", "mask")
+    .append("rect")
+      .attr("x", graphTransform.xtop)
+      .attr("y", graphTransform.ytop)
+      .attr("width", (w-graphTransform.xtop-graphTransform.xbottom))
+      .attr("height", (h-graphTransform.ytop-graphTransform.ybottom))
+      .attr("fill", "white");
+
+  graph = v.append("g")
+    .attr("transform", "translate("+graphTransform.x+","+graphTransform.y+")")
+    .attr("mask", "url(#mask)")
     .selectAll("circle")
     // Die Daten zum Element mit der d3-Binding-Method binden: Die nach dem
     // enter() stehenden Befehle werden für alle Elemente in dem Array
@@ -77,17 +127,24 @@ d3.csv('data.csv', function(err, data) {
     .data(data).enter()
     .append("circle")
       .attr("r", 1)
-      .attr("cx", function(d){return xScale(d.Date)})
-      .attr("cy", function(d){return yScale(d.Mean)});
+      .attr("cx", function(d) {
+        var location = xScale(d.Date);
+        return location;
+      })
+      .attr("cy", function(d) {
+        var location = yScale(d.Mean);
+        return location;
+      });
 
   // Achsen hinzufügen
-  v.append("g")
+  var xAxisContainer = v.append("g")
     .attr("class", "axis axis-x")
     .attr("transform", "translate(50,"+(h-50)+")")
     .call(xAxis);
 
-  v.append("g")
+  var yAxisContainer = v.append("g")
     .attr("class", "axis axis-y")
     .attr("transform", "translate(50,0)")
     .call(yAxis);
+
 });
