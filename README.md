@@ -18,9 +18,9 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 - Achsen
 	- Beschriftungen: Range, Ticks... ✔︎
 - Navigation
-	- Zoom
-	- Pan
-	- Vereinfachung der Daten für bessere Performance
+	- Zoom ✔︎
+	- Pan ✔︎
+ 	- Vereinfachung der Daten für bessere Performance 
 - Datenmanipulation
 	- Manipulation der Daten durch Schieberegler usw
 - Linien

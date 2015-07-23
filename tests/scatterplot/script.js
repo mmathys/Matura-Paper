@@ -153,8 +153,17 @@ d3.csv('data.csv', function(err, data) {
     .attr("transform", "translate(50,0)")
     .call(yAxis);
 
-  graph.on("mousemove", function(){
-    console.log("hi");
-  });
-
+  // Maus-Koordinaten: Um auf die Maus-Koordinaten zugreifen zu können, muss man
+  // ein unsichtbares Element über den gesamten Graph legen, der alle
+  // 'Maus-Events' "aufnimmt". Ein leerer g-SVG-Container (wie 'graph') ist
+  // nicht fähig, Maus-Events aufzunehmen.
+  v.insert("rect", ":first-child")
+    .attr("id", "overlay")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", w - graphTransform.xstart - graphTransform.xend)
+    .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
+    .on("mousemove", function(){
+      // Benutzerdefiniert... In diesem Beispiel nicht gebraucht.
+    });
 });

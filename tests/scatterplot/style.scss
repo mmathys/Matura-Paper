@@ -7,11 +7,13 @@ $graph-borders-color: #000;
 }
 
 #visualization {
-
+  // Der Visualization soll die auf Bewegung der Maus zugreifen können. Dieses
+  // Attribut wird gebraucht.
+  pointer-events: all;
 }
 
 #graph {
-  pointer-events: all;
+
 }
 
 .domain {
@@ -31,4 +33,8 @@ $graph-borders-color: #000;
 .data-point:hover {
   r: 7px;
   fill: rgba(0, 0, 0, .7);
+}
+
+#overlay {
+  visibility: hidden;
 }
