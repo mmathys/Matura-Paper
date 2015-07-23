@@ -73,7 +73,7 @@ d3.csv('data.csv', function(err, data) {
   var zoom = d3.behavior.zoom()
     .x(xScale)
     .y(yScale)
-    .scaleExtent([1, 60])
+    .scaleExtent([1, 50])
     .on("zoom", zoomed);
 
   // die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
@@ -93,9 +93,10 @@ d3.csv('data.csv', function(err, data) {
     transform.y = d3.event.translate[1];
     scale = d3.event.scale;
 
-    // Punkte berechnen.
+    // Punkte neu berechnen.
     v.selectAll("circle")
-      .attr("transform", "translate("+transform.x+","+transform.y+")");
+      .attr("cx", function(d) { return xScale(d.Date); })
+      .attr("cy", function(d) { return yScale(d.Mean); });
   }
 
   // SVG-Element mit id 'visualization' extrahieren
@@ -127,14 +128,8 @@ d3.csv('data.csv', function(err, data) {
     .data(data).enter()
     .append("circle")
       .attr("r", 1)
-      .attr("cx", function(d) {
-        var location = xScale(d.Date);
-        return location;
-      })
-      .attr("cy", function(d) {
-        var location = yScale(d.Mean);
-        return location;
-      });
+      .attr("cx", function(d) { return xScale(d.Date); })
+      .attr("cy", function(d) { return yScale(d.Mean); });
 
   // Achsen hinzufügen
   var xAxisContainer = v.append("g")

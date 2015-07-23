@@ -37,6 +37,11 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 	- Mehrere Punkte anwählen: Vergleich zwischen Punkten
 - Maximum, Minimum anzeigen
 
+#### Probleme gelöst
+- Überschwappen der Punkte: Lösung durch Anwenden einer SVG-Mask
+- Nicht das ganze scalen: Pkt-radien selber werden skaliert.
+- Skalierung: nichts anderes als die Achsenskalierunganpassen und die Daten neu laden.
+
 ### *(Stacked) Line Diagram*
 Bei diesem *(Stacked) Line Diagram* werden folgende Interaktionsmöglichkeiten vorgestellt:
 
