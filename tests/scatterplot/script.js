@@ -127,7 +127,7 @@ d3.csv('data.csv', function(err, data) {
     // ausgeführt.
     .data(data).enter()
     .append("circle")
-      .attr("r", 1)
+      .attr("class", "data-point")
       .attr("cx", function(d) { return xScale(d.Date); })
       .attr("cy", function(d) { return yScale(d.Mean); });
 

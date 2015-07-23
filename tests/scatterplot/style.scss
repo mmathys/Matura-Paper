@@ -19,3 +19,12 @@ $graph-borders-color: #000;
   fill: none;
   stroke: $graph-borders-color;
 }
+
+.data-point {
+  r: 2px;
+}
+
+.data-point:hover {
+  r: 7px;
+  fill: rgba(0, 0, 0, .7);
+}
