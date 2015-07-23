@@ -1,4 +1,8 @@
-$graph-borders-color: #000;
+$graph-borders-color: #666;
+$graph-axis-text-color: #666;
+$graph-axis-font-size: 14px;
+$graph-axis-size: 1.5px;
+$graph-axis-tick-size: 1px;
 
 #visualization-container {
   display: flex;
@@ -19,11 +23,18 @@ $graph-borders-color: #000;
 .domain {
   fill: none;
   stroke: $graph-borders-color;
+  stroke-width: $graph-axis-size;
 }
 
 .tick > line {
   fill: none;
   stroke: $graph-borders-color;
+  stroke-width: $graph-axis-tick-size;
+}
+
+.tick > text {
+  fill: $graph-axis-text-color;
+  font-size: $graph-axis-font-size;
 }
 
 .data-point {
