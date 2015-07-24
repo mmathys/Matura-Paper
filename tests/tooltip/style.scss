@@ -41,9 +41,9 @@ $graph-axis-tick-size: 1px;
   r: 2px;
 }
 
-.data-point.hover {
+.data-point.tooltip {
   r: 7px;
-  fill: rgba(0, 0, 0, .7);
+  fill: rgba(0, 0, 0, .4);
 }
 
 #overlay {

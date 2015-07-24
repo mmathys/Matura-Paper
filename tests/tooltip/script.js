@@ -1,3 +1,37 @@
+/**
+ * Findet den zu einem gegebenen Wert den nächsten in einem Array vorhandenem Wert.
+ * @param  {[Array]} data         Datenset
+ * @param  {[Function]} accessor  Funktion, das den zu vergleichenden Wert
+ *                                zurückgibt, wenn das Objekt gegeben wird.
+ * @param  {[type]} item          Der zu vergleichende Wert
+ * @return {[Number]}             Der Index (0 < @return < data.length-1)
+ */
+function nextIndex(data, accessor, item){
+  var index = -1;
+  for(var i = 0; i<data.length-1; i++){
+    // Liegt der Punkt zwischen zwei gegebenen Punkten?
+    var this_d = accessor(data[i]);
+    var next = accessor(data[i+1]);
+    var afterThis = item >=this_d;
+    var beforeNext = item <= next;
+
+    if(afterThis && beforeNext){
+      // Falls ja, setze 'index' auf den index des näheren Punktes.
+      Δ1 = Math.abs(accessor(data[i]) - item);
+      Δ2 = Math.abs(accessor(data[i+1]) - item);
+      index = Δ1 < Δ2 ? i : i + 1;
+    }
+  }
+  return index;
+}
+
+function tooltip(data, index) {
+  //TODO: - Date und Mean mit Scale zu abs. var machen
+  // - tooltip kreis erstellen oder holen (ghost selection?)
+  // - an die stelle moven.
+  // - oder entfernen. falls -1.
+}
+
 // Bestimmen des Zeitformats der Daten (z. B. 2012-02-27)
 var format = d3.time.format('%Y-%m-%d');
 
@@ -32,6 +66,18 @@ var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
  *                                			 		Datenarray
  */
 d3.csv('data.csv', function(err, data) {
+
+  // Sortieren, denn wir brauchen dies für unseren Tooltip-Algorithmus
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+  data.sort(function(a, b) {
+    if (a.Date<b.Date) {
+      return -1;
+    }
+    if (a.Date>b.Date) {
+      return 1;
+    }
+    return 0;
+  })
 
   // Schleife, um die Einträge zu formatieren
   for(var i = 0; i<data.length; i++) {
@@ -137,6 +183,7 @@ d3.csv('data.csv', function(err, data) {
     .data(data).enter()
     .append("circle")
       .attr("class", "data-point")
+      //.attr("data-x-identifier", function(d) { return d.Date; })
       .attr("cx", function(d) { return xScale(d.Date); })
       .attr("cy", function(d) { return yScale(d.Mean); });
 
@@ -167,8 +214,9 @@ d3.csv('data.csv', function(err, data) {
       var cord = d3.mouse(this);
       cord[0] -= graphTransform.xstart;
       cord[1] -= graphTransform.ytop;
-      console.log(cord);
-
+      // x|y-Werte berechnen
+      var x_date = xScale.invert(cord[0]);
+      var tooltipIndex = nextIndex(data, function(d){ return d.Date;}, x_date);
+      tooltip(data, tooltipIndex);
     });
-
 });
