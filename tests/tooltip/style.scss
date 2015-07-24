@@ -1,0 +1,51 @@
+$graph-borders-color: #666;
+$graph-axis-text-color: #666;
+$graph-axis-font-size: 14px;
+$graph-axis-size: 1.5px;
+$graph-axis-tick-size: 1px;
+
+#visualization-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+#overlay {
+  // Der Visualization soll die auf Bewegung der Maus zugreifen können. Dieses
+  // Attribut wird gebraucht.
+  pointer-events: all;
+}
+
+#graph {
+
+}
+
+.domain {
+  fill: none;
+  stroke: $graph-borders-color;
+  stroke-width: $graph-axis-size;
+}
+
+.tick > line {
+  fill: none;
+  stroke: $graph-borders-color;
+  stroke-width: $graph-axis-tick-size;
+}
+
+.tick > text {
+  fill: $graph-axis-text-color;
+  font-size: $graph-axis-font-size;
+}
+
+.data-point {
+  r: 2px;
+}
+
+.data-point.hover {
+  r: 7px;
+  fill: rgba(0, 0, 0, .7);
+}
+
+#overlay {
+  visibility: hidden;
+}
