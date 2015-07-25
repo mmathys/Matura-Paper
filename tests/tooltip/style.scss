@@ -46,6 +46,12 @@ circle#tooltip-circle {
   fill: rgba(0, 0, 0, .4);
 }
 
+#label > text {
+  fill: black;
+  font-weight: 400;
+  font-size: $graph-axis-font-size;
+}
+
 #overlay {
   visibility: hidden;
 }

@@ -26,40 +26,50 @@ function nextIndex(data, accessor, item){
 }
 /**
  * Funktion für den Tooltip-Kreis und die Werteanzeige
- * @param  {[Array]} data         Datenarray
- * @param  {[Function]} accessor  Funktion, die das Koordinatenpaar den Punktes
- *                                zurückgibt.
- * @param  {[Number]} index       Index des Datenarray, die den zu "tooltippenden"
- *                                Wert entspricht.
- * @param {{d3 View}} parent      d3-View, in das das Tooltip eingesetzt werden
- *                    						sollte.
+ * @param  {[Array]} data           Datenarray
+ * @param  {[Function]} accessor    Funktion, die das Koordinatenpaar den Punktes
+ *                                	zurückgibt.
+ * @param  {[Number]} index         Index des Datenarray, die den zu "tooltippenden"
+ *                                	Wert entspricht.
+ * @param {{d3 View}} parent        d3-View, in das das Tooltip eingesetzt werden
+ *                    							sollte.
+ * @param {{Function}} textAccessor Funktion, die den Text für das Tooltip zu-
+ *                                  rückgibt.
  */
-function tooltip(data, accessor, index, parent) {
-  // Strategy: - Check if tooltip-g exists
-  // - if not create it and the circle inside.
-  // - check if index -1. if so return. and visible
-  // - obtain the calculated coordinates
-  // - get the circle in the tooltip g
-  // - set the coordinates correspondasdf
+function tooltip(data, accessor, index, parent, textAccessor) {
+  // tooltip-Variablen
+
   var tip = d3.select("#tooltip");
   if(tip.empty()){
     tip = parent.append("g")
       .attr("id", "tooltip")
       .attr("class", "tooltip");
+
     tip.append("circle")
       .attr("id", "tooltip-circle");
+
+    var label = tip.append("g")
+      .attr("id", "label");
+
+    var text = label.append("text")
+      .attr("text-anchor", "middle")
+      .attr("id", "label-text");
   }
+
   if(index==-1){
     tip.attr("visibility", "hidden");
     return;
   }
   tip.attr("visibility", "visible");
 
-  var cord = accessor(data[index]);
-  tip.select("circle")
-    .attr("cx", cord[0])
-    .attr("cy", cord[1]);
 
+  d3.select("#label-text")
+    .text(textAccessor(data[index]))
+    .attr("x", 0)
+    .attr("y", -10);
+
+  var cord = accessor(data[index]);
+  tip.attr("transform", "translate("+cord[0]+","+cord[1]+")");
 }
 
 // Bestimmen des Zeitformats der Daten (z. B. 2012-02-27)
@@ -263,7 +273,11 @@ d3.csv('data.csv', function(err, data) {
     //tooltip
     tooltip(data, function(d){
       return [xScale(d.Date), yScale(d.Mean)];
-    }, tooltipIndex, d3.select("#graph"));
+    }, tooltipIndex, d3.select("#graph"), function(d) {
+      // Zahl runden
+      // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
+      return Math.round(d.Mean * 1000) / 1000;
+    });
 
   }
 });
