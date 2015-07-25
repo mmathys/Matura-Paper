@@ -37,11 +37,11 @@ $graph-axis-tick-size: 1px;
   font-size: $graph-axis-font-size;
 }
 
-.data-point {
+.circle.data-circle {
   r: 2px;
 }
 
-.data-point.tooltip {
+circle#tooltip-circle {
   r: 7px;
   fill: rgba(0, 0, 0, .4);
 }

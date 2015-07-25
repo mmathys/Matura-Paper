@@ -24,12 +24,42 @@ function nextIndex(data, accessor, item){
   }
   return index;
 }
+/**
+ * Funktion für den Tooltip-Kreis und die Werteanzeige
+ * @param  {[Array]} data         Datenarray
+ * @param  {[Function]} accessor  Funktion, die das Koordinatenpaar den Punktes
+ *                                zurückgibt.
+ * @param  {[Number]} index       Index des Datenarray, die den zu "tooltippenden"
+ *                                Wert entspricht.
+ * @param {{d3 View}} parent      d3-View, in das das Tooltip eingesetzt werden
+ *                    						sollte.
+ */
+function tooltip(data, accessor, index, parent) {
+  // Strategy: - Check if tooltip-g exists
+  // - if not create it and the circle inside.
+  // - check if index -1. if so return. and visible
+  // - obtain the calculated coordinates
+  // - get the circle in the tooltip g
+  // - set the coordinates correspondasdf
+  var tip = d3.select("#tooltip");
+  if(tip.empty()){
+    tip = parent.append("g")
+      .attr("id", "tooltip")
+      .attr("class", "tooltip");
+    tip.append("circle")
+      .attr("id", "tooltip-circle");
+  }
+  if(index==-1){
+    tip.attr("visibility", "hidden");
+    return;
+  }
+  tip.attr("visibility", "visible");
 
-function tooltip(data, index) {
-  //TODO: - Date und Mean mit Scale zu abs. var machen
-  // - tooltip kreis erstellen oder holen (ghost selection?)
-  // - an die stelle moven.
-  // - oder entfernen. falls -1.
+  var cord = accessor(data[index]);
+  tip.select("circle")
+    .attr("cx", cord[0])
+    .attr("cy", cord[1]);
+
 }
 
 // Bestimmen des Zeitformats der Daten (z. B. 2012-02-27)
@@ -48,6 +78,8 @@ var graphTransform = {xstart: 50, ytop: 0, xend:0, ybottom:50};
 // Global Zoomvariablen
 var transform = {x:0,y:0};
 var scale = 1;
+
+var mouse = [];
 
 // Wertebereich der Achsenskalierungen definieren. Hier ist die Anzahl der Pixel
 // gemeint, über die sich die Achsen erstrecken. Die x-Achse und die y-Achse
@@ -77,7 +109,7 @@ d3.csv('data.csv', function(err, data) {
       return 1;
     }
     return 0;
-  })
+  });
 
   // Schleife, um die Einträge zu formatieren
   for(var i = 0; i<data.length; i++) {
@@ -147,9 +179,12 @@ d3.csv('data.csv', function(err, data) {
     scale = d3.event.scale;
 
     // Punkte neu berechnen.
-    v.selectAll("circle")
+    v.selectAll("circle.data-point")
       .attr("cx", function(d) { return xScale(d.Date); })
       .attr("cy", function(d) { return yScale(d.Mean); });
+
+    // Tooltip bei Zoom auch aktualisieren
+    updateTooltip();
   }
 
   // SVG-Element mit id 'visualization' extrahieren
@@ -210,13 +245,25 @@ d3.csv('data.csv', function(err, data) {
     .attr("y", graphTransform.ytop)
     .attr("width", w - graphTransform.xstart - graphTransform.xend)
     .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
-    .on("mousemove", function(){
-      var cord = d3.mouse(this);
-      cord[0] -= graphTransform.xstart;
-      cord[1] -= graphTransform.ytop;
-      // x|y-Werte berechnen
-      var x_date = xScale.invert(cord[0]);
-      var tooltipIndex = nextIndex(data, function(d){ return d.Date;}, x_date);
-      tooltip(data, tooltipIndex);
+    .on("mousemove", function() {
+      mouse = d3.mouse(this);
+      updateTooltip();
     });
+
+
+  function updateTooltip() {
+    var cord = [];
+    cord[0] = mouse[0]-graphTransform.xstart;
+    cord[1] = mouse[1]-graphTransform.ytop;
+    // x|y-Werte berechnen
+    var x_date = xScale.invert(cord[0]);
+    //tooltip
+    var tooltipIndex = nextIndex(data, function(d){ return d.Date;}, x_date);
+
+    //tooltip
+    tooltip(data, function(d){
+      return [xScale(d.Date), yScale(d.Mean)];
+    }, tooltipIndex, d3.select("#graph"));
+
+  }
 });
