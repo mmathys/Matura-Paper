@@ -20,7 +20,7 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 - Navigation
 	- Zoom ✔︎
 	- Pan ✔︎
- 	- Vereinfachung der Daten für bessere Performance 
+ 	- Vereinfachung der Daten für bessere Performance ╳ **NONONONO**
 - Datenmanipulation
 	- Manipulation der Daten durch Schieberegler usw
 - Linien
@@ -29,7 +29,7 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 	- Trendlinien
 		- R^2 anzeigen
 - Zustandsabhängige Informationsanzeige
-	- Bei Tooltip dazugehörige Informationen anzeigen (z.B. den Wert)
+	- Bei Tooltip dazugehörige Informationen anzeigen (z.B. den Wert) ✔︎
 	- 2 Arten von Tooltip: 
 		- Zum *echten* Punkt in der Nähe springen, also zum Wert, der wirklich aufgezeichnet wurde
 		- An der Stelle bei der Trendlinie oder Interpolation den berechneten Wert anzeigen, der nicht wirklich gemessen wurde.

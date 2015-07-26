@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <meta name="description" content="Template">
+    <title>Lines</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div class="container clearfix">
+    <h1>Lines</h1>
+    <p>
+      Verschiedene Interpolationen zwischen den Punkten
+    </p>
+    <p class="bold">Interpolationsverfahren</p>
+    <ul>
+      <li>
+        Lineare Interpolation
+      </li>
+      <li>
+        Interpolationen n-ten Grades
+      </li>
+    </ul>
+    <h2>Typ</h2>
+    <select class="block mb1 field">
+      <option>Linear</option>
+      <option>2. Grad</option>
+      <option>3. Grad</option>
+      <option>4. Grad</option>
+      <option>5. Grad</option>
+    </select>
+    <hr>
+    <div id="visualization-container">
+      <svg id="visualization">
+        <!-- Einfügen des SVG-Elements durch Javascript-Code -->
+      </svg>
+    </div>
+  </div>
+  <script src="/js/d3.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
