@@ -20,12 +20,12 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 - Navigation
 	- Zoom ✔︎
 	- Pan ✔︎
- 	- Vereinfachung der Daten für bessere Performance ╳ **NONONONO**
+ 	- Vereinfachung der Daten für bessere Performance ╳ **NO**
 - Datenmanipulation
 	- Manipulation der Daten durch Schieberegler usw
 - Linien
 	- Interpolationen
-		- Verschiedene Typen dokumentieren **(!)** ╳ **NONONONONO** zu kompliziert. nur lineare Interpolation selber programmieren.
+		- Verschiedene Typen dokumentieren **(!)** ╳ **NO** zu kompliziert. nur lineare Interpolation selber programmieren.
 		- mit d3 interpolationen ✔︎
 	- Trendlinien
 		- R^2 anzeigen
