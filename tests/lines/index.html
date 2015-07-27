@@ -24,12 +24,22 @@
     </ul>
     <h2>Typ</h2>
     <select class="block mb1 field">
-      <option>Linear</option>
-      <option>2. Grad</option>
-      <option>3. Grad</option>
-      <option>4. Grad</option>
-      <option>5. Grad</option>
+      <option value="linear">Linear</option>
+      <option value="step-before">step-before (d3)</option>
+      <option value="step-after">step-after (d3)</option>
+      <option value="basis">basis (d3)</option>
+      <option value="basis-open">basis-open (d3)</option>
+      <option value="basis-closed">basis-closed (d3)</option>
+      <option value="bundle">bundle (d3)</option>
+      <option value="cardinal">cardinal (d3)</option>
+      <option value="cardinal-open">cardinal-open (d3)</option>
+      <option value="cardinal-closed">cardinal-closed (d3)</option>
+      <option value="monotone">monotone (d3)</option>
     </select>
+    <label class="block col-12 mb2">
+      <input id="checkbox" type="checkbox" checked>
+      Punkte anzeigen
+    </label>
     <hr>
     <div id="visualization-container">
       <svg id="visualization">
@@ -38,6 +48,7 @@
     </div>
   </div>
   <script src="/js/d3.js"></script>
+  <script src="/js/jquery-2.1.4.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

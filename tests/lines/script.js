@@ -379,8 +379,15 @@ d3.csv('data.csv', function(err, data) {
 
    function updateLines() {
      if(mode == "linear" || mode == "undefined"){
-       d3.select(".line.linear")
+       d3.select(".line")
         .attr("d", linear(data, accessor_cord));
+     } else {
+       var line = d3.svg.line()
+         .x(accessor_scaled_x)
+         .y(accessor_scaled_y)
+         .interpolate(mode);
+       d3.select(".line")
+        .attr("d", line(data));
      }
    }
 
@@ -414,11 +421,39 @@ d3.csv('data.csv', function(err, data) {
      return path;
    }
 
+   var path = d3.select("#graph")
+    .append("path")
+    .attr("class", "line");
+
    if(mode == "linear" || mode == "undefined"){
-     d3.select("#graph")
-      .append("path")
-      .attr("class", "line linear")
-      .attr("d", linear(data, accessor_cord));
+      path.attr("d", linear(data, accessor_cord));
+   } else {
+     var line = d3.svg.line()
+       .x(accessor_scaled_x)
+       .y(accessor_scaled_y)
+       .interpolate(mode);
+     path.attr("d", line(data));
    }
+
+   /**
+    * Html-Element select zur Auswahl des Modus: Die Variable 'mode' bei
+    * Änderung aktualisieren.
+    *
+    * Checkbox 'Punkte anzeigen': Die Datenpunkte anzeigen / verstecken.
+    */
+
+   $('select').on('change', function() {
+     mode = this.value;
+     updateLines();
+   });
+
+   $('#checkbox').on('change', function() {
+     var points = d3.selectAll(".data-point");
+     if(!$(this).is(":checked")){
+       points.classed("hidden", true);
+     } else {
+       points.classed("hidden", false);
+     }
+   });
 
 });
