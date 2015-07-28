@@ -1,3 +1,7 @@
+// Browserify test
+var test = require("./test");
+test.testPrint();
+
 /*******************************************************************************
  *
  *
@@ -5,10 +9,6 @@
  *
  *
  ******************************************************************************/
-
-var test = require("./test");
-
-test.testPrint();
 
 /**
  * Findet den zu einem gegebenen Wert den nächsten in einem Array vorhandenem Wert.
@@ -101,8 +101,8 @@ var yScale = d3.scale.linear();
 
 // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
 // Graphs
-var w = 850;
-var h = 400;
+var w = 1000;
+var h = 600;
 var graphTransform = {xstart: 50, ytop: 0, xend:0, ybottom:50};
 
 // Global Zoomvariablen
