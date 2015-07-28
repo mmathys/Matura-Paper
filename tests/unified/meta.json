@@ -1,0 +1,51 @@
+[
+  {
+    "row": "Date",
+    "type": "index",
+    "data-type": "Date",
+    "date-format": "%Y-%m-%d",
+    "name": "Datum"
+  },
+  {
+    "row": "Open",
+    "type": "attribute",
+    "data-type": "Number",
+    "name": "Open"
+  },
+  {
+    "row": "High",
+    "type": "attribute",
+    "data-type": "Number",
+    "name": "Hoch"
+  },
+  {
+    "row": "Low",
+    "type": "attribute",
+    "data-type": "Number",
+    "name": "Tief"
+  },
+  {
+    "row": "Close",
+    "type": "attribute",
+    "data-type": "Number",
+    "name": "Close"
+  },
+  {
+    "row": "Volume (BTC)",
+    "type": "attribute",
+    "data-type": "Number",
+    "name": "Volumen (BTC)"
+  },
+  {
+    "row": "Volume (Currency)",
+    "type": "attribute",
+    "data-type": "Number",
+    "name": "Volumen (USD)"
+  },
+  {
+    "row": "Weighted Price",
+    "type": "index",
+    "data-type": "Number",
+    "name": "Gewichteter Preis"
+  }
+]
