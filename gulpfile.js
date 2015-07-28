@@ -15,13 +15,13 @@ var glob = require('glob');
 var path = require('path');
 
 gulp.task('init', ['libs']);
-gulp.task('build', ['css', 'files', 'lint', 'webserver']);
+gulp.task('build', ['css', 'files', 'js', 'lint', 'webserver']);
 gulp.task('develop', ['build', 'watch']);
 
 gulp.task('watch', function() {
   gulp.watch(['./common/scss/*.scss', './tests/**/*.scss'], ['css']);
-  gulp.watch(['./tests/**/*.{html,js,png,jpg,jpeg,svg,csv,json,txt}'], ['files']);
-  gulp.watch(['./tests/**/*.js'], ['lint']);
+  gulp.watch(['./tests/**/*.{html,png,jpg,jpeg,svg,csv,json,txt}'], ['files']);
+  gulp.watch(['./tests/**/*.js'], ['js', 'lint']);
 });
 
 gulp.task('css', function() {
@@ -73,7 +73,7 @@ gulp.task('libs', function() {
 });
 
 gulp.task('files', function() {
-  gulp.src(['./tests/**/*.{html,js,png,jpg,jpeg,svg,csv,json,txt}'])
+  gulp.src(['./tests/**/*.{html,png,jpg,jpeg,svg,csv,json,txt}'])
     .pipe(gulp.dest('./dist'));
 });
 

@@ -6,6 +6,9 @@
  *
  ******************************************************************************/
 
+var test = require("./test");
+
+test.testPrint();
 
 /**
  * Findet den zu einem gegebenen Wert den nächsten in einem Array vorhandenem Wert.
