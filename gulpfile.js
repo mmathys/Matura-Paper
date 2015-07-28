@@ -4,6 +4,16 @@ var server = require('gulp-server-livereload');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 
+// bundling
+var browserify = require('browserify');
+var buffer = require('vinyl-buffer');
+var sourcemaps = require('gulp-sourcemaps');
+var gutil = require('gulp-util');
+var uglify = require('gulp-uglify');
+var source = require('vinyl-source-stream');
+var glob = require('glob');
+var path = require('path');
+
 gulp.task('init', ['libs']);
 gulp.task('build', ['css', 'files', 'lint', 'webserver']);
 gulp.task('develop', ['build', 'watch']);
@@ -19,6 +29,36 @@ gulp.task('css', function() {
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('style.css'))
     .pipe(gulp.dest('./dist/css'));
+});
+
+gulp.task('js', function() {
+
+  glob('./tests/**/script.js', function(err, files) {
+    files.map(function(file) {
+      var testName = "";
+      var arr = path.join(file, "..").split(path.sep);
+      testName = arr[arr.length-1];
+
+      // Browserify
+      var b = browserify({
+        entries: file,
+        debug: true
+      });
+
+      return b.bundle()
+        .pipe(source('script.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+            // Add transformation tasks to the pipeline here.
+            .pipe(uglify())
+            .on('error', gutil.log)
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(path.join('./dist', testName)));
+
+    });
+  });
+
+
 });
 
 gulp.task('lint', function() {
