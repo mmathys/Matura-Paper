@@ -94,23 +94,28 @@ module.exports.tooltip = function(data, accessor, index, parent, textAccessor) {
  * @param  {{Array}}    data        Der Datensatz zu der Visualisation
  * @param  {[d3 Scale]} xScale      Die x-Skala
  * @param  {[d3 Scale]} yScale      Die y-Skala
+ * @param  {{Function}} index       Die Config für den Index
+ * @param  {{Function}} values      Die Config für die Values
  */
-module.exports.updateTooltip = function(data, xScale, yScale){
+module.exports.updateTooltip = function(data, xScale, yScale, index, values){
   var cord = [];
   cord[0] = module.exports.mouse[0]-module.exports.opt.graphTransform.xstart;
   cord[1] = module.exports.mouse[1]-module.exports.opt.graphTransform.ytop;
 
   // x|y-Werte berechnen
   var x_date = xScale.invert(cord[0]);
-  //tooltip
-  var tooltipIndex = module.exports.nextIndex(data, function(d){ return d.Date;}, x_date);
 
-  //tooltip
-  module.exports.tooltip(data, function(d){
-    return [xScale(d.Date), yScale(d.Mean)];
-  }, tooltipIndex, d3.select("#graph"), function(d) {
-    // Zahl runden
-    // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
-    return Math.round(d.Mean * 1000) / 1000;
-  });
+  for(var i = 0; i<values.length; i++) {
+    //tooltip
+    var tooltipIndex = module.exports.nextIndex(data, index.accessor, x_date);
+
+    //tooltip
+    module.exports.tooltip(data, function(d){
+      return [index.accessor_scaled(d), values[i].accessor_scaled(d)];
+    }, tooltipIndex, d3.select("#graph"), function(d) {
+      // Zahl runden
+      // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
+      return Math.round(values[i].accessor(d) * 1000) / 1000;
+    });
+  }
 }
