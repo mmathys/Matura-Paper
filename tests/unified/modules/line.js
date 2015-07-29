@@ -5,20 +5,6 @@
  * Checkbox 'Punkte anzeigen': Die Datenpunkte anzeigen / verstecken.
  */
 
-$('select').on('change', function() {
-  mode = this.value;
-  module.exports.update(data, accessor_cord);
-});
-
-$('#checkbox').on('change', function() {
-  var points = d3.selectAll(".data-point");
-  if(!$(this).is(":checked")){
-    points.classed("hidden", true);
-  } else {
-    points.classed("hidden", false);
-  }
-});
-
 module.exports.mode = "undefined";
 
 /**
@@ -73,14 +59,19 @@ module.exports.linear = function(data, accessor) {
   return path;
 }
 
-module.exports.update = function(data, accessor_cord) {
-  if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
-    d3.select(".line")
-     .attr("d", module.exports.linear(data, accessor_cord));
-  } else {
-    var line = d3.svg.line()
-      .x(accessor_scaled_x)
-      .y(accessor_scaled_y)
-      .interpolate(mode);
+module.exports.update = function(data, index, values, accessor_cord) {
+  for(var i = 0; i<values.length; i++) {
+    if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
+      d3.select(".line")
+       .attr("d", module.exports.linear(data, accessor_cord));
+    } else {
+      var line = d3.svg.line()
+        .x(index.accessor_scaled)
+        .y(values[i].accessor_scaled)
+        .interpolate(module.exports.mode);
+      d3.select(".line")
+        .attr("d", line(data));
+    }
   }
+
 }

@@ -227,7 +227,7 @@ function load() {
       tooltip.updateTooltip(data, xScale, yScale, index, values);
 
       // Linie bei Zoom aktualisieren
-      line.update(data, accessor_cord);
+      line.update(data, index, values, accessor_cord);
     }
 
     /**
@@ -325,6 +325,20 @@ function load() {
      for(var i = 0; i<values.length; i++) {
         line.addLine(index, values[i], data, accessor_cord);
      }
+
+     $('select').on('change', function() {
+       line.mode = this.value;
+       line.update(data, index, values, accessor_cord);
+     });
+
+     $('#checkbox').on('change', function() {
+       var points = d3.selectAll(".data-point");
+       if(!$(this).is(":checked")){
+         points.classed("hidden", true);
+       } else {
+         points.classed("hidden", false);
+       }
+     });
 
   });
 }
