@@ -1,7 +1,7 @@
-var _  = require('lodash');
 var tooltip = require('./modules/tooltip');
 var line = require('./modules/line');
 var sort = require('./modules/sort');
+var range = require('./modules/range');
 
 /*******************************************************************************
  *
@@ -11,43 +11,69 @@ var sort = require('./modules/sort');
  *
  ******************************************************************************/
 
+// Für die Visualisation benötigte Variablen
+
+var config, index, values, xScale, yScale, w, h, graphTransform, mouse,
+  xAxis, yAxis, accessor_cord;
+
+
 /**
  * Laden der Konfigurationsdatei
  * @param  {[String]} "meta.json"             Der Dateiname für die
  *                                            Konfigurationsdatei
  * @param  {[Function]} function(err, config) Das Callback
  */
-d3.json("meta.json", function(err, config) {
+d3.json("meta.json", function(err, res) {
   if(err) {
     console.log(err);
     alert(err);
     return;
   }
 
+  config = res;
   console.log(config);
 
-  //TODO: 1. Variablen global machen, die für den nächsten Teil benötigt werden
-  //      2. load() unkommentieren
+  //TODO: 1. Variablen global machen, die für den nächsten Teil benötigt werden✔︎
+  //      2. load() unkommentieren ✔︎
   //      3. Die config auch wirklich anwenden
 
-  // Bestimmen des Zeitformats der Daten (z. B. 2012-02-27)
-  var format = d3.time.format('%Y-%m-%d');
+  index = {};
+  // Der Array der Datenreihen (Config).
+  values = [];
 
-  // (Lineare) Skalierung der Achsen mit d3 bestimmen
-  var xScale = d3.time.scale();
-  var yScale = d3.scale.linear();
+  for(var i = 0; i<config.length; i++) {
+    if(config[i].type == "index"){
+      index = config[i];
+    } else if(config[i].type == "value") {
+      values.push(config[i]);
+    }
+  }
+
+  if(index.data_type=="Number") {
+    xScale = d3.scale.linear();
+  } else if(index.data_type=="Date") {
+    xScale = d3.time.scale();
+  }
+
+  if(values[0].data_type=="Number"){
+    yScale = d3.scale.linear();
+  } else if(values[0].data_type=="Date") {
+    yScale = d3.time.scale();
+  }
+
+
 
   // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
   // Graphs
-  var w = 1000;
-  var h = 600;
+  w = 1000;
+  h = 600;
 
-  var graphTransform = {xstart: 50, ytop: 0, xend:0, ybottom:50};
+  graphTransform = {xstart: 50, ytop: 0, xend:0, ybottom:50};
 
   // Das Tooltip über die Transformation benachrichtigen
   tooltip.opt.graphTransform = graphTransform;
 
-  var mouse = [];
+  mouse = [];
 
   // Wertebereich der Achsenskalierungen definieren. Hier ist die Anzahl der Pixel
   // gemeint, über die sich die Achsen erstrecken. Die x-Achse und die y-Achse
@@ -56,8 +82,8 @@ d3.json("meta.json", function(err, config) {
   yScale.range([h - graphTransform.ytop - graphTransform.ybottom, 0]);
 
   // Die Achsen werden von d3 generiert.
-  var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
-  var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
+  xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
+  yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
 
   /*******************************************************************************
    *
@@ -67,27 +93,31 @@ d3.json("meta.json", function(err, config) {
    *
    ******************************************************************************/
 
-   var accessor_x = function(d) {
-     return d.Date;
+   index.accessor = function(d) {
+     return d[index.row];
    };
 
-   var accessor_y = function(d) {
-     return d.Mean;
+   index.accessor_scaled = function(d) {
+     return xScale(d[index.row]);
    };
 
-   var accessor_scaled_x = function(d) {
-     return xScale(d.Date);
+   for(var i = 0; i<values.length; i++){
+     var row = values[i].row;
+     values[i].accessor = function(d) {
+       return d[row];
+     };
+     values[i].accessor_scaled = function(d) {
+       return yScale(d[row]);
+     };
+
+   }
+
+   accessor_cord = function(d, rowName) {
+     return [index.accessor_scaled(d), yScale(d[rowName])];
    };
 
-   var accessor_scaled_y = function(d) {
-     return yScale(d.Mean);
-   };
-
-   var accessor_cord = function(d) {
-     return [xScale(d.Date), yScale(d.Mean)];
-   };
-
-   //TODO: load() aufrufen wenn alle Globalen Variablen definiert sind
+   // Die Visualisation laden
+   load();
 });
 
 
@@ -116,20 +146,21 @@ function load() {
      */
 
     // Sortieren, denn wir brauchen dies für unseren Tooltip-Algorithmus
-    data = sort(data);
+    data = sort(data, index);
 
-    // Schleife, um die Einträge zu formatieren
+    // Schleife, um die Einträge zu formatieren: Strings in ein Javascript-
+    // Objekt konvertieren.
     for(var i = 0; i<data.length; i++) {
-      // Anwenden des Zeitformats: Konvertieren des Strings in ein Javascript-
-      // Datum.
-      data[i].Date = format.parse(data[i].Date);
 
-      // Konvertieren des String in eine Javascript-Zahl
-      data[i].Open = parseFloat(data[i].Open);
-      data[i].Close = parseFloat(data[i].Close);
+      for(var j = 0; j<config.length; j++) {
+        if(config[j].data_type == "Number") {
+          data[i][config[j].row] = parseFloat(data[i][config[j].row]);
+        } else if(config[j].data_type == "Date") {
+          data[i][config[j].row] =  d3.time.format(config[j].date_format)
+                                      .parse(data[i][config[j].row]);
+        }
+      }
 
-      // Berechnen des "Durchschnittspreises" für einen Tag
-      data[i].Mean = (data[i].Open + data[i].Close) / 2;
     }
 
     /**
@@ -146,19 +177,18 @@ function load() {
      *  multiplizierten Wertes an d3 zurückgegeben.
      */
     var xWertebereich = [];
-    xWertebereich[0] = d3.min(data, accessor_x);
-    xWertebereich[1] = d3.max(data, function(d) {
-      var ΔDate = d.Date.getTime() - xWertebereich[0].getTime();
-      ΔDate *= 1.1;
-      return new Date(ΔDate + xWertebereich[0].getTime());
-    });
-
     var yWertebereich = [];
-    yWertebereich[0] = d3.min(data, accessor_y);
-    yWertebereich[1] = d3.max(data, function(d) {
-      var ΔMean = d.Mean - yWertebereich[0];
-      return yWertebereich[0] + ΔMean * 1.1;
-    });
+
+    xWertebereich[0] = range.min(data, index.accessor);
+    xWertebereich[1] = range.max(data, index.accessor);
+
+    yWertebereich[0] = range.minMultipleSets(data, values);
+    yWertebereich[1] = range.maxMultipleSets(data, values);
+
+    xWertebereich[1] = range.applyOverflow(xWertebereich[0], xWertebereich[1],
+      1.1, index.data_type);
+    yWertebereich[1] = range.applyOverflow(yWertebereich[0], yWertebereich[1],
+      1.1, values[0].data_type);
 
     xScale.domain(xWertebereich);
     yScale.domain(yWertebereich);
@@ -187,15 +217,17 @@ function load() {
       yAxisContainer.call(yAxis);
 
       // Punkte neu berechnen.
-      v.selectAll("circle.data-point")
-        .attr("cx", accessor_scaled_x)
-        .attr("cy", accessor_scaled_y);
+      for(var i = 0; i<values.length; i++) {
+        v.selectAll("circle.data-point")
+          .attr("cx", index.accessor_scaled)
+          .attr("cy", values[i].accessor_scaled);
+      }
 
       // Tooltip bei Zoom auch aktualisieren
-      tooltip.updateTooltip(data, xScale, yScale);
+      tooltip.updateTooltip(data, xScale, yScale, index, values);
 
       // Linie bei Zoom aktualisieren
-      updateLines();
+      line.update(data, accessor_cord);
     }
 
     /**
@@ -227,18 +259,24 @@ function load() {
       .attr("id", "graph")
       .attr("transform", "translate(" + graphTransform.xstart +
         "," + graphTransform.ytop + ")")
-      .attr("mask", "url(#mask)")
-      .selectAll("circle")
+      .attr("mask", "url(#mask)");
 
-      // Die Daten zum Element mit der d3-Binding-Method binden: Die nach dem
-      // enter() stehenden Befehle werden für alle Elemente in dem Array
-      // ausgeführt.
+    // Die Daten zum Element mit der d3-Binding-Method binden: Die nach dem
+    // enter() stehenden Befehle werden für alle Elemente in dem Array
+    // ausgeführt.
+    var circles = graph.selectAll("circle")
       .data(data).enter()
-      .append("circle")
-        .attr("class", "data-point")
-        //.attr("data-x-identifier", function(d) { return d.Date; })
-        .attr("cx", accessor_scaled_x)
-        .attr("cy", accessor_scaled_y);
+
+    for(var i = 0; i<values.length; i++) {
+      circles.append("circle")
+          .attr("class", "data-point")
+          //TODO: add here attribute data-row and add support in the whole code
+          // for this
+          //.attr("data-x-identifier", function(d) { return d.Date; })
+          .attr("cx", index.accessor_scaled)
+          .attr("cy", values[i].accessor_scaled);
+    }
+
 
     /**
      *
@@ -261,7 +299,7 @@ function load() {
 
     /**
      *
-     * Tooltip (nicht direkt von d3 unterstützt)
+     * Tooltip (nicht von d3)
      *
      */
 
@@ -277,7 +315,7 @@ function load() {
       .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
       .on("mousemove", function() {
         tooltip.mouse = d3.mouse(this);
-        tooltip.updateTooltip(data, xScale, yScale);
+        tooltip.updateTooltip(data, xScale, yScale, index, values);
       });
 
     /**
@@ -286,87 +324,9 @@ function load() {
      *
      */
 
-     var mode = "undefined";
-
-     function updateLines() {
-       if(mode == "linear" || mode == "undefined"){
-         d3.select(".line")
-          .attr("d", linear(data, accessor_cord));
-       } else {
-         var line = d3.svg.line()
-           .x(accessor_scaled_x)
-           .y(accessor_scaled_y)
-           .interpolate(mode);
-         d3.select(".line")
-          .attr("d", line(data));
-       }
+     for(var i = 0; i<values.length; i++) {
+        line.addLine(index, values[i], data, accessor_cord);
      }
-
-     // Lineare Interpolation
-     /**
-      * Gibt die Lineare Interpolation als SVG-Path-String zurück
-      * @param  {[Array]} data        Das Datenarray
-      * @param  {{Function}} accessor Die Funktion, welche die Koordinaten zurück-
-      *                               gibt des entsprechenden Punktes
-      * @return {[String]}            String, das in das Attribut 'd' im path-
-      *                               Element eingesetzt werden muss.
-      */
-     function linear(data, accessor) {
-       var path = "";
-
-       for(var i = 0; i < data.length; i++) {
-         var coordinates = accessor(data[i]);
-
-         if(i !== 0){
-           // L-Befehl für eine Linie
-           path += "L" + coordinates[0] + "," + coordinates[1];
-         } else {
-           // Erster Punkt: M-Befehl für Anfangspunkt.
-           path += "M" + coordinates[0] + "," + coordinates[1];
-         }
-
-         if(i !== data.length - 1) {
-           path += " ";
-         }
-       }
-       return path;
-     }
-
-     var path = d3.select("#graph")
-      .append("path")
-      .attr("class", "line");
-
-     if(mode == "linear" || mode == "undefined"){
-        path.attr("d", linear(data, accessor_cord));
-     } else {
-       var line = d3.svg.line()
-         .x(accessor_scaled_x)
-         .y(accessor_scaled_y)
-         .interpolate(mode);
-       path.attr("d", line(data));
-     }
-
-     /**
-      * Html-Element select zur Auswahl des Modus: Die Variable 'mode' bei
-      * Änderung aktualisieren.
-      *
-      * Checkbox 'Punkte anzeigen': Die Datenpunkte anzeigen / verstecken.
-      */
-
-     $('select').on('change', function() {
-       mode = this.value;
-       updateLines();
-     });
-
-     $('#checkbox').on('change', function() {
-       var points = d3.selectAll(".data-point");
-       if(!$(this).is(":checked")){
-         points.classed("hidden", true);
-       } else {
-         points.classed("hidden", false);
-       }
-     });
 
   });
-
 }
