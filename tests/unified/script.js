@@ -271,12 +271,10 @@ function load() {
       circles.append("circle")
           .attr("class", "data-point")
           //TODO: add here attribute data-row and add support in the whole code
-          // for this
-          //.attr("data-x-identifier", function(d) { return d.Date; })
+          // for this.
           .attr("cx", index.accessor_scaled)
           .attr("cy", values[i].accessor_scaled);
     }
-
 
     /**
      *
@@ -320,7 +318,7 @@ function load() {
 
     /**
      *
-     * Linien (nicht direkt von d3 unterstützt)
+     * Linien
      *
      */
 
