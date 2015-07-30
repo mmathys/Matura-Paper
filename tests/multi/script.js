@@ -2,6 +2,7 @@ var tooltip = require('./modules/tooltip');
 var line = require('./modules/line');
 var sort = require('./modules/sort');
 var range = require('./modules/range');
+var row = require('./modules/row');
 
 /*******************************************************************************
  *
@@ -346,6 +347,29 @@ function load() {
          points.classed("hidden", false);
        }
      });
+
+     /**
+      * Toggles
+      */
+
+      for(var i = 0; i<values.length; i++){
+        d3.select("#select-row")
+          .append("p")
+          .attr("class", "select-row-item selected")
+          .attr("data-row", values[i].row)
+          .text(values[i].name?values[i].name:values[i].row);
+
+        $(".select-row-item[data-row='"+values[i].row+"']").on('click', function() {
+          console.log("click");
+          if($(this).hasClass("selected")){
+            // is already selected, untoggle
+            $(this).toggleClass("selected", false);
+          } else {
+            // is not selected, toggle
+            $(this).toggleClass("selected", true);
+          }
+        });
+      }
 
   });
 }
