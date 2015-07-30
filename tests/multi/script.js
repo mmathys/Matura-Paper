@@ -13,8 +13,8 @@ var range = require('./modules/range');
 
 // Für die Visualisation benötigte Variablen
 
-var config, index, values, xScale, yScale, w, h, graphTransform, mouse,
-  xAxis, yAxis, accessor_cord;
+var config, index, values, v_accessor, v_acessor_scaled, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
+  xAxis, yAxis;
 
 
 /**
@@ -31,7 +31,6 @@ d3.json("meta.json", function(err, res) {
   }
 
   config = res;
-  console.log(config);
 
   //TODO: 1. Variablen global machen, die für den nächsten Teil benötigt werden✔︎
   //      2. load() unkommentieren ✔︎
@@ -101,19 +100,24 @@ d3.json("meta.json", function(err, res) {
      return xScale(d[index.row]);
    };
 
-   for(var i = 0; i<values.length; i++){
-     var row = values[i].row;
-     values[i].accessor = function(d) {
-       return d[row];
+   v_accessor = function(entry) {
+     return function(d) {
+       return d[entry.row];
      };
-     values[i].accessor_scaled = function(d) {
-       return yScale(d[row]);
-     };
+   };
 
+   v_accessor_scaled = function(entry) {
+     return function(d) {
+       return yScale(d[entry.row])
+     }
    }
 
-   accessor_cord = function(d, rowName) {
-     return [index.accessor_scaled(d), yScale(d[rowName])];
+   //TODO: figure out v_accessorcord
+
+   v_accessor_cord = function(rowName) {
+     return function(d) {
+       return [index.accessor_scaled(d), yScale(d[rowName])];
+     };
    };
 
    // Die Visualisation laden
@@ -182,8 +186,10 @@ function load() {
     xWertebereich[0] = range.min(data, index.accessor);
     xWertebereich[1] = range.max(data, index.accessor);
 
-    yWertebereich[0] = range.minMultipleSets(data, values);
-    yWertebereich[1] = range.maxMultipleSets(data, values);
+    yWertebereich[0] = range.minMultipleSets(data, values, v_accessor);
+    yWertebereich[1] = range.maxMultipleSets(data, values, v_accessor);
+
+    console.log(yWertebereich);
 
     xWertebereich[1] = range.applyOverflow(xWertebereich[0], xWertebereich[1],
       1.1, index.data_type);
@@ -218,16 +224,16 @@ function load() {
 
       // Punkte neu berechnen.
       for(var i = 0; i<values.length; i++) {
-        v.selectAll("circle.data-point")
+        v.selectAll("circle.data-point[data-row='" + values[i].row + "']")
           .attr("cx", index.accessor_scaled)
-          .attr("cy", values[i].accessor_scaled);
+          .attr("cy", v_accessor_scaled(values[i]));
       }
 
       // Tooltip bei Zoom auch aktualisieren
-      tooltip.updateTooltip(data, xScale, yScale, index, values);
+      tooltip.updateTooltip(data, xScale, yScale, index, values, v_accessor, v_accessor_scaled, v_accessor_cord);
 
       // Linie bei Zoom aktualisieren
-      line.update(data, index, values, accessor_cord);
+      line.update(data, index, values, v_accessor_scaled, v_accessor_cord);
     }
 
     /**
@@ -270,10 +276,11 @@ function load() {
     for(var i = 0; i<values.length; i++) {
       circles.append("circle")
           .attr("class", "data-point")
+          .attr("data-row", values[i].row)
           //TODO: add here attribute data-row and add support in the whole code
           // for this.
           .attr("cx", index.accessor_scaled)
-          .attr("cy", values[i].accessor_scaled);
+          .attr("cy", v_accessor_scaled(values[i]));
     }
 
     /**
@@ -313,7 +320,7 @@ function load() {
       .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
       .on("mousemove", function() {
         tooltip.mouse = d3.mouse(this);
-        tooltip.updateTooltip(data, xScale, yScale, index, values);
+        tooltip.updateTooltip(data, xScale, yScale, index, values, v_accessor, v_accessor_scaled, v_accessor_cord);
       });
 
     /**
@@ -323,12 +330,12 @@ function load() {
      */
 
      for(var i = 0; i<values.length; i++) {
-        line.addLine(index, values[i], data, accessor_cord);
+        line.addLine(index, values[i], data, v_accessor_cord(values[i].row));
      }
 
      $('select').on('change', function() {
        line.mode = this.value;
-       line.update(data, index, values, accessor_cord);
+       line.update(data, index, values, v_accessor_scaled, v_accessor_cord);
      });
 
      $('#checkbox').on('change', function() {
