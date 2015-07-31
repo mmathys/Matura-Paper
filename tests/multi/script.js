@@ -16,7 +16,7 @@ var id = require('./modules/id');
 
 // Für die Visualisation benötigte Variablen
 
-var config, files, index, values, v_accessor, v_acessor_scaled, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
+var config, datasetsMeta, datasets, index, values, v_accessor, v_acessor_scaled, accessor_data, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
   xAxis, yAxis, showPoints;
 
 showPoints = false;
@@ -37,17 +37,38 @@ d3.json("meta.json", function(err, res) {
   //TODO old
   config = [];
 
-  datasets = res.datasets;
+  datasetsMeta = res.datasets;
 
-  // TODO: Mehrere Files importieren können:
-  // Anforderungen: die 'index'- bzw. 'value'-Spalten müssen untereinander immer
-  //                den gleichen Datentyp und das gleiche Format haben.
-  // Die Tabellen werden 'gemergt', also wie untereinander angehängt. Will man
-  // eine Datenreihe in einer anderen Datei fortsetzen, muss die den gleichen
-  // Namen tragen.
+  // TODO: well im fucked.
   //
-  // Die Config in Meta.json trifft auf beide Tabellen zu: Als Identifizierungs-
-  // zeichen wird das Attribut 'row' gebraucht.
+  // loadVisualization ist für eine einzige Tabelle geschrieben.
+  //
+  // Wir haben aber n variablen.
+  //
+  // überall, wo data vorkommt, müssen wir über diese stelle iterieren und data
+  // durch data[h] ersetzen... einziger weg.
+  //
+  // bei maximum und minimum müssen wir über die sammlung der fucking reihen it-
+  // erieren oder so. idk.
+  //
+  //
+  //
+  // ANDERE möglichkeit: - in den datensätzen die reihennamen durch die gene-
+  // rierte id ersetzen. dann mergen.
+  //
+  // was ist mit mit dem index? glaub den einfach lassen. der braucht keine id
+  // dann hat aber nicht jedes element die spalte - überspringen?
+  //
+  // das ist so unclean.
+  //
+  // ne idk ich machs einfach so. mit datsets.
+  //
+  // array mit nem map von datenreihen.
+  //
+  // bsp: dat binding d3:
+  //
+  // iterieren über das. data = datasets[h].
+  // values haben ja die rowId dabei. schon eingebaut. easy.
 
   index = {};
   // Der Array der Datenreihen (Config).
@@ -59,8 +80,8 @@ d3.json("meta.json", function(err, res) {
   // wenn man den Datensatz zu der value-config haben will -> datasets[url] -> data
   //
 
-  for(var i = 0; i<datasets.length; i++) {
-    var dataset = datasets[i];
+  for(var i = 0; i<datasetsMeta.length; i++) {
+    var dataset = datasetsMeta[i];
     var url = dataset.url;
 
     for(var j = 0; j<dataset.config.length; j++){
@@ -147,9 +168,7 @@ d3.json("meta.json", function(err, res) {
      return function(d) {
        return yScale(d[entry.row])
      }
-   }
-
-   //TODO: figure out v_accessorcord
+   };
 
    v_accessor_cord = function(rowName) {
      return function(d) {
@@ -173,33 +192,32 @@ d3.json("meta.json", function(err, res) {
 function loadFiles() {
 
   // TODO: Don't merge.
-  /*
+
   var loaded = 0;
-  var merge = [];
+  datasets = [];
 
-  for(var i = 0; i<files.length; i++){
-    console.log(files[i]);
-    d3.csv(files[i], function(err, resp) {
-      if(err){
-        alert(err);
-        console.log(err);
-        return;
-      }
+  console.log(datasetsMeta[0].url);
 
+  function mkcb(i) {return function(err, resp) {
+    if(err){
+      alert(err);
+      console.log(err);
+      return;
+    }
 
-      for(var j = 0; j<resp.length; j++){
-        merge.push(resp[j]);
-      }
+    datasets[datasetsMeta[i].url] = resp;
 
-      if(++loaded == files.length){
-        console.log("loaded");
-        //loadVisualization(merge);
-      }
+    if(++loaded == datasetsMeta.length){
+      console.log("loaded");
+      console.log(datasets);
+      //loadVisualization(datasets);
+    }
+  };}
 
-    });
-
+  for(var i = 0; i<datasetsMeta.length; i++){
+    d3.csv(datasetsMeta[i].url, mkcb(i));
   }
-  */
+
 
   /**
    * Laden des Datensatzes durch d3, wird in den Array data geladen.
@@ -208,9 +226,7 @@ function loadFiles() {
    *                                			 		Datenarray
    */
   d3.csv('data.csv', function(err, data) {
-
     loadVisualization(data);
-
   });
 }
 
