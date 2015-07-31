@@ -54,10 +54,11 @@ module.exports.nextIndex = function(data, accessor, item){
  * @param {{Function}} textAccessor Funktion, die den Text für das Tooltip zu-
  *                                  rückgibt.
  */
-module.exports.tooltip = function(data, rowName, accessor, index, parent, textAccessor) {
+module.exports.tooltip = function(data, rowName, accessor, index, parent, textAccessor, activated) {
 
   // tooltip-Variablen
   var tip = d3.select("#tooltip[data-row='" + rowName + "']");
+  tip.classed("hidden", !activated);
 
   if(tip.empty()){
     tip = parent.append("g")
@@ -102,6 +103,9 @@ module.exports.tooltip = function(data, rowName, accessor, index, parent, textAc
  * @param  {{Function}} values      Die Config für die Values
  */
 module.exports.updateTooltip = function(data, xScale, yScale, index, values, v_accessor, v_accessor_scaled, v_accessor_cord){
+  if(!module.exports.mouse){
+    return;
+  }
   var x = module.exports.mouse[0]-module.exports.opt.graphTransform.xstart;
 
   // Das interpolierte Datum berechnen
@@ -116,6 +120,6 @@ module.exports.updateTooltip = function(data, xScale, yScale, index, values, v_a
       // Zahl runden
       // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
       return Math.round(v_accessor(values[i])(d) * 1000) / 1000;
-    });
+    }, values[i].activated);
   }
 }

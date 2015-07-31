@@ -59,7 +59,7 @@ circle#tooltip-circle {
 .line {
   fill: none;
   stroke: rgba(0,0,0,.7);
-  stroke-width: 1px;
+  stroke-width: 2px;
 }
 
 .hidden {
@@ -74,16 +74,22 @@ circle#tooltip-circle {
   color: #000;
   padding-bottom: 6px;
   margin: 10px;
-  color: grey;
   cursor: pointer;
   display: inline;
   border-bottom: 2px solid rgba(0, 0, 0, 1);
-  border-color: #fff;
+  border-color: #000;
 
   -webkit-transition: all 0.2s cubic-bezier(.5,1,.8,1);
   -moz-transition: all 0.2s cubic-bezier(.5,1,.8,1);
   -o-transition: all 0.2s cubic-bezier(.5,1,.8,1);
   transition: all 0.2s cubic-bezier(.5,1,.8,1);
+
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .select-row-item:hover {
@@ -91,7 +97,7 @@ circle#tooltip-circle {
   text-decoration: none;
 }
 
-.selected {
-  color: black;
-  border-color: black;
+.inactive {
+  color: grey;
+  border-color: #fff !important;
 }

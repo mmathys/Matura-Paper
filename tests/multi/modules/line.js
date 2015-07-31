@@ -16,6 +16,7 @@ module.exports.addLine = function(index, config, data, accessor_cord) {
   var path = d3.select("#graph")
    .append("path")
    .attr("class", "line")
+   .attr("style", "stroke:"+config.color)
    .attr("data-row", config.row);
 
    if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
@@ -74,5 +75,17 @@ module.exports.update = function(data, index, values, v_accessor_scaled, v_acces
         .attr("d", line(data));
     }
   }
+}
 
+
+module.exports.setActivated = function(activated, row, values){
+  var items = d3.selectAll(".data-point[data-row='"+row+ "'], " +
+    ".line[data-row='"+row+"']");
+  items.classed("hidden", !activated);
+
+  for(var i = 0; i<values.length; i++){
+    if(values[i].row == row){
+      values[i].activated = activated;
+    }
+  }
 }

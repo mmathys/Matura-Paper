@@ -41,10 +41,14 @@ d3.json("meta.json", function(err, res) {
   // Der Array der Datenreihen (Config).
   values = [];
 
+  var colors = d3.scale.category10();
+
   for(var i = 0; i<config.length; i++) {
     if(config[i].type == "index"){
       index = config[i];
     } else if(config[i].type == "value") {
+      config[i].color = colors(values.length+1);
+      config[i].activated = true;
       values.push(config[i]);
     }
   }
@@ -355,21 +359,24 @@ function load() {
       for(var i = 0; i<values.length; i++){
         d3.select("#select-row")
           .append("p")
-          .attr("class", "select-row-item selected")
+          .attr("class", "select-row-item")
+          .attr("style", "border-color:"+values[i].color)
           .attr("data-row", values[i].row)
-          .text(values[i].name?values[i].name:values[i].row);
+          .text(values[i].name ? values[i].name : values[i].row);
 
-        $(".select-row-item[data-row='"+values[i].row+"']").on('click', function() {
-          console.log("click");
-          if($(this).hasClass("selected")){
-            // is already selected, untoggle
-            $(this).toggleClass("selected", false);
+        $(".select-row-item[data-row='" + values[i].row + "']").on('click', function() {
+          var row = $(this).attr("data-row");
+
+          if($(this).hasClass("inactive")){
+            // activate this
+            $(this).toggleClass("inactive", false);
+            line.setActivated(true, row, values);
           } else {
-            // is not selected, toggle
-            $(this).toggleClass("selected", true);
+            // deactivate this
+            $(this).toggleClass("inactive", true);
+            line.setActivated(false, row, values);
           }
         });
       }
-
   });
 }
