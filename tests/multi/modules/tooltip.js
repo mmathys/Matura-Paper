@@ -44,7 +44,7 @@ module.exports.nextIndex = function(data, accessor, item){
 /**
  * Funktion für den Tooltip-Kreis und die Werteanzeige
  * @param  {[Array]} data           Datenarray
- * @param  {{String}} rowName       Name der Reihe
+ * @param  {{String}} rowId       Name der Reihe
  * @param  {[Function]} accessor    Funktion, die das Koordinatenpaar den Punktes
  *                                	zurückgibt.
  * @param  {[Number]} index         Index des Datenarray, die den zu "tooltippenden"
@@ -54,17 +54,17 @@ module.exports.nextIndex = function(data, accessor, item){
  * @param {{Function}} textAccessor Funktion, die den Text für das Tooltip zu-
  *                                  rückgibt.
  */
-module.exports.tooltip = function(data, rowName, accessor, index, parent, textAccessor, activated) {
+module.exports.tooltip = function(data, rowId, accessor, index, parent, textAccessor, activated) {
 
   // tooltip-Variablen
-  var tip = d3.select("#tooltip[data-row='" + rowName + "']");
+  var tip = d3.select("#tooltip[data-row='" + rowId + "']");
   tip.classed("hidden", !activated);
 
   if(tip.empty()){
     tip = parent.append("g")
       .attr("id", "tooltip")
       .attr("class", "tooltip")
-      .attr("data-row", rowName);
+      .attr("data-row", rowId);
 
     tip.append("circle")
       .attr("id", "tooltip-circle");
@@ -116,7 +116,7 @@ module.exports.updateTooltip = function(data, xScale, yScale, index, values, v_a
     var tooltipIndex = module.exports.nextIndex(data, index.accessor, x_date);
 
     //tooltip
-    module.exports.tooltip(data, values[i].row, v_accessor_cord(values[i].row), tooltipIndex, d3.select("#graph"), function(d) {
+    module.exports.tooltip(data, values[i].rowId, v_accessor_cord(values[i].row), tooltipIndex, d3.select("#graph"), function(d) {
       // Zahl runden
       // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
       return Math.round(v_accessor(values[i])(d) * 1000) / 1000;

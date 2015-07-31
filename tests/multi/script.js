@@ -4,6 +4,7 @@ var sort = require('./modules/sort');
 var range = require('./modules/range');
 var row = require('./modules/row');
 var points = require('./modules/points');
+var id = require('./modules/id');
 
 /*******************************************************************************
  *
@@ -33,8 +34,10 @@ d3.json("meta.json", function(err, res) {
     return;
   }
 
-  config = res.config;
-  files = res.files;
+  //TODO old
+  config = [];
+
+  datasets = res.datasets;
 
   // TODO: Mehrere Files importieren können:
   // Anforderungen: die 'index'- bzw. 'value'-Spalten müssen untereinander immer
@@ -52,18 +55,34 @@ d3.json("meta.json", function(err, res) {
 
   var colors = d3.scale.category10();
 
-  for(var i = 0; i<config.length; i++) {
-    if(config[i].type == "index"){
-      index = config[i];
-    } else if(config[i].type == "value") {
-      config[i].color = colors(values.length+1);
-      // Wenn das Attribut activated nicht gesetzt ist, setze es auch true.
-      if(typeof config[i].activated == 'undefined') {
-        config[i].activated = true;
+  //TODO: add ofFile attribut zu dem Value? ja.
+  // wenn man den Datensatz zu der value-config haben will -> datasets[url] -> data
+  //
+
+  for(var i = 0; i<datasets.length; i++) {
+    var dataset = datasets[i];
+    var url = dataset.url;
+
+    for(var j = 0; j<dataset.config.length; j++){
+      var c = dataset.config[j];
+      c.url = url;
+
+      // Generiere id
+      c.rowId = id.get(c);
+
+      config.push(c);
+      if(c.type == "index"){
+        index = c;
+      } else if(c.type == "value") {
+        c.color = colors(values.length+1);
+        // Wenn das Attribut activated nicht gesetzt ist, setze es auch true.
+        if(typeof c.activated == 'undefined') {
+          c.activated = true;
+        }
+        values.push(c);
       }
-      values.push(config[i]);
     }
-    // Bei unbekannten Typen: ignorieren.
+    // Bei unbekannten Typen: nicht in values oder index einfügen.
   }
 
   if(index.data_type=="Number") {
@@ -277,7 +296,7 @@ function loadVisualization(data) {
 
     // Punkte neu berechnen.
     for(var i = 0; i<values.length; i++) {
-      v.selectAll("circle.data-point[data-row='" + values[i].row + "']")
+      v.selectAll("circle.data-point[data-row='" + values[i].rowId + "']")
         .attr("cx", index.accessor_scaled)
         .attr("cy", v_accessor_scaled(values[i]));
     }
@@ -329,7 +348,7 @@ function loadVisualization(data) {
   for(var i = 0; i<values.length; i++) {
     circles.append("circle")
         .attr("class", "data-point")
-        .attr("data-row", values[i].row)
+        .attr("data-row", values[i].rowId)
         //TODO: add here attribute data-row and add support in the whole code
         // for this.
         .attr("cx", index.accessor_scaled)
@@ -415,12 +434,12 @@ function loadVisualization(data) {
         .attr("class", "select-row-item")
         .classed("inactive", !values[i].activated)
         .attr("style", "border-color:"+values[i].color)
-        .attr("data-row", values[i].row)
+        .attr("data-row", values[i].rowId)
         .text(values[i].name ? values[i].name : values[i].row);
 
-      line.setActivated(values[i].activated, values[i].row, values);
+      line.setActivated(values[i].activated, values[i].rowId, values);
 
-      $(".select-row-item[data-row='" + values[i].row + "']").on('click', function() {
+      $(".select-row-item[data-row='" + values[i].rowId + "']").on('click', function() {
         var row = $(this).attr("data-row");
 
         if($(this).hasClass("inactive")){

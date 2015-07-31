@@ -19,7 +19,7 @@ module.exports.addLine = function(index, config, data, accessor_cord) {
    .append("path")
    .attr("class", "line")
    .attr("style", "stroke:"+config.color)
-   .attr("data-row", config.row);
+   .attr("data-row", config.rowId);
 
    if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
       path.attr("d", module.exports.linear(data, accessor_cord));
@@ -66,23 +66,23 @@ module.exports.linear = function(data, accessor) {
 module.exports.update = function(data, index, values, v_accessor_scaled, v_accessor_cord) {
   for(var i = 0; i<values.length; i++) {
     if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
-      d3.select(".line[data-row='" + values[i].row + "']")
+      d3.select(".line[data-row='" + values[i].rowId + "']")
        .attr("d", module.exports.linear(data, v_accessor_cord(values[i].row)));
     } else {
       var line = d3.svg.line()
         .x(index.accessor_scaled)
         .y(v_accessor_scaled(values[i]))
         .interpolate(module.exports.mode);
-      d3.select(".line[data-row='" + values[i].row + "']")
+      d3.select(".line[data-row='" + values[i].rowId + "']")
         .attr("d", line(data));
     }
   }
 }
 
 
-module.exports.setActivated = function(activated, row, values){
-  var points_s = d3.selectAll(".data-point[data-row='"+row+"']");
-  var line = d3.selectAll(".line[data-row='"+row+"']");
+module.exports.setActivated = function(activated, rowId, values){
+  var points_s = d3.selectAll(".data-point[data-row='"+rowId+"']");
+  var line = d3.selectAll(".line[data-row='"+rowId+"']");
 
   line.classed("hidden", !activated);
 
@@ -97,7 +97,7 @@ module.exports.setActivated = function(activated, row, values){
 
 
   for(var i = 0; i<values.length; i++){
-    if(values[i].row == row){
+    if(values[i].rowId == rowId){
       values[i].activated = activated;
     }
   }
