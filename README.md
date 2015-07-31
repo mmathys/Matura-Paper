@@ -61,6 +61,21 @@ Ein modifiziertes Pie-Diagramm, das sich
 
 unterscheidet.
 
+## TODO
+- **Mehrere Dateien? Mergen?**
+
+Beim mergen ist das Problem, dass man bei jedem Value-Durchgang prüfen muss, ob die gesucht Value-Reihe überhaupt definiert ist.
+
+Wobei das ist eigentlich nicht so schlimm, denn der Rechenaufwand um zu prüfen, ob eine Reihe vorhanden ist, ist minimal.....
+
+TODO: implementieren.
+
+- **Mehrere y-Skalen unterstützen, Einheitenindex?**
+
+
+
+- **Stacked Lines für gleiche Einheiten**
+
 ## Mögliche Kritikpunkte der Maturaarbeit
 
 - *Die Arbeit ist zu oberflächlich. Man hat nur einige Methoden anhand der d3-Library angewendet. Eine spezielle Schwierigkeit ist bei diesem Projekt nicht zu erkennen.*
