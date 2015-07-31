@@ -33,7 +33,7 @@
   },
   {
     "row": "Volume (BTC)",
-    "type": "value",
+    "type": "attribute",
     "data_type": "Number",
     "name": "Volumen (BTC)"
   },
