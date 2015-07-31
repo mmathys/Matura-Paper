@@ -45,50 +45,5 @@
         }
       ]
     }
-  ],
-  "files": [
-      "data.csv"
-  ],
-  "config":
-    [
-      {
-        "row": "Date",
-        "type": "index",
-        "data_type": "Date",
-        "date_format": "%Y-%m-%d",
-        "name": "Datum"
-      },
-      {
-        "row": "Ask",
-        "type": "value",
-        "data_type": "Number",
-        "name": "Preis (Kauf)"
-      },
-      {
-        "row": "Bid",
-        "type": "value",
-        "data_type": "Number",
-        "name": "Preis (Verkauf)",
-        "activated": false
-      },
-      {
-        "row": "Last",
-        "type": "attribute",
-        "data_type": "Number",
-        "name": "Letzter Wert vom Tag",
-        "activated": false
-      },
-      {
-        "row": "Volume (BTC)",
-        "type": "attribute",
-        "data_type": "Number",
-        "name": "Volumen (BTC)"
-      },
-      {
-        "row": "Volume (% of Total)",
-        "type": "attribute",
-        "data_type": "Number",
-        "name": "Volumen (BTC)"
-      }
-    ]
+  ]
 }
