@@ -292,7 +292,7 @@ function load() {
 
     // Sichtbarkeit prüfen
 
-    points.visibility(showPoints);
+    points.updateVisibility();
 
     /**
      *
@@ -355,7 +355,8 @@ function load() {
        } else {
          showPoints = false;
         }
-        points.visibility(showPoints);
+        points.visible = showPoints;
+        points.updateVisibility();
      });
 
      /**

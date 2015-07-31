@@ -1,3 +1,5 @@
+var points = require("./points");
+
 /**
  * Html-Element select zur Auswahl des Modus: Die Variable 'mode' bei
  * Änderung aktualisieren.
@@ -79,9 +81,20 @@ module.exports.update = function(data, index, values, v_accessor_scaled, v_acces
 
 
 module.exports.setActivated = function(activated, row, values){
-  var items = d3.selectAll(".data-point[data-row='"+row+ "'], " +
-    ".line[data-row='"+row+"']");
-  items.classed("hidden", !activated);
+  var points_s = d3.selectAll(".data-point[data-row='"+row+"']");
+  var line = d3.selectAll(".line[data-row='"+row+"']");
+
+  line.classed("hidden", !activated);
+
+  if(!activated){
+    // Nicht aktiviert: Override
+    points_s.classed("hidden", !activated);
+  } else {
+    // Aktiviert: Zeigen, danach das Modul points entscheiden lassen.
+    points_s.classed("hidden", !activated);
+    points.updateVisibility();
+  }
+
 
   for(var i = 0; i<values.length; i++){
     if(values[i].row == row){
