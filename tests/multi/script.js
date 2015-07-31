@@ -82,8 +82,8 @@ d3.json("meta.json", function(err, res) {
 
   // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
   // Graphs
-  w = 1000;
-  h = 600;
+  w = 950;
+  h = 400;
 
   graphTransform = {xstart: 50, ytop: 0, xend:0, ybottom:50};
 
@@ -262,7 +262,7 @@ function loadVisualization(data) {
   var zoom = d3.behavior.zoom()
     .x(xScale)
     .y(yScale)
-    .scaleExtent([1, 50])
+    .scaleExtent([0.9, 50])
     .on("zoom", zoomed);
 
   // die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
@@ -413,9 +413,12 @@ function loadVisualization(data) {
       d3.select("#select-row")
         .append("p")
         .attr("class", "select-row-item")
+        .classed("inactive", !values[i].activated)
         .attr("style", "border-color:"+values[i].color)
         .attr("data-row", values[i].row)
         .text(values[i].name ? values[i].name : values[i].row);
+
+      line.setActivated(values[i].activated, values[i].row, values);
 
       $(".select-row-item[data-row='" + values[i].row + "']").on('click', function() {
         var row = $(this).attr("data-row");
