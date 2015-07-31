@@ -92,7 +92,7 @@ module.exports.setActivated = function(activated, rowId, values){
   } else {
     // Aktiviert: Zeigen, danach das Modul points entscheiden lassen.
     points_s.classed("hidden", !activated);
-    points.updateVisibility();
+    points.updateVisibility(values);
   }
 
 

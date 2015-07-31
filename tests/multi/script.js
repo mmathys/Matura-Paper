@@ -357,7 +357,7 @@ function loadVisualization(data) {
 
   // Sichtbarkeit prüfen
 
-  points.updateVisibility();
+  points.updateVisibility(values);
 
   /**
    *
@@ -421,7 +421,7 @@ function loadVisualization(data) {
        showPoints = false;
       }
       points.visible = showPoints;
-      points.updateVisibility();
+      points.updateVisibility(values);
    });
 
    /**

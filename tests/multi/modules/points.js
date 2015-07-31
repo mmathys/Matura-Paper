@@ -1,7 +1,13 @@
 module.exports.visible = false;
 
-module.exports.updateVisibility = function() {
-  console.log("set to " + (module.exports.visible ? "visible" : "invisible"));
-  var points = d3.selectAll(".data-point");
-  points.classed("hidden", !module.exports.visible);
+module.exports.updateVisibility = function(values) {
+  for(var i = 0; i<values.length; i++){
+    var points = d3.selectAll(".data-point[data-row='"+values[i].rowId+"']");
+
+    if(module.exports.visible && values[i].activated) {
+      points.classed("hidden", false);
+    } else {
+      points.classed("hidden", true);
+    }
+  }
 }
