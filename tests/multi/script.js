@@ -3,6 +3,7 @@ var line = require('./modules/line');
 var sort = require('./modules/sort');
 var range = require('./modules/range');
 var row = require('./modules/row');
+var points = require('./modules/points');
 
 /*******************************************************************************
  *
@@ -15,8 +16,9 @@ var row = require('./modules/row');
 // Für die Visualisation benötigte Variablen
 
 var config, index, values, v_accessor, v_acessor_scaled, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
-  xAxis, yAxis;
+  xAxis, yAxis, showPoints;
 
+showPoints = false;
 
 /**
  * Laden der Konfigurationsdatei
@@ -288,6 +290,10 @@ function load() {
           .attr("cy", v_accessor_scaled(values[i]));
     }
 
+    // Sichtbarkeit prüfen
+
+    points.visibility(showPoints);
+
     /**
      *
      * d3-Achsen einfügen
@@ -344,12 +350,12 @@ function load() {
      });
 
      $('#checkbox').on('change', function() {
-       var points = d3.selectAll(".data-point");
-       if(!$(this).is(":checked")){
-         points.classed("hidden", true);
+       if($(this).is(":checked")){
+         showPoints = true;
        } else {
-         points.classed("hidden", false);
-       }
+         showPoints = false;
+        }
+        points.visibility(showPoints);
      });
 
      /**
