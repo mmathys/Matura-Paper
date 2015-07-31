@@ -1,52 +1,59 @@
-[
+{
+  "files": [
+      "data.csv",
+      "data2.csv"
+  ],
+  "config":
+    [
+      {
+        "row": "Date",
+        "type": "index",
+        "data_type": "Date",
+        "date_format": "%Y-%m-%d",
+        "name": "Datum"
+      },
 
-  {
-    "row": "Date",
-    "type": "index",
-    "data_type": "Date",
-    "date_format": "%Y-%m-%d",
-    "name": "Datum"
-  },
-  {
-    "row": "Open",
-    "type": "attribute",
-    "data_type": "Number",
-    "name": "Open"
-  },
-  {
-    "row": "High",
-    "type": "attribute",
-    "data_type": "Number",
-    "name": "Hoch"
-  },
-  {
-    "row": "Low",
-    "type": "attribute",
-    "data_type": "Number",
-    "name": "Tief"
-  },
-  {
-    "row": "Close",
-    "type": "attribute",
-    "data_type": "Number",
-    "name": "Close"
-  },
-  {
-    "row": "Volume (BTC)",
-    "type": "attribute",
-    "data_type": "Number",
-    "name": "Volumen (BTC)"
-  },
-  {
-    "row": "Volume (Currency)",
-    "type": "attribute",
-    "data_type": "Number",
-    "name": "Volumen (USD)"
-  },
-  {
-    "row": "Weighted Price",
-    "type": "value",
-    "data_type": "Number",
-    "name": "Gewichteter Preis"
-  }
-]
+      {
+        "row": "Open",
+        "type": "attribute",
+        "data_type": "Number",
+        "name": "Open"
+      },
+      {
+        "row": "High",
+        "type": "attribute",
+        "data_type": "Number",
+        "name": "Hoch"
+      },
+      {
+        "row": "Low",
+        "type": "attribute",
+        "data_type": "Number",
+        "name": "Tief"
+      },
+      {
+        "row": "Close",
+        "type": "attribute",
+        "data_type": "Number",
+        "name": "Close"
+      },
+      {
+        "row": "Volume (BTC)",
+        "type": "attribute",
+        "data_type": "Number",
+        "name": "Volumen (BTC)"
+      },
+      {
+        "row": "Volume (Currency)",
+        "type": "attribute",
+        "data_type": "Number",
+        "name": "Volumen (USD)"
+      },
+      {
+        "row": "Weighted Price",
+        "type": "value",
+        "data_type": "Number",
+        "name": "Gewichteter Preis"
+      }
+    ]
+}
