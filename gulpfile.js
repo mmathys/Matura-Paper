@@ -25,10 +25,15 @@ gulp.task('watch', function() {
 });
 
 gulp.task('css', function() {
-  gulp.src(['./common/scss/*.scss', './tests/**/*.scss'])
+
+  gulp.src(['./common/scss/*.scss'])
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('style.css'))
     .pipe(gulp.dest('./dist/css'));
+
+  gulp.src(['./tests/**/*.scss'])
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('js', function() {
