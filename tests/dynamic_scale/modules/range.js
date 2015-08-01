@@ -34,10 +34,15 @@ module.exports.minMultipleSets = function(data, values, v_accessor) {
       continue;
     }
     var lmin = d3.min(data, v_accessor(values[i]));
-    if(i == 0 || lmin<min) {
+    if(typeof lmin == "undefined"){
+      continue;
+    }
+    if(typeof min == "undefined" || lmin<min) {
       min = lmin;
     }
   }
+  console.log("range min: ");
+  console.log(min);
   return min;
 }
 
@@ -57,10 +62,13 @@ module.exports.maxMultipleSets = function(data, values, v_accessor) {
       continue;
     }
     var lmax = d3.max(data, v_accessor(values[i]));
-    if(i == 0 || lmax>max) {
+
+    if(typeof max == "undefined" || lmax>max) {
       max = lmax;
     }
   }
+  console.log("range max:");
+  console.log(max);
   return max;
 }
 

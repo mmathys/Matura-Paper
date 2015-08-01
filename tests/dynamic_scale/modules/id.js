@@ -2,8 +2,13 @@ module.exports.get = function(config) {
   return config.row + "#" + config.url;
 }
 
-module.exports.invert = function(id) {
-  return id.split("#")[0];
+// ret value config obj
+module.exports.invert = function(id, values) {
+  for(var i = 0; i<values.length; i++) {
+    if(id == values[i].rowId) {
+      return values[i];
+    }
+  }
 }
 
 module.exports.raw = function(attr, url) {

@@ -1,7 +1,6 @@
 var tooltip = require('./modules/tooltip');
 var line = require('./modules/line');
 var sort = require('./modules/sort');
-var range = require('./modules/range');
 var points = require('./modules/points');
 var id = require('./modules/id');
 var format = require('./modules/format');
@@ -20,7 +19,7 @@ var domain = require('./modules/domain');
 
 var config, datasetsMeta, datasets, index, values, v_accessor, v_acessor_scaled,
   accessor_data, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
-  xAxis, yAxis, showPoints;
+  xAxis, yAxis, showPoints, xWertebereich, yWertebereich;
 
 showPoints = false;
 
@@ -242,9 +241,8 @@ function loadVisualization(data) {
    *
    */
 
-  var xWertebereich = domain.overflowX(data, index, 1.1);
-  var yWertebereich = domain.overflowY(data, values, v_accessor, 1.1);
-
+  xWertebereich = domain.overflowX(data, index, 1.1);
+  yWertebereich = domain.overflowY(data, values, v_accessor, 1.1);
   xScale.domain(xWertebereich);
   yScale.domain(yWertebereich);
 
@@ -418,6 +416,19 @@ function loadVisualization(data) {
     *
     */
 
+   // Funktion, um den y-Wertebereich bei einem Toggle zu aktualisieren und die
+   // y-Skalierung
+   function updateDomain() {
+     zoom.scale(1);
+     zoom.translate([0,0]);
+
+     yWertebereich = domain.overflowY(data, values, v_accessor, 1.1);
+     yScale.domain(yWertebereich);
+     zoom.y(yScale)
+     yAxis.scale(yScale);
+     draw();
+   }
+
     for(var i = 0; i<values.length; i++){
       d3.select("#select-row")
         .append("p")
@@ -431,16 +442,21 @@ function loadVisualization(data) {
 
       $(".select-row-item[data-row='" + values[i].rowId + "']").on('click', function() {
         var row = $(this).attr("data-row");
+        var value = id.invert(row, values);
 
         if($(this).hasClass("inactive")){
           // activate this
           $(this).toggleClass("inactive", false);
           line.setActivated(true, row, values);
+          value.activated = true;
         } else {
           // deactivate this
           $(this).toggleClass("inactive", true);
           line.setActivated(false, row, values);
+          value.activated = false;
         }
+
+        updateDomain();
       });
     }
 }
