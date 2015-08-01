@@ -1,0 +1,43 @@
+{
+  "datasets": [
+    {
+      "url":"data.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Schweiz"
+        }
+      ]
+    },
+    {
+      "url":"data2.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Australien",
+          "activated":false
+        }
+      ]
+    }
+  ]
+}
