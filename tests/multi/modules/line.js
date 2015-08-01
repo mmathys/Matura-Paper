@@ -75,7 +75,6 @@ module.exports.update = function(data, index, value, v_accessor_scaled, v_access
       d3.select(".line[data-row='" + value.rowId + "']")
         .attr("d", line(data));
     }
-
 }
 
 
