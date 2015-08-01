@@ -69,14 +69,16 @@ circle#tooltip-circle {
 
 #select-row {
   padding: 0 0 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .select-row-item {
   color: #000;
   padding-bottom: 6px;
-  margin: 10px 10px 20px;
+  margin: 2px 5px;
   cursor: pointer;
-  display: inline;
   border-bottom: 2px solid rgba(0, 0, 0, 1);
   border-color: #000;
 

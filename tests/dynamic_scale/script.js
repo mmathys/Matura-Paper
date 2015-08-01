@@ -42,7 +42,7 @@ d3.json("meta.json", function(err, res) {
   index = {};
   values = [];
 
-  var colors = d3.scale.category10();
+  var colors = d3.scale.category20();
 
   for(var i = 0; i<datasetsMeta.length; i++) {
     var dataset = datasetsMeta[i];
