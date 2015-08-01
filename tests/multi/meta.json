@@ -34,7 +34,8 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Australien"
+          "name": "CO2-Emissionen (kt) Australien",
+          "activated":false
         }
       ]
     }

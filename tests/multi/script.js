@@ -249,7 +249,7 @@ function loadVisualization(data) {
 
   var xWertebereich = [];
   var yWertebereich = [];
-
+  
   xWertebereich[0] = range.min(data, index.accessor);
   xWertebereich[1] = range.max(data, index.accessor);
 
@@ -275,7 +275,7 @@ function loadVisualization(data) {
     .x(xScale)
     .y(yScale)
     .scaleExtent([0.9, 50])
-    .on("zoom", zoomed);
+    .on("zoom", draw);
 
   // die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
   // wendet werden kann, obwohl sie erst später definiert wird.
@@ -284,7 +284,7 @@ function loadVisualization(data) {
   /**
    * Wird aufgerufen, sobald gezoomt wurde.
    */
-  function zoomed() {
+  function draw() {
     // Achsen neu zeichnen
     xAxisContainer.call(xAxis);
     yAxisContainer.call(yAxis);
@@ -431,7 +431,7 @@ function loadVisualization(data) {
    /**
     *
     * Toggles
-    * 
+    *
     */
 
     for(var i = 0; i<values.length; i++){
