@@ -16,7 +16,8 @@ var id = require('./modules/id');
 
 // Für die Visualisation benötigte Variablen
 
-var config, datasetsMeta, datasets, index, values, v_accessor, v_acessor_scaled, accessor_data, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
+var config, datasetsMeta, datasets, index, values, v_accessor, v_acessor_scaled,
+  accessor_data, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
   xAxis, yAxis, showPoints;
 
 showPoints = false;
@@ -34,7 +35,6 @@ d3.json("meta.json", function(err, res) {
     return;
   }
 
-  //TODO old
   config = [];
 
   datasetsMeta = res.datasets;
@@ -70,7 +70,7 @@ d3.json("meta.json", function(err, res) {
   // iterieren über das. data = datasets[h].
   // values haben ja die rowId dabei. schon eingebaut. easy.
 
-  index = {};
+  index = [];
   // Der Array der Datenreihen (Config).
   values = [];
 
@@ -93,7 +93,7 @@ d3.json("meta.json", function(err, res) {
 
       config.push(c);
       if(c.type == "index"){
-        index = c;
+        index.push(c);
       } else if(c.type == "value") {
         c.color = colors(values.length+1);
         // Wenn das Attribut activated nicht gesetzt ist, setze es auch true.
@@ -150,14 +150,7 @@ d3.json("meta.json", function(err, res) {
    *
    ******************************************************************************/
 
-   index.accessor = function(d) {
-     return d[index.row];
-   };
-
-   index.accessor_scaled = function(d) {
-     return xScale(d[index.row]);
-   };
-
+   //TODO: get by entry.row and datasetsur
    v_accessor = function(entry) {
      return function(d) {
        return d[entry.row];
@@ -210,7 +203,7 @@ function loadFiles() {
     if(++loaded == datasetsMeta.length){
       console.log("loaded");
       console.log(datasets);
-      //loadVisualization(datasets);
+      loadVisualization(datasets);
     }
   };}
 
@@ -226,34 +219,38 @@ function loadFiles() {
    *                                			 		Datenarray
    */
   d3.csv('data.csv', function(err, data) {
-    loadVisualization(data);
+    //loadVisualization(data);
   });
 }
 
-function loadVisualization(data) {
+function loadVisualization(datasets) {
   /**
    *
    * Formatieren des Datensatzes
    *
    */
 
-  // Sortieren, denn wir brauchen dies für unseren Tooltip-Algorithmus
-  data = sort(data, index);
+  for(var h = 0; h<datasetsMeta.length; h++){
+    var data = datasets[datasetsMeta[h].url];
 
-  // Schleife, um die Einträge zu formatieren: Strings in ein Javascript-
-  // Objekt konvertieren.
-  for(var i = 0; i<data.length; i++) {
+    // Sortieren, denn wir brauchen dies für unseren Tooltip-Algorithmus
+    data = sort(data, index);
 
-    for(var j = 0; j<config.length; j++) {
-      if(config[j].data_type == "Number") {
-        data[i][config[j].row] = parseFloat(data[i][config[j].row]);
-      } else if(config[j].data_type == "Date") {
-        data[i][config[j].row] =  d3.time.format(config[j].date_format)
-                                    .parse(data[i][config[j].row]);
+    // Schleife, um die Einträge zu formatieren: Strings in ein Javascript-
+    // Objekt konvertieren.
+    for(var i = 0; i<data.length; i++) {
+      for(var j = 0; j<config.length; j++) {
+        if(config[j].data_type == "Number") {
+          data[i][config[j].row] = parseFloat(data[i][config[j].row]);
+        } else if(config[j].data_type == "Date") {
+          data[i][config[j].row] =  d3.time.format(config[j].date_format)
+                                      .parse(data[i][config[j].row]);
+        }
       }
     }
-
   }
+
+  //TODO: work this way down - works til here
 
   /**
    *
