@@ -5,6 +5,8 @@ var range = require('./modules/range');
 var row = require('./modules/row');
 var points = require('./modules/points');
 var id = require('./modules/id');
+var format = require('./modules/format');
+var filter = require('./modules/filter');
 
 /*******************************************************************************
  *
@@ -16,8 +18,7 @@ var id = require('./modules/id');
 
 // Für die Visualisation benötigte Variablen
 
-var config, datasetsMeta, datasets, index, values, v_accessor, v_acessor_scaled,
-  accessor_data, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
+var config, datasetsMeta, datasets, index, values, v_accessor, v_acessor_scaled, accessor_data, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
   xAxis, yAxis, showPoints;
 
 showPoints = false;
@@ -35,6 +36,7 @@ d3.json("meta.json", function(err, res) {
     return;
   }
 
+  //TODO old
   config = [];
 
   datasetsMeta = res.datasets;
@@ -70,7 +72,7 @@ d3.json("meta.json", function(err, res) {
   // iterieren über das. data = datasets[h].
   // values haben ja die rowId dabei. schon eingebaut. easy.
 
-  index = [];
+  index = {};
   // Der Array der Datenreihen (Config).
   values = [];
 
@@ -93,7 +95,7 @@ d3.json("meta.json", function(err, res) {
 
       config.push(c);
       if(c.type == "index"){
-        index.push(c);
+        index = c;
       } else if(c.type == "value") {
         c.color = colors(values.length+1);
         // Wenn das Attribut activated nicht gesetzt ist, setze es auch true.
@@ -125,7 +127,7 @@ d3.json("meta.json", function(err, res) {
   w = 950;
   h = 400;
 
-  graphTransform = {xstart: 50, ytop: 0, xend:0, ybottom:50};
+  graphTransform = {xstart: 70, ytop: 0, xend:0, ybottom:50};
 
   // Das Tooltip über die Transformation benachrichtigen
   tooltip.opt.graphTransform = graphTransform;
@@ -150,22 +152,29 @@ d3.json("meta.json", function(err, res) {
    *
    ******************************************************************************/
 
-   //TODO: get by entry.row and datasetsur
+   index.accessor = function(d) {
+     return d[index.row];
+   };
+
+   index.accessor_scaled = function(d) {
+     return xScale(d[index.row]);
+   };
+
    v_accessor = function(entry) {
      return function(d) {
-       return d[entry.row];
+       return d[entry.rowId];
      };
    };
 
    v_accessor_scaled = function(entry) {
      return function(d) {
-       return yScale(d[entry.row])
+       return yScale(d[entry.rowId]);
      }
    };
 
-   v_accessor_cord = function(rowName) {
+   v_accessor_cord = function(index, entry) {
      return function(d) {
-       return [index.accessor_scaled(d), yScale(d[rowName])];
+       return [index.accessor_scaled(d), v_accessor_scaled(entry)(d)];
      };
    };
 
@@ -184,10 +193,10 @@ d3.json("meta.json", function(err, res) {
 
 function loadFiles() {
 
-  // TODO: Don't merge.
+  // TODO: load -> format nach meta.json -> merge.
 
   var loaded = 0;
-  datasets = [];
+  data = [];
 
   console.log(datasetsMeta[0].url);
 
@@ -198,12 +207,22 @@ function loadFiles() {
       return;
     }
 
-    datasets[datasetsMeta[i].url] = resp;
+    // Format
+    resp = format.data_types(resp, datasetsMeta[i].config);
+
+    // Values Row Names
+    resp = format.ids(resp, datasetsMeta[i].config);
+
+    // Merge
+    for(var j = 0; j<resp.length; j++){
+      data.push(resp[j]);
+    }
 
     if(++loaded == datasetsMeta.length){
+      // Sort
+      data = sort(data, index);
       console.log("loaded");
-      console.log(datasets);
-      loadVisualization(datasets);
+      loadVisualization(data);
     }
   };}
 
@@ -223,34 +242,9 @@ function loadFiles() {
   });
 }
 
-function loadVisualization(datasets) {
-  /**
-   *
-   * Formatieren des Datensatzes
-   *
-   */
+function loadVisualization(data) {
 
-  for(var h = 0; h<datasetsMeta.length; h++){
-    var data = datasets[datasetsMeta[h].url];
-
-    // Sortieren, denn wir brauchen dies für unseren Tooltip-Algorithmus
-    data = sort(data, index);
-
-    // Schleife, um die Einträge zu formatieren: Strings in ein Javascript-
-    // Objekt konvertieren.
-    for(var i = 0; i<data.length; i++) {
-      for(var j = 0; j<config.length; j++) {
-        if(config[j].data_type == "Number") {
-          data[i][config[j].row] = parseFloat(data[i][config[j].row]);
-        } else if(config[j].data_type == "Date") {
-          data[i][config[j].row] =  d3.time.format(config[j].date_format)
-                                      .parse(data[i][config[j].row]);
-        }
-      }
-    }
-  }
-
-  //TODO: work this way down - works til here
+  console.log(data);
 
   /**
    *
@@ -309,16 +303,18 @@ function loadVisualization(datasets) {
 
     // Punkte neu berechnen.
     for(var i = 0; i<values.length; i++) {
-      v.selectAll("circle.data-point[data-row='" + values[i].rowId + "']")
+      var p = v.selectAll("circle.data-point[data-row='" + values[i].rowId + "']")
         .attr("cx", index.accessor_scaled)
         .attr("cy", v_accessor_scaled(values[i]));
     }
 
     // Tooltip bei Zoom auch aktualisieren
-    tooltip.updateTooltip(data, xScale, yScale, index, values, v_accessor, v_accessor_scaled, v_accessor_cord);
 
     // Linie bei Zoom aktualisieren
-    line.update(data, index, values, v_accessor_scaled, v_accessor_cord);
+    for(var i = 0; i<values.length; i++) {
+      tooltip.updateTooltip(filter.row(data, values[i].rowId), xScale, yScale, index, values[i], v_accessor, v_accessor_scaled, v_accessor_cord);
+      line.update(filter.row(data, values[i].rowId), index, values[i], v_accessor_scaled, v_accessor_cord);
+    }
   }
 
   /**
@@ -355,10 +351,12 @@ function loadVisualization(datasets) {
   // Die Daten zum Element mit der d3-Binding-Method binden: Die nach dem
   // enter() stehenden Befehle werden für alle Elemente in dem Array
   // ausgeführt.
-  var circles = graph.selectAll("circle")
-    .data(data).enter();
+
+
 
   for(var i = 0; i<values.length; i++) {
+    var circles = graph.selectAll("circle[data-row='"+values[i].rowId+"']")
+      .data(filter.row(data, values[i].rowId)).enter();
     circles.append("circle")
         .attr("class", "data-point")
         .attr("data-row", values[i].rowId)
@@ -388,7 +386,7 @@ function loadVisualization(datasets) {
 
   var yAxisContainer = v.append("g")
     .attr("class", "axis axis-y")
-    .attr("transform", "translate(50,0)")
+    .attr("transform", "translate("+graphTransform.xstart+",0)")
     .call(yAxis);
 
   /**
@@ -409,7 +407,9 @@ function loadVisualization(datasets) {
     .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
     .on("mousemove", function() {
       tooltip.mouse = d3.mouse(this);
-      tooltip.updateTooltip(data, xScale, yScale, index, values, v_accessor, v_accessor_scaled, v_accessor_cord);
+      for(var i = 0; i<values.length; i++) {
+        tooltip.updateTooltip(filter.row(data, values[i].rowId), xScale, yScale, index, values[i], v_accessor, v_accessor_scaled, v_accessor_cord);
+      }
     });
 
   /**
@@ -419,12 +419,14 @@ function loadVisualization(datasets) {
    */
 
    for(var i = 0; i<values.length; i++) {
-      line.addLine(index, values[i], data, v_accessor_cord(values[i].row));
+      line.addLine(index, values[i], filter.row(data, values[i].rowId), v_accessor_cord(index, values[i]));
    }
 
    $('select').on('change', function() {
      line.mode = this.value;
-     line.update(data, index, values, v_accessor_scaled, v_accessor_cord);
+     for(var i = 0; i<values.length; i++){
+       line.update(filter.row(data, values[i].rowId), index, values[i], v_accessor_scaled, v_accessor_cord);
+     }
    });
 
    $('#checkbox').on('change', function() {

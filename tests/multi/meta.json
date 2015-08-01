@@ -12,36 +12,29 @@
           "name": "Datum"
         },
         {
-          "row": "Ask",
+          "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "Preis (Kauf)"
+          "name": "CO2-Emissionen (kt) Schweiz"
+        }
+      ]
+    },
+    {
+      "url":"data2.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
         },
         {
-          "row": "Bid",
+          "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "Preis (Verkauf)",
-          "activated": false
-        },
-        {
-          "row": "Last",
-          "type": "attribute",
-          "data_type": "Number",
-          "name": "Letzter Wert vom Tag",
-          "activated": false
-        },
-        {
-          "row": "Volume (BTC)",
-          "type": "attribute",
-          "data_type": "Number",
-          "name": "Volumen (BTC)"
-        },
-        {
-          "row": "Volume (% of Total)",
-          "type": "attribute",
-          "data_type": "Number",
-          "name": "Volumen (BTC)"
+          "name": "CO2-Emissionen (kt) Australien"
         }
       ]
     }

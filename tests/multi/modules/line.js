@@ -63,20 +63,19 @@ module.exports.linear = function(data, accessor) {
   return path;
 }
 
-module.exports.update = function(data, index, values, v_accessor_scaled, v_accessor_cord) {
-  for(var i = 0; i<values.length; i++) {
+module.exports.update = function(data, index, value, v_accessor_scaled, v_accessor_cord) {
     if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
-      d3.select(".line[data-row='" + values[i].rowId + "']")
-       .attr("d", module.exports.linear(data, v_accessor_cord(values[i].row)));
+      d3.select(".line[data-row='" + value.rowId + "']")
+       .attr("d", module.exports.linear(data, v_accessor_cord(index, value)));
     } else {
       var line = d3.svg.line()
         .x(index.accessor_scaled)
-        .y(v_accessor_scaled(values[i]))
+        .y(v_accessor_scaled(value))
         .interpolate(module.exports.mode);
-      d3.select(".line[data-row='" + values[i].rowId + "']")
+      d3.select(".line[data-row='" + value.rowId + "']")
         .attr("d", line(data));
     }
-  }
+
 }
 
 
@@ -85,6 +84,12 @@ module.exports.setActivated = function(activated, rowId, values){
   var line = d3.selectAll(".line[data-row='"+rowId+"']");
 
   line.classed("hidden", !activated);
+
+  for(var i = 0; i<values.length; i++){
+    if(values[i].rowId == rowId){
+      values[i].activated = activated;
+    }
+  }
 
   if(!activated){
     // Nicht aktiviert: Override
@@ -95,10 +100,4 @@ module.exports.setActivated = function(activated, rowId, values){
     points.updateVisibility(values);
   }
 
-
-  for(var i = 0; i<values.length; i++){
-    if(values[i].rowId == rowId){
-      values[i].activated = activated;
-    }
-  }
 }

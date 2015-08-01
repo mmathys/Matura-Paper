@@ -102,7 +102,7 @@ module.exports.tooltip = function(data, rowId, accessor, index, parent, textAcce
  * @param  {{Function}} index       Die Config für den Index
  * @param  {{Function}} values      Die Config für die Values
  */
-module.exports.updateTooltip = function(data, xScale, yScale, index, values, v_accessor, v_accessor_scaled, v_accessor_cord){
+module.exports.updateTooltip = function(data, xScale, yScale, index, value, v_accessor, v_accessor_scaled, v_accessor_cord){
   if(!module.exports.mouse){
     return;
   }
@@ -111,15 +111,14 @@ module.exports.updateTooltip = function(data, xScale, yScale, index, values, v_a
   // Das interpolierte Datum berechnen
   var x_date = xScale.invert(x);
 
-  for(var i = 0; i<values.length; i++) {
     // Den nächsten Index suchen.
     var tooltipIndex = module.exports.nextIndex(data, index.accessor, x_date);
 
     //tooltip
-    module.exports.tooltip(data, values[i].rowId, v_accessor_cord(values[i].row), tooltipIndex, d3.select("#graph"), function(d) {
+    module.exports.tooltip(data, value.rowId, v_accessor_cord(index, value), tooltipIndex, d3.select("#graph"), function(d) {
       // Zahl runden
       // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
-      return Math.round(v_accessor(values[i])(d) * 1000) / 1000;
-    }, values[i].activated);
-  }
+      return Math.round(v_accessor(value)(d) * 1000) / 1000;
+    }, value.activated);
+
 }
