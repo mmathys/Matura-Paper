@@ -30,6 +30,9 @@ module.exports.max = function(data, accessor) {
 module.exports.minMultipleSets = function(data, values, v_accessor) {
   var min;
   for(var i = 0; i<values.length; i++){
+    if(!values[i].activated) {
+      continue;
+    }
     var lmin = d3.min(data, v_accessor(values[i]));
     if(i == 0 || lmin<min) {
       min = lmin;
@@ -50,6 +53,9 @@ module.exports.minMultipleSets = function(data, values, v_accessor) {
 module.exports.maxMultipleSets = function(data, values, v_accessor) {
   var max;
   for(var i = 0; i<values.length; i++){
+    if(!values[i].activated) {
+      continue;
+    }
     var lmax = d3.max(data, v_accessor(values[i]));
     if(i == 0 || lmax>max) {
       max = lmax;
@@ -57,6 +63,12 @@ module.exports.maxMultipleSets = function(data, values, v_accessor) {
   }
   return max;
 }
+
+//  Wertebereich der Daten bestimmen mit d3: Um einen kleinen Abstand zwischen
+//  den maximalen Punkten und dem Ende des Rändern des Diagrammes zu bewahren,
+//  wird der Unterschied (Δ) des Minimums und dem untersuchten Wert mit 1.1
+//  mulitpliziert. Anschliessend wird die Summe des Minimums und des
+//  multiplizierten Wertes an d3 zurückgegeben.
 
 /**
  * Gibt die Summe der Minimums und des mit dem Faktor factor multiplizierten

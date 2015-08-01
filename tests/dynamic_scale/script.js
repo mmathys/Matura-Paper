@@ -6,6 +6,7 @@ var points = require('./modules/points');
 var id = require('./modules/id');
 var format = require('./modules/format');
 var filter = require('./modules/filter');
+var domain = require('./modules/domain');
 
 /*******************************************************************************
  *
@@ -241,25 +242,8 @@ function loadVisualization(data) {
    *
    */
 
-   //  Wertebereich der Daten bestimmen mit d3: Um einen kleinen Abstand zwischen
-   //  den maximalen Punkten und dem Ende des Rändern des Diagrammes zu bewahren,
-   //  wird der Unterschied (Δ) des Minimums und dem untersuchten Wert mit 1.1
-   //  mulitpliziert. Anschliessend wird die Summe des Minimums und des
-   //  multiplizierten Wertes an d3 zurückgegeben.
-
-  var xWertebereich = [];
-  var yWertebereich = [];
-  
-  xWertebereich[0] = range.min(data, index.accessor);
-  xWertebereich[1] = range.max(data, index.accessor);
-
-  yWertebereich[0] = range.minMultipleSets(data, values, v_accessor);
-  yWertebereich[1] = range.maxMultipleSets(data, values, v_accessor);
-
-  xWertebereich[1] = range.applyOverflow(xWertebereich[0], xWertebereich[1],
-    1.1, index.data_type);
-  yWertebereich[1] = range.applyOverflow(yWertebereich[0], yWertebereich[1],
-    1.1, values[0].data_type);
+  var xWertebereich = domain.overflowX(data, index, 1.1);
+  var yWertebereich = domain.overflowY(data, values, v_accessor, 1.1);
 
   xScale.domain(xWertebereich);
   yScale.domain(yWertebereich);
