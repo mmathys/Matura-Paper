@@ -9,15 +9,20 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-  <div class="clearfix">
+  <div class="">
+    <div class="container">
+      <h1>Layout</h1>
+      <div id="select-row" class="mxn1">
+      </div>
+    </div>
     <div id="visualization-container">
       <svg id="visualization">
         <!-- Einfügen des SVG-Elements durch Javascript-Code -->
       </svg>
     </div>
   </div>
+  <hr>
   <div class="container clearfix">
-    <h1>Layout</h1>
     <h2>Interpolation</h2>
     <select class="block mb1 field">
       <option value="linear">Linear</option>
@@ -37,9 +42,6 @@
       <input id="checkbox" type="checkbox">
       Punkte anzeigen
     </label>
-    <hr>
-    <div id="select-row">
-    </div>
   </div>
   <script src="/js/d3.js"></script>
   <script src="/js/jquery-2.1.4.min.js"></script>

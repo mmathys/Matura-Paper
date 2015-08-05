@@ -15,7 +15,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Afghanistan",
+          "name": "Afghanistan",
           "activated":true
         }
       ]
@@ -35,7 +35,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Angola",
+          "name": "Angola",
           "activated":false
         }
       ]
@@ -55,7 +55,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Armenien",
+          "name": "Armenien",
           "activated":false
         }
       ]
@@ -75,7 +75,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Australien",
+          "name": "Australien",
           "activated":false
         }
       ]
@@ -95,7 +95,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Bangladesh",
+          "name": "Bangladesh",
           "activated":false
         }
       ]
@@ -115,7 +115,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Bahrain",
+          "name": "Bahrain",
           "activated":false
         }
       ]
@@ -135,7 +135,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Belarus",
+          "name": "Belarus",
           "activated":false
         }
       ]
@@ -155,7 +155,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Belize",
+          "name": "Belize",
           "activated":false
         }
       ]
@@ -175,7 +175,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Schweiz",
+          "name": "Schweiz",
           "activated":false
         }
       ]
@@ -195,7 +195,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Kamerun",
+          "name": "Kamerun",
           "activated":false
         }
       ]
@@ -215,7 +215,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Kolumbien",
+          "name": "Kolumbien",
           "activated":false
         }
       ]
@@ -235,7 +235,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Komoren",
+          "name": "Komoren",
           "activated":false
         }
       ]
@@ -255,7 +255,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Zypern",
+          "name": "Zypern",
           "activated":false
         }
       ]
@@ -275,7 +275,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Deutschland",
+          "name": "Deutschland",
           "activated":false
         }
       ]
@@ -295,7 +295,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "CO2-Emissionen (kt) Dominica",
+          "name": "Dominica",
           "activated":false
         }
       ]

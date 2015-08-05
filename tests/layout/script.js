@@ -91,7 +91,7 @@ d3.json("meta.json", function(err, res) {
 
   // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
   // Graphs
-  w = 1000;
+  w = 1100;
   h = 400;
 
   graphTransform = {xstart: 70, ytop: 0, xend:0, ybottom:50};
@@ -109,8 +109,12 @@ d3.json("meta.json", function(err, res) {
   yScale.range([h - graphTransform.ytop - graphTransform.ybottom, 0]);
 
   // Die Achsen werden von d3 generiert.
-  xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
-  yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
+  xAxis = d3.svg.axis().scale(xScale).orient("bottom")
+    .ticks(5);
+  yAxis = d3.svg.axis().scale(yScale).orient("left")
+    .ticks(5)
+      .innerTickSize(-w+graphTransform.xstart+graphTransform.xend)
+      .outerTickSize(2);
 
   /*******************************************************************************
    *

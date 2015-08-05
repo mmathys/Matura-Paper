@@ -1,5 +1,5 @@
-$graph-borders-color: #666;
-$graph-axis-text-color: #666;
+$graph-borders-color: rgba(0,0,0,.2);
+$graph-axis-text-color: rgba(0,0,0,.6);
 $graph-axis-font-size: 14px;
 $graph-axis-size: 1.5px;
 $graph-axis-tick-size: 1px;
@@ -7,7 +7,7 @@ $graph-axis-tick-size: 1px;
 #visualization-container {
   display: flex;
   justify-content: center;
-  margin: 50px 0;
+  margin: 20px 0 0 0;
 }
 
 #overlay {
@@ -69,6 +69,7 @@ circle#tooltip-circle {
 
 #select-row {
   padding: 0 0 30px;
+  margin: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -77,7 +78,7 @@ circle#tooltip-circle {
 .select-row-item {
   color: #000;
   padding-bottom: 6px;
-  margin: 2px 5px;
+  margin: 2px 20px 0 0;
   cursor: pointer;
   border-bottom: 2px solid rgba(0, 0, 0, 1);
   border-color: #000;
