@@ -1,0 +1,106 @@
+$graph-borders-color: #666;
+$graph-axis-text-color: #666;
+$graph-axis-font-size: 14px;
+$graph-axis-size: 1.5px;
+$graph-axis-tick-size: 1px;
+
+#visualization-container {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+#overlay {
+  // Der Visualization soll die auf Bewegung der Maus zugreifen können. Dieses
+  // Attribut wird gebraucht.
+  pointer-events: all;
+}
+
+#graph {
+
+}
+
+.domain {
+  fill: none;
+  stroke: $graph-borders-color;
+  stroke-width: $graph-axis-size;
+}
+
+.tick > line {
+  fill: none;
+  stroke: $graph-borders-color;
+  stroke-width: $graph-axis-tick-size;
+
+}
+
+.tick > text {
+  fill: $graph-axis-text-color;
+  font-size: $graph-axis-font-size;
+}
+
+.circle.data-circle {
+  r: 2px;
+}
+
+circle#tooltip-circle {
+  r: 7px;
+  fill: rgba(0, 0, 0, .4);
+}
+
+#label > text {
+  fill: black;
+  font-weight: 400;
+  font-size: $graph-axis-font-size;
+}
+
+#overlay {
+  visibility: hidden;
+}
+
+.line {
+  fill: none;
+  stroke: rgba(0,0,0,.7);
+  stroke-width: 2px;
+}
+
+.hidden {
+  display: none;
+}
+
+#select-row {
+  padding: 0 0 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.select-row-item {
+  color: #000;
+  padding-bottom: 6px;
+  margin: 2px 5px;
+  cursor: pointer;
+  border-bottom: 2px solid rgba(0, 0, 0, 1);
+  border-color: #000;
+
+  -webkit-transition: all 0.2s cubic-bezier(.5,1,.8,1);
+  -moz-transition: all 0.2s cubic-bezier(.5,1,.8,1);
+  -o-transition: all 0.2s cubic-bezier(.5,1,.8,1);
+  transition: all 0.2s cubic-bezier(.5,1,.8,1);
+
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.select-row-item:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.inactive {
+  color: grey;
+  border-color: #fff !important;
+}

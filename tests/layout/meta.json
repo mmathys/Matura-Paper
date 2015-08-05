@@ -1,0 +1,304 @@
+{
+  "datasets": [
+    {
+      "url":"data/WWDI-AFG_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Afghanistan",
+          "activated":true
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-AGO_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Angola",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-ARM_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Armenien",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-AUS_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Australien",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-BGD_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Bangladesh",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-BHR_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Bahrain",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-BLR_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Belarus",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-BLZ_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Belize",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-CHE_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Schweiz",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-CMR_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Kamerun",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-COL_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Kolumbien",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-COM_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Komoren",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-CYP_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Zypern",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-DEU_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Deutschland",
+          "activated":false
+        }
+      ]
+    },
+    {
+      "url":"data/WWDI-DMA_EN_ATM_CO2E_KT.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "CO2-Emissionen (kt) Dominica",
+          "activated":false
+        }
+      ]
+    }
+  ]
+}
