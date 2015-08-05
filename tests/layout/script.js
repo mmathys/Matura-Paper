@@ -92,7 +92,7 @@ d3.json("meta.json", function(err, res) {
   // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
   // Graphs
   w = 1100;
-  h = 400;
+  h = 500;
 
   graphTransform = {xstart: 70, ytop: 0, xend:0, ybottom:50};
 
