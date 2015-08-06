@@ -17,9 +17,29 @@ var domain = require('./modules/domain');
 
 // Für die Visualisation benötigte Variablen
 
-var config, datasetsMeta, datasets, index, values, v_accessor, v_acessor_scaled,
-  accessor_data, v_accessor_cord, xScale, yScale, w, h, graphTransform, mouse,
-  xAxis, yAxis, showPoints, xWertebereich, yWertebereich;
+var config            // Config-Array für _alle_ Elemente
+  , datasetsMeta      // Das 'datasets'-Attribut von meta.json
+  , index             // Config-Objekt für die Index-Spalte (X-Wert)
+  , values            // Config-Array für Werte-Spalten (Y-Werte)
+  , v_accessor        // Funktion, die den Werteaccessor zurückgibt
+  , v_acessor_scaled  // Funktion, die den Skalierten Werteaccessor zurückgibt
+  , v_accessor_cord   // Funktion, die den Koordinatenaccessor zurückgibt
+
+  , xScale            // X-Skala
+  , yScale            // Y-Skala
+  , xWertebereich     // Bereich der X-Werte
+  , yWertebereich     // Bereich der Y-Werte
+  , xAxis             // X-Achse
+  , yAxis             // Y-Achse
+
+  , w                 // Breite der Visualisation
+  , h                 // Höhe der Visualisation
+  , graphTransform    // Verschiebung des Graphenbereichs
+
+  , mouse             // Die Koordinaten der Maus
+  , showPoints        // Gibt an, ob Punkte angezeigt werden sollen
+
+  ;
 
 showPoints = false;
 
