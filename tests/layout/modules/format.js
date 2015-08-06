@@ -17,9 +17,7 @@ module.exports.data_types = function(data, config) {
 }
 
 module.exports.ids = function(data, config) {
-  console.log(data);
-  console.log(config);
-
+  
   for(var i = 0; i<data.length; i++) {
     for(var j = 0; j<config.length; j++){
       if(config[j].type == "index"){

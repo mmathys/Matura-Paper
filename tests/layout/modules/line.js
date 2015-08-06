@@ -9,12 +9,7 @@ var points = require("./points");
 
 module.exports.mode = "undefined";
 
-/**
- * Fügt eine Linie hinzu.
- * @param  {[Object]} index  Die Config des Indexes.
- * @param  {[Object]} config Die Config der betreffenden Spalte.
- */
-module.exports.addLine = function(index, config, data, accessor_cord) {
+module.exports.addLine = function(data, index, config, v_bundle) {
   var path = d3.select("#graph")
    .append("path")
    .attr("class", "line")
@@ -22,11 +17,11 @@ module.exports.addLine = function(index, config, data, accessor_cord) {
    .attr("data-row", config.rowId);
 
    if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
-      path.attr("d", module.exports.linear(data, accessor_cord));
+      path.attr("d", module.exports.linear(data, v_bundle.cord(index, config)));
    } else {
      var line = d3.svg.line()
-       .x(accessor_scaled_x)
-       .y(accessor_scaled_y)
+       .x(index.accessor_scaled)
+       .y(v_bundle.scaled(config))
        .interpolate(module.exports.mode);
    }
 }
@@ -63,32 +58,28 @@ module.exports.linear = function(data, accessor) {
   return path;
 }
 
-module.exports.update = function(data, index, value, v_accessor_scaled, v_accessor_cord) {
+module.exports.update = function(data, index, config, v_bundle) {
     if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
-      d3.select(".line[data-row='" + value.rowId + "']")
-       .attr("d", module.exports.linear(data, v_accessor_cord(index, value)));
+      d3.select(".line[data-row='" + config.rowId + "']")
+       .attr("d", module.exports.linear(data, v_bundle.cord(index, config)));
     } else {
       var line = d3.svg.line()
         .x(index.accessor_scaled)
-        .y(v_accessor_scaled(value))
+        .y(v_bundle.scaled(config))
         .interpolate(module.exports.mode);
-      d3.select(".line[data-row='" + value.rowId + "']")
+      d3.select(".line[data-row='" + config.rowId + "']")
         .attr("d", line(data));
     }
 }
 
 
-module.exports.setActivated = function(activated, rowId, values){
-  var points_s = d3.selectAll(".data-point[data-row='"+rowId+"']");
-  var line = d3.selectAll(".line[data-row='"+rowId+"']");
+module.exports.setActivated = function(activated, config){
+  var points_s = d3.selectAll(".data-point[data-row='"+config.rowId+"']");
+  var line = d3.selectAll(".line[data-row='"+config.rowId+"']");
 
   line.classed("hidden", !activated);
 
-  for(var i = 0; i<values.length; i++){
-    if(values[i].rowId == rowId){
-      values[i].activated = activated;
-    }
-  }
+  config.activated = activated;
 
   if(!activated){
     // Nicht aktiviert: Override
@@ -96,7 +87,6 @@ module.exports.setActivated = function(activated, rowId, values){
   } else {
     // Aktiviert: Zeigen, danach das Modul points entscheiden lassen.
     points_s.classed("hidden", !activated);
-    points.updateVisibility(values);
   }
 
 }

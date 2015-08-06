@@ -6,8 +6,6 @@
  *
  ******************************************************************************/
 
-console.log("Tooltip");
-
 /**
  * Einstellungen für dieses Modul.
  * @type {Object}
@@ -22,23 +20,23 @@ module.exports.opt = {};
  * @param  {[type]} item          Der zu vergleichende Wert
  * @return {[Number]}             Der Index (0 < @return < data.length-1)
  */
-module.exports.nextIndex = function(data, accessor, item){
-  var index = -1;
+module.exports.nextIndex = function(data, index, item){
+  var pos = -1;
   for(var i = 0; i<data.length-1; i++){
     // Liegt der Punkt zwischen zwei gegebenen Punkten?
-    var this_d = accessor(data[i]);
-    var next = accessor(data[i+1]);
+    var this_d = index.accessor(data[i]);
+    var next = index.accessor(data[i+1]);
     var afterThis = item >=this_d;
     var beforeNext = item <= next;
 
     if(afterThis && beforeNext){
       // Falls ja, setze 'index' auf den index des näheren Punktes.
-      Δ1 = Math.abs(accessor(data[i]) - item);
-      Δ2 = Math.abs(accessor(data[i+1]) - item);
-      index = Δ1 < Δ2 ? i : i + 1;
+      Δ1 = Math.abs(index.accessor(data[i]) - item);
+      Δ2 = Math.abs(index.accessor(data[i+1]) - item);
+      pos = Δ1 < Δ2 ? i : i + 1;
     }
   }
-  return index;
+  return pos;
 }
 
 /**
@@ -54,17 +52,17 @@ module.exports.nextIndex = function(data, accessor, item){
  * @param {{Function}} textAccessor Funktion, die den Text für das Tooltip zu-
  *                                  rückgibt.
  */
-module.exports.tooltip = function(data, rowId, accessor, index, parent, textAccessor, activated) {
+module.exports.tooltip = function(data, index, config, v_bundle, pos, textAccessor, activated) {
 
   // tooltip-Variablen
-  var tip = d3.select("#tooltip[data-row='" + rowId + "']");
+  var tip = d3.select("#tooltip[data-row='" + config.rowId + "']");
   tip.classed("hidden", !activated);
 
   if(tip.empty()){
-    tip = parent.append("g")
+    tip = d3.select("#graph").append("g")
       .attr("id", "tooltip")
       .attr("class", "tooltip")
-      .attr("data-row", rowId);
+      .attr("data-row", config.rowId);
 
     tip.append("circle")
       .attr("id", "tooltip-circle");
@@ -77,7 +75,7 @@ module.exports.tooltip = function(data, rowId, accessor, index, parent, textAcce
       .attr("id", "label-text");
   }
 
-  if(index==-1){
+  if(pos==-1){
     tip.attr("visibility", "hidden");
     return;
   }
@@ -85,11 +83,11 @@ module.exports.tooltip = function(data, rowId, accessor, index, parent, textAcce
 
 
   tip.select("#label-text")
-    .text(textAccessor(data[index]))
+    .text(textAccessor(data[pos]))
     .attr("x", 0)
     .attr("y", -10);
 
-  var cord = accessor(data[index]);
+  var cord = v_bundle.cord(index, config)(data[pos]);
   tip.attr("transform", "translate("+cord[0]+","+cord[1]+")");
 }
 
@@ -102,23 +100,20 @@ module.exports.tooltip = function(data, rowId, accessor, index, parent, textAcce
  * @param  {{Function}} index       Die Config für den Index
  * @param  {{Function}} values      Die Config für die Values
  */
-module.exports.updateTooltip = function(data, xScale, yScale, index, value, v_accessor, v_accessor_scaled, v_accessor_cord){
+module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, yScale){
   if(!module.exports.mouse){
     return;
   }
   var x = module.exports.mouse[0]-module.exports.opt.graphTransform.xstart;
 
-  // Das interpolierte Datum berechnen
   var x_date = xScale.invert(x);
 
-    // Den nächsten Index suchen.
-    var tooltipIndex = module.exports.nextIndex(data, index.accessor, x_date);
+  var pos = module.exports.nextIndex(data, index, x_date);
 
-    //tooltip
-    module.exports.tooltip(data, value.rowId, v_accessor_cord(index, value), tooltipIndex, d3.select("#graph"), function(d) {
-      // Zahl runden
-      // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
-      return Math.round(v_accessor(value)(d) * 1000) / 1000;
-    }, value.activated);
-
+  //tooltip
+  module.exports.tooltip(data, index, config, v_bundle, pos, function(d) {
+    // Zahl runden
+    // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
+    return Math.round(v_bundle.raw(config)(d) * 1000) / 1000;
+  }, config.activated);
 }

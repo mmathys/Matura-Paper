@@ -9,10 +9,10 @@ module.exports.overflowX = function(data, index, overflowFactor){
   return xWertebereich;
 }
 
-module.exports.overflowY = function(data, values, v_accessor, overflowFactor) {
+module.exports.overflowY = function(data, values, v_bundle, overflowFactor) {
   var yWertebereich = [];
-  yWertebereich[0] = range.minMultipleSets(data, values, v_accessor);
-  yWertebereich[1] = range.maxMultipleSets(data, values, v_accessor);
+  yWertebereich[0] = range.minMultipleSets(data, values, v_bundle);
+  yWertebereich[1] = range.maxMultipleSets(data, values, v_bundle);
   yWertebereich[1] = range.applyOverflow(yWertebereich[0], yWertebereich[1],
     overflowFactor, values[0].data_type);
   return yWertebereich;

@@ -24,6 +24,7 @@ var config            // Config-Array für _alle_ Elemente
   , v_accessor        // Funktion, die den Werteaccessor zurückgibt
   , v_acessor_scaled  // Funktion, die den Skalierten Werteaccessor zurückgibt
   , v_accessor_cord   // Funktion, die den Koordinatenaccessor zurückgibt
+  , v_bundle          // Objekt, das die drei v-Funktionen enthält.
 
   , xScale            // X-Skala
   , yScale            // Y-Skala
@@ -181,6 +182,12 @@ d3.json("meta.json", function(err, res) {
      };
    };
 
+   v_bundle = {
+     "raw": v_accessor,
+     "scaled": v_accessor_scaled,
+     "cord": v_accessor_cord
+   };
+
    // Die Daten laden
    loadFiles();
 });
@@ -277,7 +284,7 @@ function loadVisualization(data) {
    */
 
   xWertebereich = domain.overflowX(data, index, 1.1);
-  yWertebereich = domain.overflowY(data, values, v_accessor, 1.1);
+  yWertebereich = domain.overflowY(data, values, v_bundle, 1.1);
   xScale.domain(xWertebereich);
   yScale.domain(yWertebereich);
 
@@ -315,8 +322,8 @@ function loadVisualization(data) {
 
     // Tooltip und Linie aktualisieren
     for(var i = 0; i<values.length; i++) {
-      tooltip.updateTooltip(filter.row(data, values[i].rowId), xScale, yScale, index, values[i], v_accessor, v_accessor_scaled, v_accessor_cord);
-      line.update(filter.row(data, values[i].rowId), index, values[i], v_accessor_scaled, v_accessor_cord);
+      tooltip.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
+      line.update(filter.row(data, values[i].rowId), index, values[i], v_bundle);
     }
   }
 
@@ -414,8 +421,7 @@ function loadVisualization(data) {
     .on("mousemove", function() {
       tooltip.mouse = d3.mouse(this);
       for(var i = 0; i<values.length; i++) {
-        tooltip.updateTooltip(filter.row(data, values[i].rowId), xScale, yScale,
-          index, values[i], v_accessor, v_accessor_scaled, v_accessor_cord);
+        tooltip.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
       }
     });
 
@@ -427,7 +433,7 @@ function loadVisualization(data) {
 
    // Für jede Datenspalte die Linie einfügen
    for(var i = 0; i<values.length; i++) {
-      line.addLine(index, values[i], filter.row(data, values[i].rowId), v_accessor_cord(index, values[i]));
+      line.addLine(filter.row(data, values[i].rowId), index, values[i], v_bundle);
    }
 
    // Falls der Interpolationsmodus wechselt: Neuen Modus setzen und Linien
@@ -435,7 +441,7 @@ function loadVisualization(data) {
    $('select').on('change', function() {
      line.mode = this.value;
      for(var i = 0; i<values.length; i++){
-       line.update(filter.row(data, values[i].rowId), index, values[i], v_accessor_scaled, v_accessor_cord);
+       line.update(filter.row(data, values[i].rowId), index, values[i], v_bundle);
      }
    });
 
@@ -465,7 +471,7 @@ function loadVisualization(data) {
      zoom.translate([0,0]);
 
      // Y-Wertebereich und Y-Skalierung aktualisieren.
-     yWertebereich = domain.overflowY(data, values, v_accessor, 1.1);
+     yWertebereich = domain.overflowY(data, values, v_bundle, 1.1);
      yScale.domain(yWertebereich);
      zoom.y(yScale)
      yAxis.scale(yScale);
@@ -486,24 +492,26 @@ function loadVisualization(data) {
       // Falls der Name der Spalte in meta.json gesetzt ist, füge ihn ein.
       .text(values[i].name ? values[i].name : values[i].row);
 
-      line.setActivated(values[i].activated, values[i].rowId, values);
+      line.setActivated(values[i].activated, values[i]);
+      if(values[i].activated) {
+        points.updateVisibility(values);
+      }
 
       // Wenn die Toggle-Fläche angeklickt wird, aktualisiere die Sichtbarkeit
       // der Linie.
       $(".select-row-item[data-row='" + values[i].rowId + "']").on('click', function() {
         var row = $(this).attr("data-row");
-        var value = id.invert(row, values);
+        var config = id.invert(row, values);
 
         if($(this).hasClass("inactive")){
           // Linie wird aktiviert.
           $(this).toggleClass("inactive", false);
-          line.setActivated(true, row, values);
-          value.activated = true;
+          line.setActivated(true, config);
+          points.updateVisibility(values);
         } else {
           // Linie wird deaktiviert.
           $(this).toggleClass("inactive", true);
-          line.setActivated(false, row, values);
-          value.activated = false;
+          line.setActivated(false, config);
         }
 
         // und aktualisiere die Y-Achse und Skalierung.

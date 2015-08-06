@@ -27,13 +27,13 @@ module.exports.max = function(data, accessor) {
  *                                  Reihe den Accessor zurückgibt.
  * @return {[Object]}               Das Minimum
  */
-module.exports.minMultipleSets = function(data, values, v_accessor) {
+module.exports.minMultipleSets = function(data, values, v_bundle) {
   var min;
   for(var i = 0; i<values.length; i++){
     if(!values[i].activated) {
       continue;
     }
-    var lmin = d3.min(data, v_accessor(values[i]));
+    var lmin = d3.min(data, v_bundle.raw(values[i]));
     if(typeof lmin == "undefined"){
       continue;
     }
@@ -55,13 +55,13 @@ module.exports.minMultipleSets = function(data, values, v_accessor) {
  *                                   Reihe den Accessor zurückgibt.
  * @return {[Object]}               Das Maximum
  */
-module.exports.maxMultipleSets = function(data, values, v_accessor) {
+module.exports.maxMultipleSets = function(data, values, v_bundle) {
   var max;
   for(var i = 0; i<values.length; i++){
     if(!values[i].activated) {
       continue;
     }
-    var lmax = d3.max(data, v_accessor(values[i]));
+    var lmax = d3.max(data, v_bundle.raw(values[i]));
 
     if(typeof max == "undefined" || lmax>max) {
       max = lmax;
