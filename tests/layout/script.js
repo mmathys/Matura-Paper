@@ -124,13 +124,22 @@ d3.json("meta.json", function(err, res) {
    *
    ******************************************************************************/
 
+   // Index-Accessor-Funktion: Gibt für eine bestimmte Datenreihe den Wert der
+   // Index-Spalte zurück.
+
    index.accessor = function(d) {
      return d[index.row];
    };
 
+   // ..._scaled: Gibt den Skalierten Wert von accessor zurück.
    index.accessor_scaled = function(d) {
      return xScale(d[index.row]);
    };
+
+   // Funktion, die die Werte-Accessor-Funktion zurückgibt. Da sich die Werte-
+   // Accessor-Funktionen im Gegensatz zum statischen Index-Accessor unterschei-
+   // den, müssen sie für jede Spalte neu generiert werden. Diese Funktion ist
+   // dafür zuständig.
 
    v_accessor = function(entry) {
      return function(d) {
@@ -144,6 +153,8 @@ d3.json("meta.json", function(err, res) {
      }
    };
 
+   // Funktion, die den Koordinatenaccessor für die in entry angegebene Spalte
+   // zurückgibt.
    v_accessor_cord = function(index, entry) {
      return function(d) {
        return [index.accessor_scaled(d), v_accessor_scaled(entry)(d)];
@@ -235,7 +246,7 @@ function loadFiles() {
 
 /**
  * Lädt die Visualisation
- * @param  {[type]} data  Die gemergten Datensätze
+ * @param  {[Array]} data Die gemergten Datensätze
  */
 function loadVisualization(data) {
 
@@ -263,12 +274,12 @@ function loadVisualization(data) {
     .scaleExtent([0.9, 50])
     .on("zoom", draw);
 
-  // die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
+  // Die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
   // wendet werden kann, obwohl sie erst später definiert wird.
   var graph;
 
   /**
-   * Wird aufgerufen, sobald gezoomt wurde.
+   * Wird aufgerufen, sobald der Graph neu gezeichnet werden sollte.
    */
   function draw() {
     // Achsen neu zeichnen
@@ -282,7 +293,7 @@ function loadVisualization(data) {
         .attr("cy", v_accessor_scaled(values[i]));
     }
 
-    // Tooltip, Linie bei Zoom aktualisieren
+    // Tooltip und Linie aktualisieren
     for(var i = 0; i<values.length; i++) {
       tooltip.updateTooltip(filter.row(data, values[i].rowId), xScale, yScale, index, values[i], v_accessor, v_accessor_scaled, v_accessor_cord);
       line.update(filter.row(data, values[i].rowId), index, values[i], v_accessor_scaled, v_accessor_cord);
@@ -315,13 +326,14 @@ function loadVisualization(data) {
       .attr("fill", "white");
 
   // Container für die Visualisation hinzufügen und zu der Maske linken
+  // Transformation nach den definierten Angaben mit transform, translate
   graph = v.append("g")
     .attr("id", "graph")
     .attr("transform", "translate(" + graphTransform.xstart +
       "," + graphTransform.ytop + ")")
     .attr("mask", "url(#mask)");
 
-  // Die Punkte zeichnen für jede Datenspalte (in values).
+  // Die Punkte zeichnen für jede Datenspalte
   for(var i = 0; i<values.length; i++) {
 
     // Die Punkte einer Spalte haben für das Attribut data-row die generierte id
@@ -330,8 +342,8 @@ function loadVisualization(data) {
 
       // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
       // entsprechende Reihe besitzen. Siehe Merge-Problem.
-      // Daten an Selektion binden, damit alle Aktionen an diesem Element für
-      // alle gebundenen Datenelemente ausgeführt werden.
+      // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
+      // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
       .data(filter.row(data, values[i].rowId)).enter();
 
     // Aktionen an Datengebundener Selektion ausführen
@@ -342,7 +354,7 @@ function loadVisualization(data) {
         .attr("cy", v_accessor_scaled(values[i]));
   }
 
-  // Sichtbarkeit der Punkte prüfen
+  // Sichtbarkeit der Punkte akualisieren
   points.updateVisibility(values);
 
   /**
@@ -393,10 +405,13 @@ function loadVisualization(data) {
    *
    */
 
+   // Für jede Datenspalte die Linie einfügen
    for(var i = 0; i<values.length; i++) {
       line.addLine(index, values[i], filter.row(data, values[i].rowId), v_accessor_cord(index, values[i]));
    }
 
+   // Falls der Interpolationsmodus wechselt: Neuen Modus setzen und Linien
+   // aktualisieren.
    $('select').on('change', function() {
      line.mode = this.value;
      for(var i = 0; i<values.length; i++){
@@ -404,6 +419,8 @@ function loadVisualization(data) {
      }
    });
 
+   // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
+   // Sichtbarkeit akutalisieren.
    $('#checkbox').on('change', function() {
      if($(this).is(":checked")){
        showPoints = true;
@@ -416,16 +433,18 @@ function loadVisualization(data) {
 
    /**
     *
-    * Toggles
+    * Toggles: Ein- und ausblenden von Datenreihen.
     *
     */
 
-   // Funktion, um den y-Wertebereich bei einem Toggle zu aktualisieren und die
-   // y-Skalierung
-   function updateDomain() {
+   // Funktion, um den Wertebereich und Skalierung bei einem Toggle zu
+   // aktualisieren
+   function updateYDomain() {
+     // Zoom zurücksetzen
      zoom.scale(1);
      zoom.translate([0,0]);
 
+     // Y-Wertebereich und Y-Skalierung aktualisieren.
      yWertebereich = domain.overflowY(data, values, v_accessor, 1.1);
      yScale.domain(yWertebereich);
      zoom.y(yScale)
@@ -433,34 +452,42 @@ function loadVisualization(data) {
      draw();
    }
 
-    for(var i = 0; i<values.length; i++){
-      d3.select("#select-row")
-        .append("p")
-        .attr("class", "select-row-item")
-        .classed("inactive", !values[i].activated)
-        .attr("style", "border-color:"+values[i].color)
-        .attr("data-row", values[i].rowId)
-        .text(values[i].name ? values[i].name : values[i].row);
+   // Die Toggle-Elemente für jede Spalte generieren.
+   for(var i = 0; i<values.length; i++){
+
+     // Der Container für die Toggles hat die id select-row
+     d3.select("#select-row")
+      .append("p")
+      .attr("class", "select-row-item")
+      .classed("inactive", !values[i].activated)
+      // Spaltenspezifische Farbe hinzufügen
+      .attr("style", "border-color:"+values[i].color)
+      .attr("data-row", values[i].rowId)
+      // Falls der Name der Spalte in meta.json gesetzt ist, füge ihn ein.
+      .text(values[i].name ? values[i].name : values[i].row);
 
       line.setActivated(values[i].activated, values[i].rowId, values);
 
+      // Wenn die Toggle-Fläche angeklickt wird, aktualisiere die Sichtbarkeit
+      // der Linie.
       $(".select-row-item[data-row='" + values[i].rowId + "']").on('click', function() {
         var row = $(this).attr("data-row");
         var value = id.invert(row, values);
 
         if($(this).hasClass("inactive")){
-          // activate this
+          // Linie wird aktiviert.
           $(this).toggleClass("inactive", false);
           line.setActivated(true, row, values);
           value.activated = true;
         } else {
-          // deactivate this
+          // Linie wird deaktiviert.
           $(this).toggleClass("inactive", true);
           line.setActivated(false, row, values);
           value.activated = false;
         }
 
-        updateDomain();
+        // und aktualisiere die Y-Achse und Skalierung.
+        updateYDomain();
       });
     }
 }
