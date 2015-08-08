@@ -6,6 +6,7 @@ var id = require('./modules/id');
 var format = require('./modules/format');
 var filter = require('./modules/filter');
 var domain = require('./modules/domain');
+var toggle = require('./modules/toggle');
 
 /*******************************************************************************
  *
@@ -463,59 +464,8 @@ function loadVisualization(data) {
     *
     */
 
-   // Funktion, um den Wertebereich und Skalierung bei einem Toggle zu
-   // aktualisieren
-   function updateYDomain() {
-     // Zoom zurücksetzen
-     zoom.scale(1);
-     zoom.translate([0,0]);
-
-     // Y-Wertebereich und Y-Skalierung aktualisieren.
-     yWertebereich = domain.overflowY(data, values, v_bundle, 1.1);
-     yScale.domain(yWertebereich);
-     zoom.y(yScale)
-     yAxis.scale(yScale);
-     draw();
-   }
-
    // Die Toggle-Elemente für jede Spalte generieren.
    for(var i = 0; i<values.length; i++){
-
-     // Der Container für die Toggles hat die id select-row
-     d3.select("#select-row")
-      .append("p")
-      .attr("class", "select-row-item")
-      .classed("inactive", !values[i].activated)
-      // Spaltenspezifische Farbe hinzufügen
-      .attr("style", "border-color:"+values[i].color)
-      .attr("data-row", values[i].rowId)
-      // Falls der Name der Spalte in meta.json gesetzt ist, füge ihn ein.
-      .text(values[i].name ? values[i].name : values[i].row);
-
-      line.setActivated(values[i].activated, values[i]);
-      if(values[i].activated) {
-        points.updateVisibility(values);
-      }
-
-      // Wenn die Toggle-Fläche angeklickt wird, aktualisiere die Sichtbarkeit
-      // der Linie.
-      $(".select-row-item[data-row='" + values[i].rowId + "']").on('click', function() {
-        var row = $(this).attr("data-row");
-        var config = id.invert(row, values);
-
-        if($(this).hasClass("inactive")){
-          // Linie wird aktiviert.
-          $(this).toggleClass("inactive", false);
-          line.setActivated(true, config);
-          points.updateVisibility(values);
-        } else {
-          // Linie wird deaktiviert.
-          $(this).toggleClass("inactive", true);
-          line.setActivated(false, config);
-        }
-
-        // und aktualisiere die Y-Achse und Skalierung.
-        updateYDomain();
-      });
-    }
+     toggle.add(data, values, values[i], v_bundle, zoom, yWertebereich, yScale, yAxis, draw);
+  }
 }
