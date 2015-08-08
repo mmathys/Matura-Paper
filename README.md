@@ -6,7 +6,7 @@ Diese Arbeit soll Methoden in interaktiven Diagrammen darstellen, die zum **verb
 
 - Wir verwenden den Diagrammtyp **Scatterplot**, teilweise mit *Interpolation* als grundlegendes Beispiel
 - Es werden Experimente mit dem **(Stacked) Line Diagram** durchgeführt
-- Ein modifiziertes **Pie Diagram** wird vorgestellt. 
+- Ein modifiziertes **Pie Diagram** wird vorgestellt.
 
 
 ## Untersuchungsaspekte
@@ -31,7 +31,7 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 		- R^2 anzeigen
 - Zustandsabhängige Informationsanzeige
 	- Bei Tooltip dazugehörige Informationen anzeigen (z.B. den Wert) ✔︎
-	- 2 Arten von Tooltip: 
+	- 2 Arten von Tooltip:
 		- Zum *echten* Punkt in der Nähe springen, also zum Wert, der wirklich aufgezeichnet wurde
 		- An der Stelle bei der Trendlinie oder Interpolation den berechneten Wert anzeigen, der nicht wirklich gemessen wurde.
 	- Punkt anwählen: Detailanzeige und Auflistung des ausgewählten Punktes
@@ -64,6 +64,11 @@ Ein modifiziertes Pie-Diagramm, das sich
 unterscheidet.
 
 ## TODO
+- **Layout**
+Über dem Graph eine Area machen, die Infos für Tooltip anzeigt. Auswahl für
+Datensätze drüberschieben.
+
+
 - **Mehrere y-Skalen unterstützen, Einheitenindex?**
 
 
