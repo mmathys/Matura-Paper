@@ -3,6 +3,7 @@ $graph-axis-text-color: rgba(0,0,0,.6);
 $graph-axis-font-size: 14px;
 $graph-axis-size: 1.5px;
 $graph-axis-tick-size: 1px;
+$data-title-font-size: 16px;
 
 #visualization-container {
   display: flex;
@@ -83,17 +84,9 @@ circle#tooltip-circle {
   border-bottom: 2px solid rgba(0, 0, 0, 1);
   border-color: #000;
 
-  -webkit-transition: all 0.2s cubic-bezier(.5,1,.8,1);
-  -moz-transition: all 0.2s cubic-bezier(.5,1,.8,1);
-  -o-transition: all 0.2s cubic-bezier(.5,1,.8,1);
   transition: all 0.2s cubic-bezier(.5,1,.8,1);
 
-  -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  user-select: none;
 }
 
 .select-row-item:hover {
@@ -102,6 +95,64 @@ circle#tooltip-circle {
 }
 
 .inactive {
-  color: grey;
+  color: LightGray;
   border-color: #fff !important;
+}
+
+.data-title-container {
+  margin: 10px 0;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  p {
+    font-size: $data-title-font-size;
+    margin: 0;
+    color: LightGray;
+    transition: all 0.2s cubic-bezier(.5,1,.8,1);
+  }
+  img {
+    width: $data-title-font-size;
+    height: $data-title-font-size;
+    margin: 0 10px 0 0;
+    opacity: 0.25;
+    transition: all 0.2s cubic-bezier(.5,1,.8,1);
+  }
+}
+
+
+.images {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.times {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.data-title-container:hover {
+  p {
+    color: #000;
+  }
+  img {
+    opacity: 1;
+  }
+}
+
+.toggle-active {
+  .times {
+    visibility: visible;
+    opacity: 1;
+  }
+  .chevron {
+    visibility: hidden;
+  }
+  p {
+    color: #000;
+  }
 }
