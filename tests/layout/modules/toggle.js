@@ -3,21 +3,21 @@ var id = require("./id");
 var points = require("./points");
 var domain = require("./domain");
 
-module.exports.add = function(data, values, config, v_bundle, zoom, yWertebereich, yScale, yAxis, draw) {
+module.exports.add = function(data, index, values, config, v_bundle, zoom, yWertebereich, yScale, yAxis, draw) {
   // Der Container für die Toggles hat die id select-row
   d3.select("#select-row")
    .append("p")
    .attr("class", "select-row-item")
    .classed("inactive", !config.activated)
    // Spaltenspezifische Farbe hinzufügen
-   .attr("style", "border-color:"+config.color)
+   //.attr("style", "border-color:"+config.color)
    .attr("data-row", config.rowId)
    // Falls der Name der Spalte in meta.json gesetzt ist, füge ihn ein.
    .text(config.name ? config.name : config.row);
 
   // Detail hinzufügen
   if(config.activated){
-    addTooltipDetail(config)
+    addTooltipDetail(index, config)
   }
 
   line.setActivated(config.activated, config);
@@ -36,7 +36,7 @@ module.exports.add = function(data, values, config, v_bundle, zoom, yWertebereic
      $(this).toggleClass("inactive", false);
      line.setActivated(true, config);
      points.updateVisibility(values);
-     addTooltipDetail(config);
+     addTooltipDetail(index, config);
    } else {
      // Linie wird deaktiviert.
      $(this).toggleClass("inactive", true);
@@ -66,7 +66,7 @@ module.exports.updateYDomain = function(data, values, v_bundle, zoom, yWertebere
   callback();
 }
 
-function addTooltipDetail(config){
+function addTooltipDetail(index, config){
   var container = d3.select("#display-overlay")
     .append("div")
     .attr("class", "tip-element")
@@ -77,8 +77,17 @@ function addTooltipDetail(config){
     .attr("class", "tip-title caps")
     .text(config.name ? config.name : config.row);
 
-  //TODO: values: bold
-  // attributes : not bold.
+  container.append("p")
+    .attr("class", "tip-attribute")
+    .attr("data-attribute", index.name ? index.name : index.row)
+    .text((index.name ? index.name : index.row) + ": ")
+    .append("span");
+
+  container.append("p")
+    .attr("class", "tip-attribute")
+    .attr("data-attribute", config.name ? config.name : config.row)
+    .text("Wert: ")
+    .append("span");
 }
 
 function removeTooltipDetail(config) {

@@ -255,7 +255,7 @@ function loadFiles() {
 
       // Sortieren (4)
       data = sort(data, index);
-      
+
       // Weitergeben (5)
       loadVisualization(data);
     }
@@ -471,6 +471,6 @@ function loadVisualization(data) {
 
    // Die Toggle-Elemente für jede Spalte generieren.
    for(var i = 0; i<values.length; i++){
-     toggle.add(data, values, values[i], v_bundle, zoom, yWertebereich, yScale, yAxis, draw);
+     toggle.add(data, index, values, values[i], v_bundle, zoom, yWertebereich, yScale, yAxis, draw);
   }
 }

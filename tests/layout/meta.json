@@ -16,7 +16,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Afghanistan",
-          "activated":true
+          "activated":true,
+          "unit": "kt"
         }
       ]
     },
@@ -36,7 +37,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Angola",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -56,7 +58,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Armenien",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -76,7 +79,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Australien",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -96,7 +100,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Bangladesh",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -116,7 +121,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Bahrain",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -136,7 +142,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Belarus",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -156,7 +163,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Belize",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -176,7 +184,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Schweiz",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -196,7 +205,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Kamerun",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -216,7 +226,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Kolumbien",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -236,7 +247,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Komoren",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -256,7 +268,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Zypern",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -276,7 +289,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Deutschland",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     },
@@ -296,7 +310,8 @@
           "type": "value",
           "data_type": "Number",
           "name": "Dominica",
-          "activated":false
+          "activated":false,
+          "unit":"kt"
         }
       ]
     }

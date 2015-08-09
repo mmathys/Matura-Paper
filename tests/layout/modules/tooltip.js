@@ -52,7 +52,7 @@ module.exports.nextIndex = function(data, index, item){
  * @param {{Function}} textAccessor Funktion, die den Text für das Tooltip zu-
  *                                  rückgibt.
  */
-module.exports.tooltip = function(data, index, config, v_bundle, pos, textAccessor, activated) {
+module.exports.tooltip = function(data, index, config, v_bundle, pos, indexTextAccessor, valueTextAccessor, activated) {
 
   // tooltip-Variablen
   var tip = d3.select("#tooltip[data-row='" + config.rowId + "']");
@@ -69,26 +69,32 @@ module.exports.tooltip = function(data, index, config, v_bundle, pos, textAccess
 
     var label = tip.append("g")
       .attr("id", "label");
-
-    var text = label.append("text")
-      .attr("text-anchor", "middle")
-      .attr("id", "label-text");
   }
+
+  var indexText;
+  var valueText;
 
   if(pos==-1){
     tip.attr("visibility", "hidden");
-    return;
+    indexText = "";
+    valueText = "";
+  } else {
+    indexText = indexTextAccessor(data[pos]);
+    valueText = valueTextAccessor(data[pos])+(config.unit?" "+config.unit:"");
+    tip.attr("visibility", "visible");
+    var cord = v_bundle.cord(index, config)(data[pos]);
+    tip.attr("transform", "translate("+cord[0]+","+cord[1]+")");
   }
-  tip.attr("visibility", "visible");
 
+  d3.select(".tip-element[data-row='"+config.rowId+"']"
+    + "> .tip-attribute[data-attribute='" + (index.name ? index.name : index.row ) + "']"
+    + "> span")
+    .text(indexText);
 
-  tip.select("#label-text")
-    .text(textAccessor(data[pos]))
-    .attr("x", 0)
-    .attr("y", -10);
-
-  var cord = v_bundle.cord(index, config)(data[pos]);
-  tip.attr("transform", "translate("+cord[0]+","+cord[1]+")");
+  d3.select(".tip-element[data-row='"+config.rowId+"']"
+    + "> .tip-attribute[data-attribute='" + (config.name ? config.name : config.row ) + "']"
+    + "> span")
+    .text(valueText);
 }
 
 /**
@@ -111,9 +117,19 @@ module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, y
   var pos = module.exports.nextIndex(data, index, x_date);
 
   //tooltip
-  module.exports.tooltip(data, index, config, v_bundle, pos, function(d) {
+  module.exports.tooltip(data, index, config, v_bundle, pos, function(d){
+    d = index.accessor(d);
+    if(d instanceof Date){
+      var s=d.getDate().toString()+"/";
+      s+=(d.getMonth()+1).toString()+"/";
+      s+=d.getFullYear().toString();
+      return s;
+    }
+    return d.toString();
+  }, function(d) {
     // Zahl runden
     // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
-    return Math.round(v_bundle.raw(config)(d) * 1000) / 1000;
+    var s = (Math.round(v_bundle.raw(config)(d) * 1000) / 1000).toString();
+    return s;
   }, config.activated);
 }
