@@ -255,9 +255,7 @@ function loadFiles() {
 
       // Sortieren (4)
       data = sort(data, index);
-
-      console.log("loaded");
-
+      
       // Weitergeben (5)
       loadVisualization(data);
     }

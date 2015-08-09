@@ -41,8 +41,6 @@ module.exports.minMultipleSets = function(data, values, v_bundle) {
       min = lmin;
     }
   }
-  console.log("range min: ");
-  console.log(min);
   return min;
 }
 
@@ -67,8 +65,6 @@ module.exports.maxMultipleSets = function(data, values, v_bundle) {
       max = lmax;
     }
   }
-  console.log("range max:");
-  console.log(max);
   return max;
 }
 
