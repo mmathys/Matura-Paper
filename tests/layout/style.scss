@@ -8,7 +8,12 @@ $data-title-font-size: 16px;
 #visualization-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0 0 0;
+  margin: 0;
+  position: relative;
+}
+
+#display-overlay {
+  position:absolute;
 }
 
 #overlay {
@@ -101,60 +106,6 @@ circle#tooltip-circle {
   border-color: #fff !important;
 }
 
-.data-title-container {
-  margin: 10px 0;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-
-  p {
-    font-size: $data-title-font-size;
-    margin: 0;
-    color: LightGray;
-    transition: all 0.2s cubic-bezier(.5,1,.8,1);
-  }
-  img {
-    width: $data-title-font-size;
-    height: $data-title-font-size;
-    margin: 0 10px 0 0;
-    opacity: 0.25;
-    transition: all 0.2s cubic-bezier(.5,1,.8,1);
-  }
-}
-
-
-.images {
-  margin: 0;
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-}
-
-.times {
-  position: absolute;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-}
-
-.data-title-container:hover {
-  p {
-    color: #000;
-  }
-  img {
-    opacity: 1;
-  }
-}
-
-.toggle-active {
-  .times {
-    visibility: visible;
-    opacity: 1;
-  }
-  .chevron {
-    visibility: hidden;
-  }
-  p {
-    color: #000;
-  }
+.toggle-title {
+  margin-bottom: 8px;
 }

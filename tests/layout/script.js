@@ -114,7 +114,7 @@ d3.json("meta.json", function(err, res) {
   // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
   // Graphs
   w = 1100;
-  h = 500;
+  h = 550;
 
   graphTransform = {xstart: 70, ytop: 0, xend:0, ybottom:50};
 
@@ -425,6 +425,13 @@ function loadVisualization(data) {
         tooltip.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
       }
     });
+
+  // Overlay für die Detailanzeige für Tooltip
+  d3.select("#display-overlay")
+    .attr("style", "left: " + graphTransform.xstart + "px;" +
+      "top: " + graphTransform.ytop + "px;" +
+      "max-width: " + (w-graphTransform.xstart-graphTransform.xend) + "px;" +
+      "max-height: "+ (h-graphTransform.ytop-graphTransform.ybottom) +"px;" );
 
   /**
    *
