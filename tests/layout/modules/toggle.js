@@ -15,33 +15,40 @@ module.exports.add = function(data, values, config, v_bundle, zoom, yWertebereic
    // Falls der Name der Spalte in meta.json gesetzt ist, füge ihn ein.
    .text(config.name ? config.name : config.row);
 
-   line.setActivated(config.activated, config);
-   if(config.activated) {
+  // Detail hinzufügen
+  if(config.activated){
+    addTooltipDetail(config)
+  }
+
+  line.setActivated(config.activated, config);
+  if(config.activated) {
+    points.updateVisibility(values);
+  }
+
+  // Wenn die Toggle-Fläche angeklickt wird, aktualisiere die Sichtbarkeit
+  // der Linie.
+  $(".select-row-item[data-row='" + config.rowId + "']").on('click', function() {
+    var row = $(this).attr("data-row");
+    var config = id.invert(row, values);
+
+    if($(this).hasClass("inactive")){
+     // Linie wird aktiviert.
+     $(this).toggleClass("inactive", false);
+     line.setActivated(true, config);
      points.updateVisibility(values);
+     addTooltipDetail(config);
+   } else {
+     // Linie wird deaktiviert.
+     $(this).toggleClass("inactive", true);
+     line.setActivated(false, config);
+     removeTooltipDetail(config);
    }
 
-   // Wenn die Toggle-Fläche angeklickt wird, aktualisiere die Sichtbarkeit
-   // der Linie.
-   $(".select-row-item[data-row='" + config.rowId + "']").on('click', function() {
-     var row = $(this).attr("data-row");
-     var config = id.invert(row, values);
-
-     if($(this).hasClass("inactive")){
-       // Linie wird aktiviert.
-       $(this).toggleClass("inactive", false);
-       line.setActivated(true, config);
-       points.updateVisibility(values);
-     } else {
-       // Linie wird deaktiviert.
-       $(this).toggleClass("inactive", true);
-       line.setActivated(false, config);
-     }
-
-     // und aktualisiere die Y-Achse und Skalierung.
-     module.exports.updateYDomain(data, values, v_bundle, zoom, yWertebereich, yScale, yAxis, function() {
-       draw();
-     });
+   // und aktualisiere die Y-Achse und Skalierung.
+   module.exports.updateYDomain(data, values, v_bundle, zoom, yWertebereich, yScale, yAxis, function() {
+     draw();
    });
+ });
 }
 
 // Funktion, um den Wertebereich und Skalierung bei einem Toggle zu
@@ -57,4 +64,24 @@ module.exports.updateYDomain = function(data, values, v_bundle, zoom, yWertebere
   zoom.y(yScale)
   yAxis.scale(yScale);
   callback();
+}
+
+function addTooltipDetail(config){
+  var container = d3.select("#display-overlay")
+    .append("div")
+    .attr("class", "tip-element")
+    .attr("style", "border-color:"+config.color)
+    .attr("data-row", config.rowId);
+
+  container.append("p")
+    .attr("class", "tip-title caps")
+    .text(config.name ? config.name : config.row);
+
+  //TODO: values: bold
+  // attributes : not bold.
+}
+
+function removeTooltipDetail(config) {
+  d3.select(".tip-element[data-row='"+config.rowId+"']")
+    .remove();
 }
