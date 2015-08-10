@@ -26,8 +26,8 @@ module.exports.overflowX = function(data, index, overflowFactor){
 /**
  * Gibt überhöhten Wertebereich für Y zurück.
  * @param  {[Array]} data             Gemergter Datensatz, ungefiltert
- * @param  {[type]} values            Array von Config-Objekten der Wertespalten
- * @param  {[type]} v_bundle          Accessor-Bundle
+ * @param  {[Array]} values           Array von Config-Objekten der Wertespalten
+ * @param  {[Object]} v_bundle        Accessor-Bundle
  * @param  {[Number]} overflowFactor  Überhöhungsfaktor
  * @return {[Array]}                  Das Minimum und Maximum in einem Array.
  */
