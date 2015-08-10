@@ -1,13 +1,13 @@
-/*******************************************************************************
- *
- *
- * Tooltip
- *
- *
- ******************************************************************************/
+/**
+ * Modul: Tooltip
+ * --------------
+ * Funktionen für den Tooltip
+ */
 
 /**
  * Einstellungen für dieses Modul.
+ * 	- opt.graphTransform: Die Verschiebung des Graphen, wie in script.js
+ * 		definiert.
  * @type {Object}
  */
 module.exports.opt = {};
