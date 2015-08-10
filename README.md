@@ -1,59 +1,45 @@
-#Interaktive Diagramme darstellen
+# Interaktive Diagramme darstellen
 Maturitätsarbeit Max Mathys
 
 ## Ziel
 Diese Arbeit soll Methoden in interaktiven Diagrammen darstellen, die zum **verbesserten Informationsertrag** führen sollen.
 
-- Wir verwenden den Diagrammtyp **Scatterplot**, teilweise mit *Interpolation* als grundlegendes Beispiel
-- Es werden Experimente mit dem **(Stacked) Line Diagram** durchgeführt
-- Ein modifiziertes **Pie Diagram** wird vorgestellt.
-
+- Wir verwenden verschiedene Diagrammtypen und untersuchen diese.
 
 ## Untersuchungsaspekte
 ### *Scatterplot*
 Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
 - Einfügen
-	- Importieren der Daten: Aus Excel oder aus sonstigem Tabellenprogramm: Paste that shit, csv Format
+	- Importieren der Daten: Aus Excel oder aus sonstigem Tabellenprogramm: Paste that shit, csv Format.
 - Achsen
-	- Beschriftungen: Range, Ticks... ✔︎
-- Navigation
-	- Zoom ✔︎
-	- Pan ✔︎
- 	- Vereinfachung der Daten für bessere Performance ╳ **NO**
-- Datenmanipulation
-	- Manipulation der Daten durch Schieberegler usw
-- Linien
-	- Interpolationen
-		- Verschiedene Typen dokumentieren **(!)** ╳ **NO** zu kompliziert. nur lineare Interpolation selber programmieren.
-		- mit d3 interpolationen ✔︎
-	- Trendlinien
-		- R^2 anzeigen
+	- Beschriftungen:
+		- Range ✔︎
+		- Ticks ✔︎
+		- Einheit
 - Zustandsabhängige Informationsanzeige
 	- Bei Tooltip dazugehörige Informationen anzeigen (z.B. den Wert) ✔︎
-	- 2 Arten von Tooltip:
-		- Zum *echten* Punkt in der Nähe springen, also zum Wert, der wirklich aufgezeichnet wurde
-		- An der Stelle bei der Trendlinie oder Interpolation den berechneten Wert anzeigen, der nicht wirklich gemessen wurde.
 	- Punkt anwählen: Detailanzeige und Auflistung des ausgewählten Punktes
 	- Mehrere Punkte anwählen: Vergleich zwischen Punkten
-- Maximum, Minimum anzeigen
+
+*erledigt:*
+
+- Navigation ✔︎
+	- Zoom ✔︎
+	- Pan ✔︎
+- Linien ✔︎
+	- Interpolationen ✔︎
+		- Verschiedene Typen dokumentieren ╳ *Verworfen:* Zu kompliziert. Lineare Interpolation selber programmieren.
+		- d3-Interpolationen ✔︎
+
+
 
 #### Probleme gelöst
-- Überschwappen der Punkte: Lösung durch Anwenden einer SVG-Mask
-- Nicht das ganze scalen: Pkt-radien selber werden skaliert.
-- Skalierung: nichts anderes als die Achsenskalierunganpassen und die Daten neu laden.
+- Überschwappen der Punkte: Lösung durch Anwenden einer SVG-Maske
 - Mehrere Dateien importieren: Im meta.json werden Optionen für einzelne Datenreihen definiert. Die Identifikation wird durch den Spaltennamen durchgeführt. Wenn man aber jetzt mehrere Dateien mit identischen Zeilennamen hat, wird es schwierig, die zu unterscheiden und als separate Linien zu definieren. Darum funktioniert die Merge-Strategie nicht. Für alle Elemente muss die url angegeben werden, auch die Definition im meta.json.
-- mkcb problem :)
-
-### *(Stacked) Line Diagram*
-Bei diesem *(Stacked) Line Diagram* werden folgende Interaktionsmöglichkeiten vorgestellt:
-
-- Ändern der Linienordnung: Welche Linie als oberstes oder als unterstes etc. dargestellt wird
-- Isolieren einer Linie
-- "Unstacken" von Linien: Stack aufheben, Linien haben ihre Basis bei der x-Achse
-- Schnittpunkte der Linien anzeigen
-- Sichtbarkeit verändern
-- Interpolation / Trendlinie ändern oder ganz entfernen (nur Punkte anzeigen)
+- Mehrere Dateien: meta.json
+- Spalten unterscheiden, die den gleichen Spaltennamen besitzen: `row#url`-Lösung
+- mkcb problem: Problem mit Variablen Accessoren
 
 ### *Pie-Diagramm*
 Ein modifiziertes Pie-Diagramm, das sich
@@ -64,16 +50,12 @@ Ein modifiziertes Pie-Diagramm, das sich
 unterscheidet.
 
 ## TODO
-- **Layout**
-Über dem Graph eine Area machen, die Infos für Tooltip anzeigt. Auswahl für
-Datensätze drüberschieben.
-
 
 - **Mehrere y-Skalen unterstützen, Einheitenindex?**
 
 
 
-- **Stacked Lines für gleiche Einheiten**
+- **Stacked Lines für gleiche Einheiten?**
 
 ## Mögliche Kritikpunkte der Maturaarbeit
 
