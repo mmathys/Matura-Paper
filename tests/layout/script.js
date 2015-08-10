@@ -49,7 +49,7 @@ showPoints = false;
  * Laden der Konfigurationsdatei
  * @param  {[String]} "meta.json"             Der Dateiname für die
  *                                            Konfigurationsdatei
- * @param  {[Function]} function(err, config) Das Callback
+ * @param  {[Function]} function(err, config) Callback
  */
 d3.json("meta.json", function(err, res) {
   if(err) {
@@ -57,7 +57,7 @@ d3.json("meta.json", function(err, res) {
     alert(err);
     return;
   }
-
+  
   config = [];
   datasetsMeta = res.datasets;
 
