@@ -1,6 +1,19 @@
 var sort = require('./sort');
 var id = require('./id');
 
+/**
+ * Modul: Format
+ * -------------
+ * Formatiert den Datensatz
+ */
+
+/**
+ * Konvertiert die Zeichenketten (Strings) in dem Datensatz in Javascript-
+ * Objekte, wie zum Beispiel Zahlen (Float) oder Daten (Date).
+ * @param  {[Array]} data   Unformatierter Datensatz
+ * @param  {{Array}} config Array von Config-Objekten
+ * @return {[Array]}        Gefilterter Datensatz
+ */
 module.exports.data_types = function(data, config) {
   // index suchen
   for(var i = 0; i<data.length; i++) {
@@ -16,8 +29,15 @@ module.exports.data_types = function(data, config) {
   return data;
 }
 
+/**
+ * Fügt das Attribut 'rowId' für jedes Objekt hinzu. 'rowId' ist eine aus dem
+ * Reihennamen und Pfad des Datensatzes generierte einzigartie ID.
+ * @param  {[Array]} data   Datensatz ohne rowIds
+ * @param  {{Array}} config Array von Config-Objekten
+ * @return {[Array]}        Datensatz mit rowIds
+ */
 module.exports.ids = function(data, config) {
-  
+
   for(var i = 0; i<data.length; i++) {
     for(var j = 0; j<config.length; j++){
       if(config[j].type == "index"){
