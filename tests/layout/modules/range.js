@@ -1,15 +1,21 @@
 /**
- * Gibt das Minimum einer einzelnen Datenreihe zurück
- * @param  {[Array]} data     Der Datensatz
- * @param  {{Function}} index Der Accessor für die zu untersuchende Datenreihe
- * @return {[Object]}         Das Minimum
+ * Modul: Range
+ * ------------
+ * Wertebereich von Datenspalten bestimmen
+ */
+
+/**
+ * Gibt das Minimum einer einzelnen Datenspalte zurück
+ * @param  {[Array]} data         Der Datensatz
+ * @param  {{Function}} accessor  Der Accessor für die zu untersuchende Datenreihe
+ * @return {[Number]}             Das Minimum
  */
 module.exports.min = function(data, accessor) {
   return d3.min(data, accessor);
 }
 
 /**
- * Gibt das Maximum einer einzelnen Datenreihe zurück
+ * Gibt das Maximum einer einzelnen Datenspalte zurück
  * @param  {[Array]} data     Der Datensatz
  * @param  {{Function}} index Der Accessor für die zu untersuchende Datenreihe
  * @return {[Object]}         Das Maximum
@@ -19,7 +25,7 @@ module.exports.max = function(data, accessor) {
 }
 
 /**
- * Gibt das Minimum für mehrere Datensätze zurück.
+ * Gibt das Minimum für mehrere Datenspalten zurück.
  * @param  {[Array]} data           Der Datensatz
  * @param  {[Array]} values         Der Config-Array für die zu untersuchenden
  *                          				Datenreihen.
@@ -45,7 +51,7 @@ module.exports.minMultipleSets = function(data, values, v_bundle) {
 }
 
 /**
- * Gibt das Maximum für mehrere Datensätze zurück.
+ * Gibt das Maximum für mehrere Datenspalten zurück.
  * @param  {[Array]} data           Der Datensatz
  * @param  {[Array]} values         Der Config-Array für die zu untersuchenden Datenrei-
  *                                  hen.
