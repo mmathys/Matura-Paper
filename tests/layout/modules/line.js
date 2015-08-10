@@ -1,14 +1,26 @@
 var points = require("./points");
 
 /**
- * Html-Element select zur Auswahl des Modus: Die Variable 'mode' bei
- * Änderung aktualisieren.
- *
- * Checkbox 'Punkte anzeigen': Die Datenpunkte anzeigen / verstecken.
+ * Modul: Line
+ * -----------
+ * Helfer-Funktionen für die Generierung von Linien
  */
 
+/**
+ * Modus für die Interpolation der Linie:
+ * 	- "undefined" oder "linear": Lineare Interpolation
+ * 	- Restliche: Modi, die von d3 unterstützt werden.
+ * @type {String}
+ */
 module.exports.mode = "undefined";
 
+/**
+ * Fügt eine Linie für die angegebnen Datenspalte hinzu.
+ * @param  {[Array]} data       Datensatz
+ * @param  {[Object]} index     Index-Config-Objekt
+ * @param  {[Array]} config     Array von Config-Objekten der Datenspalten
+ * @param  {[Object]} v_bundle  Accessors
+ */
 module.exports.addLine = function(data, index, config, v_bundle) {
   var path = d3.select("#graph")
    .append("path")
@@ -17,7 +29,7 @@ module.exports.addLine = function(data, index, config, v_bundle) {
    .attr("data-row", config.rowId);
 
    if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
-      path.attr("d", module.exports.linear(data, v_bundle.cord(index, config)));
+      path.attr("d", linear(data, v_bundle.cord(index, config)));
    } else {
      var line = d3.svg.line()
        .x(index.accessor_scaled)
@@ -34,7 +46,7 @@ module.exports.addLine = function(data, index, config, v_bundle) {
  * @return {[String]}            String, das in das Attribut 'd' im path-
  *                               Element eingesetzt werden muss.
  */
-module.exports.linear = function(data, accessor) {
+function linear(data, accessor) {
   var path = "";
 
   //figure out
@@ -58,10 +70,17 @@ module.exports.linear = function(data, accessor) {
   return path;
 }
 
+/**
+ * Aktualisiert eine Linie.
+ * @param  {[Array]} data       Datensatz
+ * @param  {[Object]} index     Index-Config-Objekt
+ * @param  {[Array]} config     Config-Objekt der Spalte
+ * @param  {[Object]} v_bundle  Accessor-Funktionen
+ */
 module.exports.update = function(data, index, config, v_bundle) {
     if(module.exports.mode == "linear" || module.exports.mode == "undefined"){
       d3.select(".line[data-row='" + config.rowId + "']")
-       .attr("d", module.exports.linear(data, v_bundle.cord(index, config)));
+       .attr("d", linear(data, v_bundle.cord(index, config)));
     } else {
       var line = d3.svg.line()
         .x(index.accessor_scaled)
@@ -72,7 +91,12 @@ module.exports.update = function(data, index, config, v_bundle) {
     }
 }
 
-
+/**
+ * Ein- oder Ausblenden einer Linie.
+ * @param  {[Boolean]} activated  true: Linie aktivieren;
+ *                                false: Linie ausblenden
+ * @param  {[Object]} config      Config-Objekt der Datenspalte
+ */
 module.exports.setActivated = function(activated, config){
   var points_s = d3.selectAll(".data-point[data-row='"+config.rowId+"']");
   var line = d3.selectAll(".line[data-row='"+config.rowId+"']");
