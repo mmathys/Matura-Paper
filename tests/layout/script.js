@@ -322,9 +322,7 @@ function loadVisualization(data) {
     // Tooltip und Linie aktualisieren
     tooltip.updateAll(data, index, values, v_bundle, xScale, yScale);
 
-    for(var i = 0; i<values.length; i++) {
-      line.update(filter.row(data, values[i].rowId), index, values[i], v_bundle);
-    }
+    line.updateAll(data, index, values, v_bundle);
 
   }
 
@@ -446,9 +444,7 @@ function loadVisualization(data) {
    // aktualisieren.
    $('select').on('change', function() {
      line.mode = this.value;
-     for(var i = 0; i<values.length; i++){
-       line.update(filter.row(data, values[i].rowId), index, values[i], v_bundle);
-     }
+     line.updateAll(data, index, values, v_bundle);
    });
 
    // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:

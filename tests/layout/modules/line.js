@@ -1,4 +1,5 @@
 var points = require("./points");
+var filter = require("./filter");
 
 /**
  * Modul: Line
@@ -89,6 +90,12 @@ module.exports.update = function(data, index, config, v_bundle) {
       d3.select(".line[data-row='" + config.rowId + "']")
         .attr("d", line(data));
     }
+}
+
+module.exports.updateAll = function(data, index, values, v_bundle) {
+  for (var i = 0; i < values.length; i++) {
+    module.exports.update(filter.row(data, values[i].rowId), index, values[i], v_bundle);
+  }
 }
 
 /**
