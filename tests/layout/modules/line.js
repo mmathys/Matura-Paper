@@ -73,9 +73,9 @@ function linear(data, accessor) {
 
 /**
  * Aktualisiert eine Linie.
- * @param  {[Array]} data       Datensatz
+ * @param  {[Array]} data       Datensatz (gefiltert)
  * @param  {[Object]} index     Index-Config-Objekt
- * @param  {[Array]} config     Config-Objekt der Spalte
+ * @param  {[Object]} config    Config-Objekt der Spalte
  * @param  {[Object]} v_bundle  Accessor-Funktionen
  */
 module.exports.update = function(data, index, config, v_bundle) {
@@ -92,6 +92,13 @@ module.exports.update = function(data, index, config, v_bundle) {
     }
 }
 
+/**
+ * Ruft die Funktion update für alle Config-Objekte in values auf.
+ * @param  {[Array]} data       Datensatz (ungefiltert)
+ * @param  {[Object]} index     Index-Config-Objekt
+ * @param  {[Array]} values     Config-Array der Datenspalten
+ * @param  {[Object]} v_bundle  Accessor-Funktionen
+ */
 module.exports.updateAll = function(data, index, values, v_bundle) {
   for (var i = 0; i < values.length; i++) {
     module.exports.update(filter.row(data, values[i].rowId), index, values[i], v_bundle);
