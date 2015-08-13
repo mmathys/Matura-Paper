@@ -110,9 +110,6 @@ module.exports.tooltip = function(data, index, config, v_bundle, pos, indexTextA
  * @param  {[Object]} yScale    Y-Skalierung (d3)
  */
 module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, yScale){
-  if(!module.exports.mouse){
-    return;
-  }
   var x = module.exports.mouse[0]-module.exports.opt.graphTransform.xstart;
 
   var x_date = xScale.invert(x);
@@ -139,7 +136,6 @@ module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, y
 
 /**
  * - Ruft die Funktion 'updateTooltip' für alle Values auf.
- * - Aktualisiert den vertikalen Strich
  * @param  {[Array]} data       Datensatz (ungefiltert)
  * @param  {[Object]} index     Config-Objekt für den Index
  * @param  {[Array]} values     Die Config für die Values
@@ -148,10 +144,11 @@ module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, y
  * @param  {[Object]} yScale    Y-Skalierung (d3)
  */
 module.exports.updateAll = function(data, index, values, v_bundle, xScale, yScale){
+  if(!module.exports.mouse){
+    return;
+  }
   // updateTooltip aufrufen, Datensatz filtern.
   for (var i = 0; i < values.length; i++) {
     module.exports.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
   }
-
-  // Vertikalen Strich zeichnen, TODO
 }
