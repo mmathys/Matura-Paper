@@ -57,7 +57,7 @@ d3.json("meta.json", function(err, res) {
     alert(err);
     return;
   }
-  
+
   config = [];
   datasetsMeta = res.datasets;
 
@@ -320,10 +320,12 @@ function loadVisualization(data) {
     }
 
     // Tooltip und Linie aktualisieren
+    tooltip.updateAll(data, index, values, v_bundle, xScale, yScale);
+
     for(var i = 0; i<values.length; i++) {
-      tooltip.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
       line.update(filter.row(data, values[i].rowId), index, values[i], v_bundle);
     }
+
   }
 
   /**
@@ -419,9 +421,7 @@ function loadVisualization(data) {
     .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
     .on("mousemove", function() {
       tooltip.mouse = d3.mouse(this);
-      for(var i = 0; i<values.length; i++) {
-        tooltip.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
-      }
+      tooltip.updateAll(data, index, values, v_bundle, xScale, yScale);
     });
 
   // Overlay für die Detailanzeige für Tooltip

@@ -1,3 +1,5 @@
+var filter = require('./filter');
+
 /**
  * Modul: Tooltip
  * --------------
@@ -100,11 +102,12 @@ module.exports.tooltip = function(data, index, config, v_bundle, pos, indexTextA
 /**
  * Funktion, um den Ort des Tooltips neu zu berechnen (zum Beispiel wenn sich
  * die Maus bewegt oder gezoomt wird).
- * @param  {{Array}}    data        Der Datensatz zu der Visualisation
- * @param  {[d3 Scale]} xScale      Die x-Skala
- * @param  {[d3 Scale]} yScale      Die y-Skala
- * @param  {{Function}} index       Die Config für den Index
- * @param  {{Function}} values      Die Config für die Values
+ * @param  {[Array]} data       Datensatz (Gefiltert)
+ * @param  {[Object]} index     Config-Objekt für den Index
+ * @param  {[Object]} config    Die Config für das Value-Objekt
+ * @param  {[Object]} v_bundle  Accessor-Bundle
+ * @param  {[Object]} xScale    X-Skalierung (d3)
+ * @param  {[Object]} yScale    Y-Skalierung (d3)
  */
 module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, yScale){
   if(!module.exports.mouse){
@@ -132,4 +135,23 @@ module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, y
     var s = (Math.round(v_bundle.raw(config)(d) * 1000) / 1000).toString();
     return s;
   }, config.activated);
+}
+
+/**
+ * - Ruft die Funktion 'updateTooltip' für alle Values auf.
+ * - Aktualisiert den vertikalen Strich
+ * @param  {[Array]} data       Datensatz (ungefiltert)
+ * @param  {[Object]} index     Config-Objekt für den Index
+ * @param  {[Array]} values     Die Config für die Values
+ * @param  {[Object]} v_bundle  Accessor-Bundle
+ * @param  {[Object]} xScale    X-Skalierung (d3)
+ * @param  {[Object]} yScale    Y-Skalierung (d3)
+ */
+module.exports.updateAll = function(data, index, values, v_bundle, xScale, yScale){
+  // updateTooltip aufrufen, Datensatz filtern.
+  for (var i = 0; i < values.length; i++) {
+    module.exports.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
+  }
+
+  // Vertikalen Strich zeichnen, TODO
 }
