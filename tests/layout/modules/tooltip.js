@@ -20,7 +20,7 @@ module.exports.opt = {};
  * @param  {[type]} item          Der zu vergleichende Wert
  * @return {[Number]}             Der Index (0 < @return < data.length-1)
  */
-module.exports.nextIndex = function(data, index, item){
+function nextIndex(data, index, item){
   var pos = -1;
   for(var i = 0; i<data.length-1; i++){
     // Liegt der Punkt zwischen zwei gegebenen Punkten?
@@ -114,7 +114,7 @@ module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, y
 
   var x_date = xScale.invert(x);
 
-  var pos = module.exports.nextIndex(data, index, x_date);
+  var pos = nextIndex(data, index, x_date);
 
   //tooltip
   module.exports.tooltip(data, index, config, v_bundle, pos, function(d){
