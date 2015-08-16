@@ -1,10 +1,12 @@
-# How to set up this project
-Node.js is required
+# SETUP
+Node.js muss installiert sein
 
+- `cd <Projekt-Ordner>`
 - `npm install -g gulp`
 - `npm install`
 
-##  Running the project
+##  Projekt laufen lassen
 
-- `gulp init` (Used to initialize the project libraries, can be run only once)
+- `gulp init`
 - `gulp develop`
+- Im Browser auf `localhost:8000/<Testname>` gehen (z. B. `http://localhost:8000/layout/`).
