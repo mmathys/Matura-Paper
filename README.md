@@ -7,7 +7,7 @@ Disposition: https://docs.google.com/document/d/1OWqexQhUHcKKRMq04wUl6j6b8KyvUbU
 ## Ziel
 Diese Arbeit soll Methoden in einem interaktiven Diagramme darstellen, die zum **verbesserten Informationsertrag** führen sollen.
 
-Es gibt viele verschiedene Typen von Diagrammen...
+Es gibt viele verschiedene Typen von Diagrammen (Aufzählung)
 
 ## Untersuchungsaspekte
 ### *Scatterplot*
@@ -38,8 +38,8 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
 
 #### Probleme gelöst
-- Überschwappen der Punkte: Lösung durch Anwenden einer SVG-Maske
-- Mehrere Dateien importieren: Im meta.json werden Optionen für einzelne Datenreihen definiert. Die Identifikation wird durch den Spaltennamen durchgeführt. Wenn man aber jetzt mehrere Dateien mit identischen Zeilennamen hat, wird es schwierig, die zu unterscheiden und als separate Linien zu definieren. Darum funktioniert die Merge-Strategie nicht. Für alle Elemente muss die url angegeben werden, auch die Definition im meta.json.
+- Überfliessen der Punkte: Lösung durch Anwenden einer SVG-Maske
+- Mehrere Dateien importieren: Im meta.json werden Optionen für einzelne Datenreihen definiert. Die Identifikation wird durch den Spaltennamen durchgeführt. Wenn man aber jetzt mehrere Dateien mit identischen Zeilennamen hat, wird es schwierig, die zu unterscheiden und als separate Datenreihen zu definieren. Darum funktioniert die Merge-Strategie nicht. Für alle Elemente muss die url angegeben werden, auch die Definition im meta.json.
 - Mehrere Dateien: meta.json
 - Spalten unterscheiden, die den gleichen Spaltennamen besitzen: `row#url`-Lösung
 - mkcb problem: Problem mit Variablen accessors.
