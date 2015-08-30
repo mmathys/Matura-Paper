@@ -1,26 +1,7 @@
-# Interaktive Diagramme darstellen (Disposition)
+# Interaktive Diagramme darstellen
 Maturitätsarbeit Max Mathys
 
-## Disposition
-
-### Einleitung 
-- Erläutern, für welche Gebiete oder Probleme Diagramme nützlich sind; Anwendungsbereich der Diagramme erläutern
-- Erläutern: Das Datensammeln ist oft nicht aufwendig; das Auswerten/Darstellen ist oft ein Problem
-- Problem erläutern: Was will man verbessern (durch Interaktion (u. a.) den Informationsertrag bei Diagrammen erhöhen)
-
-### (theoretischer teil)*
-- Theoretischer Teil: Welche Rolle spielen Farben, Formen, Linien, Interaktion...
-- Begründung der "Theorien": Methoden, die man im Programm umsetzen will festhalten
-
-### Arbeitsprozess / Praktischer Teil
-- Umsetzung der Theorie
-- Erkenntnisse bezüglich Informationsvermittlung (-> Verbesserungen am Programm?)
-- Beschreiben der Algorithmen (z. B. Interpolation)
-
-### Reflexion
-- angetroffenene (technische) Probleme beim Programmieren
-
-**muss noch angepasst werden*
+Disposition: https://docs.google.com/document/d/1OWqexQhUHcKKRMq04wUl6j6b8KyvUbUPV8hGogIMkr0/edit
 
 # Notizen
 ## Ziel
