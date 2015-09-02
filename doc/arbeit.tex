@@ -1,4 +1,4 @@
-\documentclass[12pt]{ociamthesis}  % default square logo 
+\documentclass[12pt]{document}  % default square logo 
 %\documentclass[12pt,beltcrest]{ociamthesis} % use old belt crest logo
 %\documentclass[12pt,shieldcrest]{ociamthesis} % use older shield crest logo
 
@@ -7,11 +7,13 @@
 % Korrektes Kodieren des in und outputs
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{url}
+
 
 %Deutsche Silbentrennung
 \RequirePackage{hyphsubst}%
 \HyphSubstIfExists{ngerman-x-latest}{\HyphSubstLet{ngerman}{ngerman-x-latest}}{}
-\usepackage[ngerman]{babel}
+
 
 %input macros (i.e. write your own macros file called mymacros.tex 
 %and uncomment the next line)
@@ -21,7 +23,7 @@
         kommt hier hin}   %note \\[1ex] is a line break in the title
 
 \author{Max Mathys}             %your name
-\college{Mathematisch- Naturwissenschaftliches Gymnasium Rämibühl}  %your college
+\college{Mathematisch-Naturwissenschaftliches Gymnasium Rämibühl}  %your college
 
 %\renewcommand{\submittedtext}{change the default text here if needed}
 \degree{Maturitätsarbeit}     %the degree

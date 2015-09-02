@@ -206,7 +206,7 @@
 \renewenvironment{abstract} {\begin{alwayssingle} \thispagestyle{empty}
   \begin{center}
   \vspace*{1.5cm}
-  {\Large \bfseries  Abstrakt}
+  {\Large \bfseries  Abstract}
   \end{center}
   \vspace{0.5cm}
    \begin{quote}}
@@ -253,3 +253,8 @@
 \newenvironment{romanpages}
 {\cleardoublepage\setcounter{page}{1}\renewcommand{\thepage}{\roman{page}}}
 {\cleardoublepage\renewcommand{\thepage}{\arabic{page}}\setcounter{page}{1}}
+
+
+% Sprache
+\usepackage[ngerman]{babel}
+
