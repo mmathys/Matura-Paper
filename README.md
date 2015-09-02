@@ -12,6 +12,8 @@ Es gibt viele verschiedene Typen von Diagrammen (Aufzählung)
 ## Untersuchungsaspekte
 ### *Scatterplot*
 (neuster Test: `layout`)
+Daten: CO2-Verbrauch in kt/Jahr/Land
+Quelle: Work Bank Group via Quandl
 
 Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
@@ -46,6 +48,10 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 - Spalten unterscheiden, die den gleichen Spaltennamen besitzen: `row#url`-Lösung
 - mkcb problem: Problem mit Variablen accessors.
 
+### *Boxplot*
+(neuster Test: `boxplot`)
+Umsetzung eines Boxplots-Diagramms mit Jahresdurchschnittsdaten der Temperatur von schweizer Meteostationen.
+Quelle: agrometeo.ch
 
 ### *Pie-Diagramm*
 Ein modifiziertes Pie-Diagramm, das sich
