@@ -12,7 +12,9 @@ Es gibt viele verschiedene Typen von Diagrammen (Aufzählung)
 ## Untersuchungsaspekte
 ### *Scatterplot*
 (neuster Test: `layout`)
+
 Daten: CO2-Verbrauch in kt/Jahr/Land
+
 Quelle: Work Bank Group via Quandl
 
 Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
