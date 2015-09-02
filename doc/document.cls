@@ -4,7 +4,7 @@
 % Version 1.0 released 26/11/1997
 %-------------------------- identification ---------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ociamthesis}[2010/11/22 v2.2 OCIAM thesis class]
+\ProvidesClass{document}[2010/11/22 v2.2 OCIAM thesis class]
 %-------------------------- initial code -----------------------
 \def\logoversion{squarelogo}
 \DeclareOption{beltcrest}{\def\logoversion{beltcrest}}
@@ -248,7 +248,7 @@
 %
 % The romanpages environment set the page numbering to lowercase roman one
 % for the contents and figures lists. It also resets
-% page-numbering for the remainder of the dissertation (arabic, starting at 1).
+% page-numbering for the remainder of the dissertation (ara11c, starting at 1).
 
 \newenvironment{romanpages}
 {\cleardoublepage\setcounter{page}{1}\renewcommand{\thepage}{\roman{page}}}
