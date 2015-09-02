@@ -1,0 +1,17 @@
+{
+  "datasets": [
+    {
+      "url":"data/agrometeo-data.csv",
+      "config":
+      [
+        {
+          "row": "Temperatur mittel",
+          "type": "value",
+          "data_type": "Number",
+          "name": "Durchschnittstemperatur",
+          "unit":"Grad Celsius"
+        }
+      ]
+    }
+  ]
+}

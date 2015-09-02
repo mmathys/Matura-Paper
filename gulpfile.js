@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var server = require('gulp-server-livereload');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
+var bs = require('browser-sync').create()
 
 // bundling
 var browserify = require('browserify');
@@ -18,22 +18,28 @@ gulp.task('init', ['libs']);
 gulp.task('build', ['css', 'files', 'js', 'lint', 'webserver']);
 gulp.task('develop', ['build', 'watch']);
 
-gulp.task('watch', function() {
+gulp.task('watch', ['files', 'lint', 'js', 'css'], function() {
   gulp.watch(['./common/scss/*.scss', './tests/**/*.scss'], ['css']);
   gulp.watch(['./tests/**/*.{html,png,jpg,jpeg,svg,csv,json,txt}'], ['files']);
   gulp.watch(['./tests/**/*.js'], ['js', 'lint']);
 });
+
+gulp.task('refresh', function() {
+  bs.refresh();
+})
 
 gulp.task('css', function() {
 
   gulp.src(['./common/scss/*.scss'])
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('style.css'))
-    .pipe(gulp.dest('./dist/css'));
+    .pipe(gulp.dest('./dist/css'))
+    .pipe(bs.stream());
 
   gulp.src(['./tests/**/*.scss'])
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .pipe(bs.stream());
 });
 
 gulp.task('js', function() {
@@ -58,12 +64,10 @@ gulp.task('js', function() {
             .pipe(uglify())
             .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(path.join('./dist', testName)));
-
+        .pipe(gulp.dest(path.join('./dist', testName)))
+        .pipe(bs.stream())
     });
   });
-
-
 });
 
 gulp.task('lint', function() {
@@ -74,17 +78,20 @@ gulp.task('lint', function() {
 
 gulp.task('libs', function() {
   gulp.src('common/lib/*.js')
-  .pipe(gulp.dest('dist/js'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('files', function() {
   gulp.src(['./tests/**/*.{html,png,jpg,jpeg,svg,csv,json,txt}'])
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .pipe(bs.stream())
 });
 
-gulp.task('webserver', function() {
-  gulp.src('dist')
-    .pipe(server({
-      livereload: true
-    }));
+gulp.task('webserver', ['files', 'lint', 'js', 'css'], function() {
+    bs.init({
+        server: {
+            baseDir: "./dist"
+        },
+        open: false
+    });
 });
