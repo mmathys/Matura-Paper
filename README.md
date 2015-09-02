@@ -11,6 +11,8 @@ Es gibt viele verschiedene Typen von Diagrammen (Aufzählung)
 
 ## Untersuchungsaspekte
 ### *Scatterplot*
+(neuster Test: `layout`)
+
 Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
 - Einfügen
