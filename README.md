@@ -10,7 +10,7 @@ Diese Arbeit soll Methoden in einem interaktiven Diagramme darstellen, die zum *
 Es gibt viele verschiedene Typen von Diagrammen (Aufzählung)
 
 ## Untersuchungsaspekte
-### *Scatterplot*
+### *Scatterplot* (neuster Test: `layout`)
 Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
 - Einfügen
