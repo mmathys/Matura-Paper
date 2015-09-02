@@ -29,6 +29,14 @@
 \degree{Maturitätsarbeit}     %the degree
 \degreedate{2016}         %the degree date
 
+
+\usepackage{biblatex}
+
+% \bibliography{<mybibfile>}% ONLY selects .bib file; syntax for version <= 1.1b
+\addbibresource{refs.bib}% Syntax for version >= 1.2
+
+
+
 %end the preamble and start the document
 \begin{document}
 
@@ -64,8 +72,8 @@
 \addcontentsline{toc}{chapter}{Bibliography}
 %uncomment next line to change bibliography name to references
 \renewcommand{\bibname}{Quellenverzeichnis}
-\bibliography{refs}        %use a bibtex bibliography file refs.bib
-\bibliographystyle{plain}  %use the plain bibliography style
+\printbibliography     %use a bibtex bibliography file refs.bib
+
 
 \end{document}
 
