@@ -52,7 +52,9 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 
 ### *Boxplot*
 (neuster Test: `boxplot`)
+
 Umsetzung eines Boxplots-Diagramms mit Jahresdurchschnittsdaten der Temperatur von schweizer Meteostationen.
+
 Quelle: agrometeo.ch
 
 ### *Pie-Diagramm*
