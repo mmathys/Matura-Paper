@@ -10,8 +10,7 @@ Diese Arbeit soll Methoden in einem interaktiven Diagramme darstellen, die zum *
 Es gibt viele verschiedene Typen von Diagrammen (Aufzählung)
 
 ## Untersuchungsaspekte
-### *Scatterplot*
-(neuster Test: `layout`)
+### *Scatterplot* @ `layout`
 
 Daten: CO2-Verbrauch in kt/Jahr/Land
 
@@ -50,8 +49,7 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 - Spalten unterscheiden, die den gleichen Spaltennamen besitzen: `row#url`-Lösung
 - mkcb problem: Problem mit Variablen accessors.
 
-### *Boxplot*
-(neuster Test: `boxplot`)
+### *Boxplot* @ `boxplot`
 
 Umsetzung eines Boxplots-Diagramms mit Jahresdurchschnittsdaten der Temperatur von schweizer Meteostationen.
 
