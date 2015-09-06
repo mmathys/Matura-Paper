@@ -3,6 +3,7 @@ var id = require('./modules/id');
 var format = require('./modules/format');
 var filter = require('./modules/filter');
 var domain = require('./modules/domain');
+var boxplot = require('./modules/boxplot')
 
 /*******************************************************************************
  *
@@ -23,6 +24,12 @@ var config            // Config-Array für _alle_ Elemente
   , yAxis
   , v_accessor        // Funktion, die den Werteaccessor zurückgibt
   , v_bundle          // Objekt, das die drei v-Funktionen enthält.
+
+  , median            // (Boxplot-spezifisch) Der Median
+  , q1                // Das erste Quartil
+  , q3                // Das dritte Quartil
+
+  , boxplot_h = 200   // Höhe der Box in Pixel
 
   , w                 // Breite der Visualisation
   , h                 // Höhe der Visualisation
@@ -200,7 +207,7 @@ function loadFiles() {
       // Alle Datein sind heruntergeladen worden und gemergt.
 
       // Sortieren (4)
-      data = sort(data, v_bundle.raw);
+      data = sort(data, v_bundle.raw(values[0]));
 
       // Weitergeben (5)
       loadVisualization(data);
@@ -222,7 +229,7 @@ function loadFiles() {
  */
 function loadVisualization(data) {
 
-  wertebereich = domain.overflowY(data, values, v_bundle, 1.0);
+  console.log(data)
 
   // Die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
   // wendet werden kann, obwohl sie erst später definiert wird.
@@ -234,7 +241,7 @@ function loadVisualization(data) {
   function draw() {
     // Achsen neu zeichnen
     //TODO
-    //xAxisContainer.call(xAxis);
+    yAxisContainer.call(yAxis);
   }
 
   /**
@@ -273,18 +280,52 @@ function loadVisualization(data) {
    * d3-Achsen einfügen
    *
    */
+  // Wertebereich bestimmen für die Achsen
+  wertebereich = domain.overflowY(data, values, v_bundle, 1.2);
 
-  //TODO
+  yScale.domain(wertebereich)
+  yScale.range([0,w - graphTransform.xstart - graphTransform.xend])
+  yAxis.orient("bottom")
 
-  /*
-  var xAxisContainer = v.append("g")
-    .attr("class", "axis axis-x")
+  var yAxisContainer = v.append("g")
+    .attr("class", "axis axis-y")
     .attr("transform", "translate(" +
       graphTransform.xstart + "," +
       (h - graphTransform.ybottom) + ")")
-    .call(xAxis);
+    .call(yAxis);
 
-  */
+  /**
+   *
+   * Berechnung des Boxplots
+   *
+   */
+
+  // Median, Quartile setzen
+  median = boxplot.median(data, values, v_bundle)
+  q1 = boxplot.q1(data, values, v_bundle)
+  q3 = boxplot.q3(data, values, v_bundle)
+
+  // Umrechnen auf Pixelwerte auf dem Bildschirm
+
+  var median_s = yScale(median);
+  var q1_s = yScale(q1);
+  var q3_s = yScale(q3);
+  console.log("q1", q1, "scaled", q1_s)
+  console.log("q3", q3, "scaled", q3_s)
+
+  //Berechnen der Koordinaten der Box
+  var x = q1_s
+  var graphHeight = h - graphTransform.ytop - graphTransform.ybottom
+  var y = graphHeight/2 - boxplot_h/2
+  var width = q3_s-q1_s
+  var height = boxplot_h
+
+  v.append("rect")
+    .attr("class", "boxplot")
+    .attr("x", x)
+    .attr("y", y)
+    .attr("width", width)
+    .attr("height", height)
 
   /**
    *

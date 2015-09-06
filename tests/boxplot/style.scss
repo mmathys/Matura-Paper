@@ -58,9 +58,8 @@ $data-title-font-size: 16px;
 
 .tick > line {
   fill: none;
-  stroke: $graph-borders-color;
   stroke-width: $graph-axis-tick-size;
-
+  stroke: $graph-borders-color;
 }
 
 .tick > text {
