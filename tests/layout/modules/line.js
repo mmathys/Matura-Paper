@@ -15,6 +15,7 @@ var filter = require("./filter");
  */
 module.exports.mode = "undefined";
 
+
 /**
  * Fügt eine Linie für die angegebnen Datenspalte hinzu.
  * @param  {[Array]} data       Datensatz
@@ -126,5 +127,16 @@ module.exports.setActivated = function(activated, config){
     // Aktiviert: Zeigen, danach das Modul points entscheiden lassen.
     points_s.classed("hidden", !activated);
   }
+
+}
+
+module.exports.lineVisibility = function(visible, values) {
+  // Verstecke alle Linien, falls visible. Sonst wende config.activated an.
+  for(var i = 0; i < values.length; i++) {
+    console.log("line with visibility = ", values[i].activated, "@", values[i].rowId)
+    var line = d3.selectAll(".line[data-row='"+values[i].rowId+"']")
+    line.classed("hidden", visible ? !values[i].activated : true);
+  }
+  console.log(".")
 
 }

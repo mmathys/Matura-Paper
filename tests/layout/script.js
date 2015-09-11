@@ -40,6 +40,7 @@ var config            // Config-Array für _alle_ Elemente
 
   , mouse             // Die Koordinaten der Maus
   , showPoints        // Gibt an, ob Punkte angezeigt werden sollen
+  , showLines         // Gibt an, ob die Linien angezeigt werden sollen
 
   ;
 
@@ -449,7 +450,7 @@ function loadVisualization(data) {
 
    // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
    // Sichtbarkeit akutalisieren.
-   $('#checkbox').on('change', function() {
+   $('#checkbox-points').on('change', function() {
      if($(this).is(":checked")){
        showPoints = true;
      } else {
@@ -457,6 +458,15 @@ function loadVisualization(data) {
       }
       points.visible = showPoints;
       points.updateVisibility(values);
+   });
+
+   $('#checkbox-lines').on('change', function() {
+     if($(this).is(":checked")){
+       showLines = true;
+     } else {
+       showLines = false;
+      }
+    line.lineVisibility(showLines, values)
    });
 
    /**
