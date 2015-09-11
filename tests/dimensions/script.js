@@ -6,6 +6,7 @@ var id = require('./modules/id');
 var format = require('./modules/format');
 var filter = require('./modules/filter');
 var domain = require('./modules/domain');
+var range = require('./modules/range')
 
 /*******************************************************************************
  *
@@ -285,246 +286,145 @@ function loadFiles() {
 function loadVisualization(data) {
 
   /**
-   *
-   *  Achsen initalisieren (d3)
-   *
-   */
-
-  xWertebereich = domain.overflowX(data, index, 1.1);
-  yWertebereich = domain.overflowY(data, values, v_bundle, 1.1);
-  xScale.domain(xWertebereich);
-  yScale.domain(yWertebereich);
-
-  /**
-   *
-   * Zoom (d3)
-   *
-   */
-
-  // Zoom hinzufügen
-  var zoom = d3.behavior.zoom()
-    .x(xScale)
-    .y(yScale)
-    .scaleExtent([0.9, 50])
-    .on("zoom", draw);
-
-  // Die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
-  // wendet werden kann, obwohl sie erst später definiert wird.
-  var graph;
-
-  /**
-   * Wird aufgerufen, sobald der Graph neu gezeichnet werden sollte.
-   */
-  function draw() {
-    // Achsen neu zeichnen TODO
-    //xAxisContainer.call(xAxis);
-    //yAxisContainer.call(yAxis);
-
-    // Punkte neu berechnen.
-    for(var i = 0; i<values.length; i++) {
-      var p = v.selectAll("circle.data-point[data-row='" + values[i].rowId + "']")
-        .attr("cx", index.accessor_scaled)
-        .attr("cy", v_accessor_scaled(values[i]));
-    }
-
-    // Tooltip und Linie aktualisieren
-    tooltip.updateAll(data, index, values, v_bundle, xScale, yScale);
-
-    line.updateAll(data, index, values, v_bundle);
-
-  }
-
-  /**
-   *
-   * Elemente einfügen
-   *
-   */
-
-  /** NOTE
-   * mehrere graphen: isolierte values[] ;)
+   * Keine Achsen
+   * Jede Untereinander
+   * Anzahl Spalten -> Höhe, Lage der Kasten
+   * Für jede Datenreihe: Wertebereich
    */
 
    // SVG-Element mit id 'visualization' extrahieren aus html
    var v = d3.select("#visualization")
      .attr("width", w)
-     .attr("height", h)
+     .attr("height", h);
 
-  var trans = [0, 0];
+  var spaltenAnzahl = values.length+1;
+  tileW = w/spaltenAnzahl;
+  tileH = h/spaltenAnzahl;
 
-  var i_g = v.append("g")
-    .classed("tile", true)
-    .attr("width", tileW)
-    .attr("height", tileH)
-    .attr("transform", "translate("+(graphTransform.xstart+trans[0])+","+(graphTransform.ytop+trans[1])+")")
+  //Domains
+  xScale.domain(domain.overflowX(data, index, 1.1));
+  for(var i = 0; i<values.length; i++){
+    // Datentyp der Skalen festlegen
+    if(values[i].data_type=="Number") {
+      values[i].scale = d3.scale.linear();
+    } else if(values[i].data_type=="Date") {
+      values[i].scale = d3.time.scale();
+    }
+    var xD = [];
+    xD[0] = range.min(data, v_bundle.raw(values[i]));
+    xD[1] = range.max(data, v_bundle.raw(values[i]));
+    xD[1] = range.applyOverflow(xD[0], xD[1],
+      1.1, values[i].data_type);
+    values[i].scale.domain(xD);
+  }
 
-  putIsolated(i_g, values[0])
+  // Scale Ranges TODO
+  var graphConfArray = [];
 
-  trans = [200, 200];
+  for(var i = 0; i<spaltenAnzahl; i++) {
+    for(var j = 0; j<spaltenAnzahl; j++){
+      if(i!=j){
+        var xConfig, xAccessor, xScale_tmp, data_tmp = [];
+        if(i==0){
+          xConfig = index;
+          xAccessor = index.accessor;
+          xScale_tmp = xScale;
+        }else{
+          xConfig = values[i-1];
+          xAccessor = v_bundle.raw(values[i-1]);
+          xScale_tmp = values[i-1].scale;
+          data_tmp = filter.row(data, values[i-1].rowId)
+        }
 
-  var i_g2 = v.append("g")
-    .classed("tile", true)
-    .attr("width", tileW)
-    .attr("height", tileH)
-    .attr("transform", "translate("+(graphTransform.xstart+trans[0])+","+(graphTransform.ytop+trans[1])+")")
+        var yConfig, yAccessor, yScale;
+        if(j==0){
+          yConfig = index;
+          yAccessor = index.accessor;
+          yScale = xScale;
+        }else{
+          yConfig = values[j-1];
+          yAccessor = v_bundle.raw(values[j-1]);
+          yScale = values[j-1].scale;
+          //merge
+          var data_to_merge = filter.row(data, values[j-1].rowId);
+          if(data_tmp.length!=0){
+            for(var k = 0; k<data_to_merge.length; k++){
+              data_tmp[k][values[j-1].rowId] = yAccessor(data_to_merge[k]);
+            }
+            console.log("merged");
+            console.log(data_tmp)
+          }else{
+            data_tmp=data_to_merge;
+          }
+        }
 
-  putIsolated(i_g2, values[1])
+        var obj = {
+          xConfig: xConfig,
+          yConfig: yConfig,
+          xAccessor: xAccessor,
+          yAccessor: yAccessor,
+          xScale: xScale_tmp,
+          yScale: yScale,
+          data: data_tmp
+        };
+        graphConfArray.push(obj);
+      }
+    }
+  }
 
-  console.log(data)
+  // draw.
+  var graph;
 
-  function putIsolated(v, config) {
+  for(var i = 0; i<spaltenAnzahl; i++) {
+    for(var j = 0; j<spaltenAnzahl; j++){
+      if(i!=j){
+        drawGraph(i,j,graphConfArray[i*spaltenAnzahl+j+1])
+      }
+    }
+  }
 
-    var isolated = [config];
+  function drawGraph(zeile, spalte, config) {
+    var x = spalte*tileW;
+    var y = zeile*tileH;
+    var graphId = zeile+","+spalte;
+    mask(x, y, graphId);
+    items(x, y, graphId, config);
+  }
 
-    console.log("isolated", isolated)
-
-    // Unterstützung für Zoom hinzufügen
-    v.call(zoom);
-
-    // SVG-Maske für den Graph: Wir wollen nicht, dass Punkte aus unserem
-    // definierten Feld auftauchen. Siehe Masken-Problem.
+  function mask(x, y, graphId) {
     v.append("mask")
-      .attr("id", "mask")
+      .attr("id", "mask"+graphId)
       .append("rect")
-        .attr("x", 0)
-        .attr("y", 0)
+        .attr("x", x)
+        .attr("y", x)
         .attr("width", tileW)
         .attr("height", tileH)
         .attr("fill", "white");
 
-    // Container für die Visualisation hinzufügen und zu der Maske linken
-    // Transformation nach den definierten Angaben mit transform, translate
-    // TODO
-    graph = v.append("g")
-      .attr("id", "graph")
-      .attr("transform", "translate(" + 0 +
-        "," + 0 + ")")
-      .attr("mask", "url(#mask)");
+    }
 
-    // Die Punkte zeichnen für jede Datenspalte
-    for(var i = 0; i<isolated.length; i++) {
+    function items(x,y,graphId,config) {
+      // Container für die Visualisation hinzufügen und zu der Maske linken
+      // Transformation nach den definierten Angaben mit transform, translate
+      // TODO
+      var graph = v.append("g")
+        .attr("id", "graph"+graphId)
+        .attr("transform", "translate(" + x +
+          "," + y + ")")
+        .attr("mask", "url(#mask"+graphId+")");
 
-      // Die Punkte einer Spalte haben für das Attribut data-row die generierte id
-      // (siehe Identifikations-Problem)
-      var circles = graph.selectAll("circle[data-row='"+isolated[i].rowId+"']")
+      var circles = graph.selectAll("circle")
 
-        // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
-        // entsprechende Reihe besitzen. Siehe Merge-Problem.
-        // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
-        // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
-        .data(filter.row(data, isolated[i].rowId)).enter();
+      // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
+      // entsprechende Reihe besitzen. Siehe Merge-Problem.
+      // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
+      // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
+      .data(config.data).enter();
 
       // Aktionen an Datengebundener Selektion ausführen
       circles.append("circle")
-          .attr("class", "data-point")
-          .attr("data-row", isolated[i].rowId)
-          .attr("cx", index.accessor_scaled)
-          .attr("cy", v_accessor_scaled(isolated[i]));
+        .attr("class", "data-point")
+        .attr("cx", function(){return config.xScale(config.xAccessor)})
+        .attr("cy", function(){return config.yScale(config.yAccessor)});
     }
-
-    // Sichtbarkeit der Punkte akualisieren
-    points.updateVisibility(isolated);
-
-    /**
-     *
-     * d3-Achsen einfügen TODO
-     *
-     */
-
-    /*
-    var xAxisContainer = v.append("g")
-      .attr("class", "axis axis-x")
-      .attr("transform", "translate(" +
-        graphTransform.xstart + "," +
-        (h - graphTransform.ybottom) + ")")
-      .call(xAxis);
-
-    var yAxisContainer = v.append("g")
-      .attr("class", "axis axis-y")
-      .attr("transform", "translate("+graphTransform.xstart+",0)")
-      .call(yAxis);
-    */
-
-
-    /**
-     *
-     * Tooltip (nicht von d3, selber implementiert)
-     *
-     */
-
-    // Maus-Koordinaten: Um auf die Maus-Koordinaten zugreifen zu können, muss man
-    // ein unsichtbares Element über den gesamten Graph legen, der alle
-    // 'Maus-Events' "aufnimmt". Ein leerer g-SVG-Container (wie 'graph') ist
-    // nicht fähig, Maus-Events aufzunehmen. Siehe Event-Problem.
-    v.append("rect")
-      .attr("id", "overlay")
-      .attr("x", 0 /*TODO*/)
-      .attr("y", 0 /*TODO*/)
-      .attr("width", tileW)
-      .attr("height", tileH)
-      .on("mousemove", function() {
-        tooltip.mouse = d3.mouse(this);
-        tooltip.updateAll(data, index, isolated, v_bundle, xScale, yScale);
-      });
-
-    // Overlay für die Detailanzeige für Tooltip
-    // //TODO?
-    d3.select("#display-overlay")
-      .attr("style", "left: " + graphTransform.xstart + "px;" +
-        "top: " + graphTransform.ytop + "px;" +
-        "max-width: " + (w-graphTransform.xstart-graphTransform.xend) + "px;" +
-        "max-height: "+ (h-graphTransform.ytop-graphTransform.ybottom) +"px;" );
-
-    /**
-     *
-     * Linien
-     *
-     */
-
-     // Für jede Datenspalte die Linie einfügen
-     for(var i = 0; i<isolated.length; i++) {
-        line.addLine(filter.row(data, isolated[i].rowId), index, isolated[i], v_bundle);
-     }
-
-     // Linien nicht in Scatterplot-Matrizen anzeigen (ausser es wird explizit
-     // gewünscht)
-     showLines = false;
-     line.lineVisibility(showLines, isolated)
-
-   }
-
-   /**
-    *
-    * Optionen
-    *
-    */
-
-   // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
-   // Sichtbarkeit akutalisieren.
-   $('#checkbox-points').on('change', function() {
-     if($(this).is(":checked")){
-       showPoints = true;
-     } else {
-       showPoints = false;
-      }
-      points.visible = showPoints;
-      points.updateVisibility(values);
-   });
-
-   $('#checkbox-lines').on('change', function() {
-     if($(this).is(":checked")){
-       showLines = true;
-     } else {
-       showLines = false;
-      }
-    line.lineVisibility(showLines, values)
-   });
-
-   // Falls der Interpolationsmodus wechselt: Neuen Modus setzen und Linien
-   // aktualisieren.
-   $('select').on('change', function() {
-     line.mode = this.value;
-     line.updateAll(data, index, values, v_bundle);
-   });
-
-   //Toggles: Keine Toggles für Scatterplot-Matrizen
 }
