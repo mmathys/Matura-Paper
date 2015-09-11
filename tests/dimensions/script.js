@@ -6,7 +6,6 @@ var id = require('./modules/id');
 var format = require('./modules/format');
 var filter = require('./modules/filter');
 var domain = require('./modules/domain');
-var toggle = require('./modules/toggle');
 
 /*******************************************************************************
  *
@@ -447,6 +446,17 @@ function loadVisualization(data) {
      line.mode = this.value;
      line.updateAll(data, index, values, v_bundle);
    });
+
+   // Linien nicht in Scatterplot-Matrizen anzeigen (ausser es wird explizit
+   // gewünscht)
+   showLines = false;
+   line.lineVisibility(showLines, values)
+
+   /**
+    *
+    * Optionen
+    *
+    */
 
    // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
    // Sichtbarkeit akutalisieren.
