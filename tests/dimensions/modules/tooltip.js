@@ -111,6 +111,9 @@ module.exports.tooltip = function(data, index, config, v_bundle, pos, indexTextA
  */
 module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, yScale){
   var x = module.exports.mouse[0]-module.exports.opt.graphTransform.xstart;
+  //use at first raw mouse, calculate shit later
+  //TODO
+  var x = module.exports.mouse[0];
 
   var x_date = xScale.invert(x);
 
