@@ -320,7 +320,10 @@ function loadVisualization(data) {
   function init() {
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+    var w = window.innerWidth*.8
+    var h = window.innerHeight*.7
+
+    camera = new THREE.PerspectiveCamera( 45, w/h, 1, 10000 );
     camera.position.x = 80
     camera.position.y = 70
     camera.position.z = 150
@@ -333,7 +336,7 @@ function loadVisualization(data) {
     material2 = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( w,h );
 
     axis();
 
