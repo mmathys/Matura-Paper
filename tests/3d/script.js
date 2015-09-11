@@ -330,7 +330,7 @@ function loadVisualization(data) {
     controls.addEventListener( 'change', render );
 
     material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: false } );
-    material2 = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } );
+    material2 = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize( window.innerWidth, window.innerHeight );
@@ -357,24 +357,19 @@ function loadVisualization(data) {
   }
 
   function axis() {
-    var x = [toScene(0,0,0), toScene(100,0,0)]
-    var y = [toScene(0,0,0), toScene(0,100,0)]
-    var z = [toScene(0,0,0), toScene(0,0,100)]
+    var origin = new THREE.Vector3( -50, -50, -50 );
+    var length = 100;
+    var hex = 0x000000;
 
-    for (var i = 0; i < 3; i++) {
-      a = [x,y,z][i];
-      lg = new THREE.Geometry();
-      lg.vertices.push(new THREE.Vector3(a[0][0],a[0][1],a[0][2]));
-      lg.vertices.push(new THREE.Vector3(a[1][0],a[1][1],a[1][2]));
-      line = new THREE.Line(lg, material2);
-      scene.add(line)
-    }
+    scene.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, 0xff0000 ) );
+    scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
+    scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
+
 
     var dashed = new THREE.LineDashedMaterial({
-           vertexColors: true,
-           color: 0x00ff00,
-           dashSize: 20,
-           gapSize: 20,
+           color: 0xdedede,
+           dashSize: 3,
+           gapSize: 2,
            scale: 1
        });
 
@@ -393,6 +388,7 @@ function loadVisualization(data) {
       lg = new THREE.Geometry();
       lg.vertices.push(new THREE.Vector3(a[0][0],a[0][1],a[0][2]));
       lg.vertices.push(new THREE.Vector3(a[1][0],a[1][1],a[1][2]));
+      lg.computeLineDistances();
       line = new THREE.Line(lg, dashed);
       scene.add(line)
     }
