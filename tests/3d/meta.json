@@ -35,7 +35,7 @@
           "row": "Value",
           "type": "value",
           "data_type": "Number",
-          "name": "Employment",
+          "name": "Anstellung",
           "unit":"Mio. Personen"
         }
       ]

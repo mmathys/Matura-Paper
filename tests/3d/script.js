@@ -286,6 +286,9 @@ function loadFiles() {
  */
 function loadVisualization(data) {
 
+  $("#xtext").html((index.name?index.name:index.row));
+  $("#ytext").html((values[0].name?values[0].name:values[0].row)+" in "+values[0].unit);
+  $("#ztext").html((values[1].name?values[1].name:values[1].row)+" in "+values[1].unit);
 
   xWertebereich = domain.overflowX(data, index, 1.1);
 
