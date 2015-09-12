@@ -456,8 +456,36 @@ function loadVisualization(data) {
     for(var j = 0; j<spaltenAnzahl; j++){
       if(i!=j){
         drawGraph(i,j,graphConfArray[c++])
+      }else {
+        var name;
+        if(i==0){
+          name = index.name?index.name:index.row
+        }else {
+          name = values[i-1].name?values[i-1].name:values[i-1].row
+        }
+        drawLabel(i,j,name)
+        
       }
     }
+  }
+
+  /**
+   * Zeichnet die Beschriftung
+   */
+  function drawLabel(zeile, spalte, name){
+    v.append("rect")
+      .attr("x", spalte*tileW)
+      .attr("y", zeile*tileH)
+      .attr("width", tileW)
+      .attr("height", tileH)
+      .classed("label", true);
+    v.append("text")
+      .classed("label-text", true)
+      .attr("text-anchor", "middle")
+      .attr("alignment-baseline", "middle")
+      .attr("x", spalte*tileW+tileW*.5)
+      .attr("y", zeile*tileH+tileH*.5)
+      .html(name)
   }
 
   /**
