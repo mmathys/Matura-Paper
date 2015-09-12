@@ -303,6 +303,8 @@ function loadVisualization(data) {
 
   //Domains
   xScale.domain(domain.overflowX(data, index, 1.1));
+
+  var buf;
   for(var i = 0; i<values.length; i++){
     // Datentyp der Skalen festlegen
     if(values[i].data_type=="Number") {
@@ -310,62 +312,149 @@ function loadVisualization(data) {
     } else if(values[i].data_type=="Date") {
       values[i].scale = d3.time.scale();
     }
+
     var xD = [];
     xD[0] = range.min(data, v_bundle.raw(values[i]));
     xD[1] = range.max(data, v_bundle.raw(values[i]));
     xD[1] = range.applyOverflow(xD[0], xD[1],
       1.1, values[i].data_type);
+
     values[i].scale.domain(xD);
+
+    if(!buf){
+      buf = filter.row(data, values[i].rowId).length;
+    }
+    if(buf != filter.row(data, values[i].rowId).length) {
+      alert("datasets mismatch")
+    }
   }
 
   // Scale Ranges TODO
   var graphConfArray = [];
 
+  function x_ac(ide) {
+    var x_i = ide.split(',')[0];
+    var y_i = ide.split(',')[1];
+    x_i = parseInt(x_i);
+    y_i = parseInt(y_i);
+    return x_i==0?index.accessor:v_bundle.raw(values[x_i-1])
+  }
+
+  function y_ac(ide) {
+    var x_i = ide.split(',')[0];
+    var y_i = ide.split(',')[1];
+    x_i = parseInt(x_i);
+    y_i = parseInt(y_i);
+    return y_i == 0 ? index.accessor : v_bundle.raw(values[y_i-1])
+  }
+
+  function x_sc(ide) {
+    var x_i = ide.split(',')[0];
+    var y_i = ide.split(',')[1];
+    x_i = parseInt(x_i);
+    y_i = parseInt(y_i);
+
+    var sc;
+    if(x_i==0){
+      sc=xScale;
+    }else{
+      if(values[x_i-1].data_type=="Number") {
+        sc = d3.scale.linear();
+      } else if(values[x_i-1].data_type=="Date") {
+        sc = d3.time.scale();
+      }
+      var xD = [];
+      xD[0] = range.min(data, v_bundle.raw(values[x_i-1]));
+      xD[1] = range.max(data, v_bundle.raw(values[x_i-1]));
+      xD[1] = range.applyOverflow(xD[0], xD[1],
+        1.1, values[x_i-1].data_type);
+      sc.domain(xD);
+    }
+    sc.range([0,tileW]);
+    return sc;
+  }
+  function y_sc(ide) {
+    var x_i = ide.split(',')[0];
+    var y_i = ide.split(',')[1];
+    x_i = parseInt(x_i);
+    y_i = parseInt(y_i);
+
+    var sc;
+    if(y_i==0){
+      sc=xScale;
+    }else{
+      if(values[y_i-1].data_type=="Number") {
+        sc = d3.scale.linear();
+      } else if(values[y_i-1].data_type=="Date") {
+        sc = d3.time.scale();
+      }
+      var xD = [];
+      xD[0] = range.min(data, v_bundle.raw(values[y_i-1]));
+      xD[1] = range.max(data, v_bundle.raw(values[y_i-1]));
+      xD[1] = range.applyOverflow(xD[0], xD[1],
+        1.1, values[y_i-1].data_type);
+      sc.domain(xD);
+    }
+    sc.range([tileH,0]);
+    return sc;
+  }
+
   for(var i = 0; i<spaltenAnzahl; i++) {
     for(var j = 0; j<spaltenAnzahl; j++){
       if(i!=j){
-        var xConfig, xAccessor, xScale_tmp, data_tmp = [];
+        var xConfig, xAccessor, xScale_tmp
+        data_tmp = [];
+        copy = [];
         if(i==0){
           xConfig = index;
-          xAccessor = index.accessor;
-          xScale_tmp = xScale;
+          xScale_tmp = xScale.range([0,tileW])
         }else{
           xConfig = values[i-1];
-          xAccessor = v_bundle.raw(values[i-1]);
-          xScale_tmp = values[i-1].scale;
-          data_tmp = filter.row(data, values[i-1].rowId)
+          xScale_tmp = values[i-1].scale.range([0,tileW])
+          copy = filter.row(data, values[i-1].rowId);
         }
 
-        var yConfig, yAccessor, yScale;
+
+        console.log("xscale has range",xScale_tmp.range(),"and domain",xScale_tmp.domain(),"at",i,"-",j)
+
+        var yConfig, yAccessor, yScale_tmp;
         if(j==0){
           yConfig = index;
           yAccessor = index.accessor;
-          yScale = xScale;
+          yScale_tmp = xScale.range([tileH,0])
+          data_tmp = copy;
         }else{
           yConfig = values[j-1];
           yAccessor = v_bundle.raw(values[j-1]);
-          yScale = values[j-1].scale;
+          yScale_tmp = values[j-1].scale.range([tileH,0])
           //merge
-          var data_to_merge = filter.row(data, values[j-1].rowId);
-          if(data_tmp.length!=0){
+          var data_to_merge = [];
+          data_to_merge = filter.row(data, values[j-1].rowId);
+          var here = JSON.parse(JSON.stringify(copy))
+          if(here.length!=0){
             for(var k = 0; k<data_to_merge.length; k++){
-              data_tmp[k][values[j-1].rowId] = yAccessor(data_to_merge[k]);
+              here[k][values[j-1].rowId] = yAccessor(data_to_merge[k]);
             }
-            console.log("merged");
-            console.log(data_tmp)
+            data_tmp = here;
+            copy = undefined;
           }else{
             data_tmp=data_to_merge;
           }
         }
 
+
+
+        yScale_tmp.range([tileH,0])
+
+        console.log("yscale has range",yScale_tmp.range(),"and domain",yScale_tmp.domain(),"at",i,"-",j)
+
         var obj = {
           xConfig: xConfig,
           yConfig: yConfig,
-          xAccessor: xAccessor,
-          yAccessor: yAccessor,
           xScale: xScale_tmp,
-          yScale: yScale,
-          data: data_tmp
+          yScale: yScale_tmp,
+          data: data_tmp,
+          id: i+","+j
         };
         graphConfArray.push(obj);
       }
@@ -374,11 +463,11 @@ function loadVisualization(data) {
 
   // draw.
   var graph;
-
+  var c = 0;
   for(var i = 0; i<spaltenAnzahl; i++) {
     for(var j = 0; j<spaltenAnzahl; j++){
       if(i!=j){
-        drawGraph(i,j,graphConfArray[i*spaltenAnzahl+j+1])
+        drawGraph(i,j,graphConfArray[c++])
       }
     }
   }
@@ -386,32 +475,31 @@ function loadVisualization(data) {
   function drawGraph(zeile, spalte, config) {
     var x = spalte*tileW;
     var y = zeile*tileH;
-    var graphId = zeile+","+spalte;
-    mask(x, y, graphId);
-    items(x, y, graphId, config);
+    items(x, y, config, (zeile+"-"+spalte));
   }
-
-  function mask(x, y, graphId) {
-    v.append("mask")
-      .attr("id", "mask"+graphId)
-      .append("rect")
-        .attr("x", x)
-        .attr("y", x)
-        .attr("width", tileW)
-        .attr("height", tileH)
-        .attr("fill", "white");
-
+  function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
     }
+    return copy;
+}
 
-    function items(x,y,graphId,config) {
+    function items(x,y,config, graphId) {
       // Container für die Visualisation hinzufügen und zu der Maske linken
       // Transformation nach den definierten Angaben mit transform, translate
       // TODO
       var graph = v.append("g")
-        .attr("id", "graph"+graphId)
+        .attr("id", graphId)
         .attr("transform", "translate(" + x +
-          "," + y + ")")
-        .attr("mask", "url(#mask"+graphId+")");
+          "," + y + ")");
+
+      graph.append("rect")
+        .attr("class", "tile")
+        .attr("width", tileW)
+        .attr("height", tileH);
+
 
       var circles = graph.selectAll("circle")
 
@@ -424,7 +512,16 @@ function loadVisualization(data) {
       // Aktionen an Datengebundener Selektion ausführen
       circles.append("circle")
         .attr("class", "data-point")
-        .attr("cx", function(){return config.xScale(config.xAccessor)})
-        .attr("cy", function(){return config.yScale(config.yAccessor)});
+        .attr("cx", function(d){
+          //get Scale
+          var scale = x_sc(config.id);
+          var ac = x_ac(config.id);
+          return scale(ac(d));
+        })
+        .attr("cy", function(d){
+          var scale = y_sc(config.id);
+          var ac = y_ac(config.id);
+          return scale(ac(d));
+        })
     }
 }
