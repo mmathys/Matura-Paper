@@ -326,20 +326,29 @@ function loadVisualization(data) {
     var w = window.innerWidth*.8
     var h = window.innerHeight*.7
 
-    camera = new THREE.PerspectiveCamera( 45, w/h, 1, 10000 );
+    var cameraP = new THREE.PerspectiveCamera( 45, w/h, 1, 10000 );
+    var cameraO = new THREE.OrthographicCamera(w/-2,w/2,h/2,h/-2,1,1000)
+    camera = new THREE.CombinedCamera(w/2,h/2,70,1,1000,-500,1000)
+    camera.cameraO = cameraO
+    camera.cameraP = cameraP;
+
+    //override.
+    camera = cameraP;
+
+
     camera.position.x = 80
     camera.position.y = 70
     camera.position.z = 150
-
-    controls = new THREE.OrbitControls( camera );
-    controls.damping = 0.2;
-    controls.addEventListener( 'change', render );
 
     material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: false } );
     material2 = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize( w,h );
+
+    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    controls.damping = 0.2;
+    controls.addEventListener( 'change', render );
 
     axis();
 
@@ -412,15 +421,23 @@ function loadVisualization(data) {
       sphere = new THREE.SphereGeometry(.5, 8, 6 );
       smesh = new THREE.Mesh(sphere, material);
       var arr = toScene(x, y, z);
-      console.log("@", x,y,z)
-      console.log("@",arr)
-      console.log(".")
       smesh.translateX(arr[0]);
       smesh.translateY(arr[1]);
       smesh.translateZ(arr[2]);
       scene.add(smesh);
-
     }
   }
+
+  $('#xy').click(function(){
+    console.log("click")
+  })
+
+  $('#xz').click(function(){
+
+  })
+
+  $('#yz').click(function(){
+
+  })
 
 }
