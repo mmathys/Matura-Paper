@@ -459,12 +459,12 @@ function loadVisualization(data) {
       }else {
         var name;
         if(i==0){
-          name = index.name?index.name:index.row
+          name = (index.name?index.name:index.row) + (index.unit?(" in " + index.unit):"");
         }else {
-          name = values[i-1].name?values[i-1].name:values[i-1].row
+          name = (values[i-1].name?values[i-1].name:values[i-1].row) + (values[i-1].unit?(" in " + values[i-1].unit):"")
         }
         drawLabel(i,j,name)
-        
+
       }
     }
   }
