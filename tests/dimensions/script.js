@@ -304,23 +304,9 @@ function loadVisualization(data) {
   //Domains
   xScale.domain(domain.overflowX(data, index, 1.1));
 
+  //testen, ob alle datensätze die gleiche länge haben.
   var buf;
   for(var i = 0; i<values.length; i++){
-    // Datentyp der Skalen festlegen
-    if(values[i].data_type=="Number") {
-      values[i].scale = d3.scale.linear();
-    } else if(values[i].data_type=="Date") {
-      values[i].scale = d3.time.scale();
-    }
-
-    var xD = [];
-    xD[0] = range.min(data, v_bundle.raw(values[i]));
-    xD[1] = range.max(data, v_bundle.raw(values[i]));
-    xD[1] = range.applyOverflow(xD[0], xD[1],
-      1.1, values[i].data_type);
-
-    values[i].scale.domain(xD);
-
     if(!buf){
       buf = filter.row(data, values[i].rowId).length;
     }
@@ -329,8 +315,11 @@ function loadVisualization(data) {
     }
   }
 
-  // Scale Ranges TODO
   var graphConfArray = [];
+
+  // Funktionen, die entweder den Accessor oder die Skalierung für die entsprechende
+  // Datenspalte zurückgeben: x_ac und y_ac sind für die Accessoren zuständig,
+  // x_sc und y_sc für die Skalierungen.
 
   function x_ac(ide) {
     var x_i = ide.split(',')[0];
@@ -350,19 +339,20 @@ function loadVisualization(data) {
 
   function x_sc(ide) {
     var x_i = ide.split(',')[0];
-    var y_i = ide.split(',')[1];
     x_i = parseInt(x_i);
-    y_i = parseInt(y_i);
 
     var sc;
-    if(x_i==0){
-      sc=xScale;
+    if(x_i == 0){
+      sc = xScale;
     }else{
-      if(values[x_i-1].data_type=="Number") {
+      //Datentyp der Spalte festlegen
+      if(values[x_i-1].data_type == "Number") {
         sc = d3.scale.linear();
-      } else if(values[x_i-1].data_type=="Date") {
+      } else if(values[x_i-1].data_type == "Date") {
         sc = d3.time.scale();
       }
+
+      // Wertebereich der Daten bestimmen
       var xD = [];
       xD[0] = range.min(data, v_bundle.raw(values[x_i-1]));
       xD[1] = range.max(data, v_bundle.raw(values[x_i-1]));
@@ -370,24 +360,27 @@ function loadVisualization(data) {
         1.1, values[x_i-1].data_type);
       sc.domain(xD);
     }
+
+    // Wertebereich der Skalierung bestimmen
     sc.range([0,tileW]);
     return sc;
   }
   function y_sc(ide) {
-    var x_i = ide.split(',')[0];
     var y_i = ide.split(',')[1];
-    x_i = parseInt(x_i);
     y_i = parseInt(y_i);
 
     var sc;
-    if(y_i==0){
+    if(y_i == 0){
       sc=xScale;
     }else{
-      if(values[y_i-1].data_type=="Number") {
+      //Datentyp bestimmen
+      if(values[y_i-1].data_type == "Number") {
         sc = d3.scale.linear();
-      } else if(values[y_i-1].data_type=="Date") {
+      } else if(values[y_i-1].data_type == "Date") {
         sc = d3.time.scale();
       }
+
+      //Wertebereich der Daten bestimmen
       var xD = [];
       xD[0] = range.min(data, v_bundle.raw(values[y_i-1]));
       xD[1] = range.max(data, v_bundle.raw(values[y_i-1]));
@@ -395,6 +388,8 @@ function loadVisualization(data) {
         1.1, values[y_i-1].data_type);
       sc.domain(xD);
     }
+
+    // Wertebereich der Skalierung bestimmen
     sc.range([tileH,0]);
     return sc;
   }
@@ -402,38 +397,37 @@ function loadVisualization(data) {
   for(var i = 0; i<spaltenAnzahl; i++) {
     for(var j = 0; j<spaltenAnzahl; j++){
       if(i!=j){
-        var xConfig, xAccessor, xScale_tmp
+        var xConfig;
         data_tmp = [];
         copy = [];
+
         if(i==0){
           xConfig = index;
-          xScale_tmp = xScale.range([0,tileW])
         }else{
           xConfig = values[i-1];
-          xScale_tmp = values[i-1].scale.range([0,tileW])
           copy = filter.row(data, values[i-1].rowId);
         }
 
+        var yConfig;
 
-        console.log("xscale has range",xScale_tmp.range(),"and domain",xScale_tmp.domain(),"at",i,"-",j)
-
-        var yConfig, yAccessor, yScale_tmp;
         if(j==0){
           yConfig = index;
-          yAccessor = index.accessor;
-          yScale_tmp = xScale.range([tileH,0])
           data_tmp = copy;
         }else{
           yConfig = values[j-1];
-          yAccessor = v_bundle.raw(values[j-1]);
-          yScale_tmp = values[j-1].scale.range([tileH,0])
-          //merge
+          // Datensatz zusammenführen, falls im ersten Fall bei X ebenfalls
+          // eine Wertespalte benutzt wurde
+
           var data_to_merge = [];
           data_to_merge = filter.row(data, values[j-1].rowId);
+
+          // Daten unlinken, Referenz zum Original-Objekt zerstören
           var here = JSON.parse(JSON.stringify(copy))
+
+          //Zusammenführen
           if(here.length!=0){
             for(var k = 0; k<data_to_merge.length; k++){
-              here[k][values[j-1].rowId] = yAccessor(data_to_merge[k]);
+              here[k][values[j-1].rowId] = y_ac(i+","+j)(data_to_merge[k]);
             }
             data_tmp = here;
             copy = undefined;
@@ -442,17 +436,11 @@ function loadVisualization(data) {
           }
         }
 
-
-
-        yScale_tmp.range([tileH,0])
-
-        console.log("yscale has range",yScale_tmp.range(),"and domain",yScale_tmp.domain(),"at",i,"-",j)
-
+        // Die berechneten Attribute in ein Objekt speichern und graphConfArray
+        // übergeben.
         var obj = {
           xConfig: xConfig,
           yConfig: yConfig,
-          xScale: xScale_tmp,
-          yScale: yScale_tmp,
           data: data_tmp,
           id: i+","+j
         };
@@ -461,7 +449,7 @@ function loadVisualization(data) {
     }
   }
 
-  // draw.
+  // Matrix zeichnen
   var graph;
   var c = 0;
   for(var i = 0; i<spaltenAnzahl; i++) {
@@ -472,56 +460,54 @@ function loadVisualization(data) {
     }
   }
 
+  /**
+   * Zeichnet den Graphen
+   */
   function drawGraph(zeile, spalte, config) {
     var x = spalte*tileW;
     var y = zeile*tileH;
     items(x, y, config, (zeile+"-"+spalte));
   }
-  function clone(obj) {
-    if (null == obj || "object" != typeof obj) return obj;
-    var copy = obj.constructor();
-    for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
-    }
-    return copy;
-}
 
-    function items(x,y,config, graphId) {
-      // Container für die Visualisation hinzufügen und zu der Maske linken
-      // Transformation nach den definierten Angaben mit transform, translate
-      // TODO
-      var graph = v.append("g")
-        .attr("id", graphId)
-        .attr("transform", "translate(" + x +
-          "," + y + ")");
+  /**
+   * Zeichnet die einzelnen Graphen in der Matrix an der Position x, y
+   */
+  function items(x, y, config, graphId) {
+    // Container für die Visualisation hinzufügen und zu der Maske linken
+    // Transformation nach den definierten Angaben mit transform, translate
 
-      graph.append("rect")
-        .attr("class", "tile")
-        .attr("width", tileW)
-        .attr("height", tileH);
+    var graph = v.append("g")
+      .attr("id", graphId)
+      .attr("transform", "translate(" + x +
+        "," + y + ")");
 
+    graph.append("rect")
+      .attr("class", "tile")
+      .attr("width", tileW)
+      .attr("height", tileH);
 
-      var circles = graph.selectAll("circle")
+    var circles = graph.selectAll("circle")
 
-      // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
-      // entsprechende Reihe besitzen. Siehe Merge-Problem.
-      // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
-      // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
-      .data(config.data).enter();
+    // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
+    // entsprechende Reihe besitzen. Siehe Merge-Problem.
+    // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
+    // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
+    .data(config.data).enter();
 
-      // Aktionen an Datengebundener Selektion ausführen
-      circles.append("circle")
-        .attr("class", "data-point")
-        .attr("cx", function(d){
-          //get Scale
-          var scale = x_sc(config.id);
-          var ac = x_ac(config.id);
-          return scale(ac(d));
-        })
-        .attr("cy", function(d){
-          var scale = y_sc(config.id);
-          var ac = y_ac(config.id);
-          return scale(ac(d));
-        })
-    }
+    // Aktionen an Datengebundener Selektion ausführen
+    circles.append("circle")
+      .attr("class", "data-point")
+      .attr("cx", function(d){
+        // Skalierung und Accessor durch Superaccessoren abrufen
+        var scale = x_sc(config.id);
+        var ac = x_ac(config.id);
+        return scale(ac(d));
+      })
+      .attr("cy", function(d){
+        // Skalierung und Accessor durch Superaccessoren abrufen
+        var scale = y_sc(config.id);
+        var ac = y_ac(config.id);
+        return scale(ac(d));
+      })
+  }
 }
