@@ -329,12 +329,10 @@ function loadVisualization(data) {
     var cameraP = new THREE.PerspectiveCamera( 45, w/h, 1, 10000 );
     var cameraO = new THREE.OrthographicCamera(w/-2,w/2,h/2,h/-2,1,1000)
     camera = new THREE.CombinedCamera(w/2,h/2,70,1,1000,-500,1000)
-    camera.cameraO = cameraO
-    camera.cameraP = cameraP;
 
     //override.
-    camera = cameraP;
-
+    camera.setZoom(1.2)
+    camera.toPerspective();
 
     camera.position.x = 80
     camera.position.y = 70
@@ -365,6 +363,7 @@ function loadVisualization(data) {
 
   function render() {
     renderer.render( scene, camera );
+    console.log("cords: ", camera.position.x, camera.position.y, camera.position.z)
   }
 
   function toScene(x, y, z){
@@ -429,15 +428,36 @@ function loadVisualization(data) {
   }
 
   $('#xy').click(function(){
-    console.log("click")
+    camera.toOrthographic();
+    console.log("click", camera)
+    camera.toOrthographic();
+    camera.setZoom(5);
+    var cc = toScene(50, -50, 50);
+    camera.position.x = cc[0];
+    camera.position.y = cc[1];
+    camera.position.z = cc[2];
   })
 
   $('#xz').click(function(){
-
+    camera.toOrthographic();
+    console.log("click", camera)
+    camera.toOrthographic();
+    camera.setZoom(5);
+    var cc = toScene(50, 50, -50);
+    camera.position.x = cc[0];
+    camera.position.y = cc[1];
+    camera.position.z = cc[2];
   })
 
   $('#yz').click(function(){
-
+    camera.toOrthographic();
+    console.log("click", camera)
+    camera.toOrthographic();
+    camera.setZoom(5);
+    var cc = toScene(-50, 50, 50);
+    camera.position.x = cc[0];
+    camera.position.y = cc[1];
+    camera.position.z = cc[2];
   })
 
 }
