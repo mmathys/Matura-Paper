@@ -319,6 +319,7 @@ function loadVisualization(data) {
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
+    TWEEN.update();
   }
   function init() {
     scene = new THREE.Scene();
@@ -331,7 +332,7 @@ function loadVisualization(data) {
     camera = new THREE.CombinedCamera(w/2,h/2,70,1,1000,-500,1000)
 
     //override.
-    camera.setZoom(1.2)
+    camera.setZoom(1);
     camera.toPerspective();
 
     camera.position.x = 80
@@ -364,6 +365,8 @@ function loadVisualization(data) {
   function render() {
     renderer.render( scene, camera );
     console.log("cords: ", camera.position.x, camera.position.y, camera.position.z)
+    //console.log("in scene: ", camera.position.x+50, camera.position.y+50, camera.position.z+50)
+    //console.log(camera.rotation.x*180/Math.PI, camera.rotation.y*180/Math.PI, camera.rotation.z*180/Math.PI);
   }
 
   function toScene(x, y, z){
@@ -427,37 +430,86 @@ function loadVisualization(data) {
     }
   }
 
-  $('#xy').click(function(){
-    camera.toOrthographic();
-    console.log("click", camera)
+  $('#toPerspective').click(function(){
+    camera.toPerspective();
+    camera.setZoom(1);
+    camera.updateProjectionMatrix();
+    render();
+  })
+
+  $('#toOrtho').click(function(){
     camera.toOrthographic();
     camera.setZoom(5);
-    var cc = toScene(50, -50, 50);
-    camera.position.x = cc[0];
-    camera.position.y = cc[1];
-    camera.position.z = cc[2];
+    camera.updateProjectionMatrix();
+    render();
+  })
+
+  $('#xy').click(function(){
+    ortho("xy");
   })
 
   $('#xz').click(function(){
-    camera.toOrthographic();
-    console.log("click", camera)
-    camera.toOrthographic();
-    camera.setZoom(5);
-    var cc = toScene(50, 50, -50);
-    camera.position.x = cc[0];
-    camera.position.y = cc[1];
-    camera.position.z = cc[2];
+    ortho("xz");
   })
 
   $('#yz').click(function(){
-    camera.toOrthographic();
-    console.log("click", camera)
-    camera.toOrthographic();
-    camera.setZoom(5);
-    var cc = toScene(-50, 50, 50);
-    camera.position.x = cc[0];
-    camera.position.y = cc[1];
-    camera.position.z = cc[2];
+    ortho("yz");
   })
+
+  function ortho(mode){
+    if(camera.inPerspectiveMode){
+      camera.setZoom(1);
+    }else{
+      camera.setZoom(5);
+    }
+    var cc;
+    if(mode=="xy"){
+      cc = toScene(50, -100, 50) //eigentlich xz [y]
+      //rot: 90 0 0
+      //BUG
+
+    }else if(mode=="xz"){ //eigentlich xy [z];
+      cc = toScene(50, 50, 200)
+      //rot: 0 0 0
+    }else if(mode=="yz"){ //eigentlich yz [x]
+      cc = toScene(-100, 50, 50)
+      //rot: 0 -90 0
+      //BUG
+    }
+
+    //camera.position.x = cc[0];
+    //camera.position.y = cc[1];
+    //camera.position.z = cc[2];
+
+
+    var posx = { x : camera.position.x};
+    var posy = { x : camera.position.y};
+    var posz = { x : camera.position.z};
+
+    var tarx = { x : cc[0]};
+    var tary = { x : cc[1]};
+    var tarz = { x : cc[2]};
+
+    var tx = new TWEEN.Tween(posx).to(tarx, 1400);
+    var ty = new TWEEN.Tween(posy).to(tary, 1400);
+    var tz = new TWEEN.Tween(posz).to(tarz, 1400);
+
+    tx.easing(TWEEN.Easing.Cubic.InOut)
+    ty.easing(TWEEN.Easing.Cubic.InOut)
+    tz.easing(TWEEN.Easing.Cubic.InOut)
+
+    tx.onUpdate(function() {
+      camera.position.x = posx.x;
+    });
+    ty.onUpdate(function() {
+      camera.position.y = posy.x;
+    });
+    tz.onUpdate(function() {
+      camera.position.z = posz.x;
+    });
+    tx.start();
+    ty.start();
+    tz.start();
+  }
 
 }
