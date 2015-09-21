@@ -132,6 +132,19 @@ circle#tooltip-circle {
   margin-bottom: 8px;
 }
 
+.toggle {
+  margin-top: 20px;
+}
+
+.btn{
+  margin: 0 5px;
+}
+
+.btns {
+  display:flex;
+  justify-content: center;
+}
+
 .box {
     width:11px;
     height:11px;
@@ -146,4 +159,10 @@ circle#tooltip-circle {
 }
 .blue {
   background-color:blue;
+}
+
+.divider {
+  border-left:1px solid #000;
+  width: 1px;
+  margin: 0 5px;
 }

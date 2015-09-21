@@ -325,7 +325,7 @@ function loadVisualization(data) {
     scene = new THREE.Scene();
 
     var w = window.innerWidth*.8
-    var h = window.innerHeight*.7
+    var h = window.innerHeight*.8
 
     var cameraP = new THREE.PerspectiveCamera( 45, w/h, 1, 10000 );
     var cameraO = new THREE.OrthographicCamera(w/-2,w/2,h/2,h/-2,1,1000)

@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-  <br><br>
-  <div class="toggle container clearfix">
+  <div class="toggle container">
     <p class="caps toggle-title">Dreidimensionaler Scatterplot</p>
-    <p><div class="red box"></div> <span id="xtext" style="color:black;"></span></p>
-    <p><div class="blue box"></div> <span id="ytext" style="color:black;"></span></p>
-    <p><div class="green box"></div> <span id="ztext" style="color:black;"></span></p>
+    <div class="clearfix">
+      <div class="sm-col sm-col-4 px2">
+        <div class="red box"></div> <span id="xtext" style="color:black;"></span>
+      </div>
+      <div class="sm-col sm-col-4 px2">
+        <div class="blue box"></div> <span id="ytext" style="color:black;"></span>
+      </div>
+      <div class="sm-col sm-col-4 px2">
+        <div class="green box"></div> <span id="ztext" style="color:black;"></span>
+      </div>
+    </div>
+
   </div>
   <div id="scroll">
   <div id="visualization-container">
@@ -27,9 +35,10 @@
   </div>
   </div>
   <hr>
-  <div class="container clearfix">
+  <div class="container clearfix btns">
     <button class="btn btn-primary" id="toPerspective">Perspektivische Kamera</button>
     <button class="btn btn-primary" id="toOrtho">Orthographische Kamera</button>
+    <div class="divider"></div>
     <button class="btn btn-outline" id="xy">XY-Projektion</button>
     <button class="btn btn-outline" id="xz">XZ-Projektion</button>
     <button class="btn btn-outline" id="yz">YZ-Projektion</button>
