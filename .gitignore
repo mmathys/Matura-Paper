@@ -105,3 +105,5 @@ dist
 *.xdy
 *.tdo
 
+# ignore pdf output of latex project, as we changed it often
+doc/arbeit.pdf
