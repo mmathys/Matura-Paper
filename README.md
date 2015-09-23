@@ -3,14 +3,10 @@ Maturitätsarbeit Max Mathys
 
 Disposition: https://docs.google.com/document/d/1OWqexQhUHcKKRMq04wUl6j6b8KyvUbUPV8hGogIMkr0/edit
 
-# Notizen
-## Ziel
-Diese Arbeit soll Methoden in einem interaktiven Diagramme darstellen, die zum **verbesserten Informationsertrag** führen sollen.
-
-Es gibt viele verschiedene Typen von Diagrammen (Aufzählung)
+## Aktive Tests: `layout`, `3d`, `dimensions`
 
 ## Untersuchungsaspekte
-### *Scatterplot* @ `layout`
+### *2-D Scatterplot* @ `layout`
 
 Daten: CO2-Verbrauch in kt/Jahr/Land
 
@@ -49,26 +45,19 @@ Es werden verschiedene Aspekte des Diagrammes untersucht und verbessert:
 - Spalten unterscheiden, die den gleichen Spaltennamen besitzen: `row#url`-Lösung
 - mkcb problem: Problem mit Variablen accessors.
 
-### *Boxplot* @ `boxplot`
 
-Umsetzung eines Boxplots-Diagramms mit Jahresdurchschnittsdaten der Temperatur von schweizer Meteostationen.
+### *3-D Scatterplot* @ `3d`
+3-Dimensionaler Scatterplot.
 
-Quelle: agrometeo.ch
-
-### *Pie-Diagramm*
-Ein modifiziertes Pie-Diagramm, das sich
-
-- in den Winkelanteilen der Abschnitte
-- im Radius der Abschnitte
-
-unterscheidet.
+### *n-D Scatterplot* @ `dimensions`
+n-Dimensionaler Scatterplot, mit 2-D Scatterplots als Matrix-Elemente.
 
 ## Dokumentationsaspekte
 - Anforderungen an eine gute Informationsvermittlung
 	- Basierend auf diesem Buch
 
 - Arbeitsprozess:
-	- Studium der theoretischen Grundlagen 
+	- Studium der theoretischen Grundlagen
 	- → Programm schreiben
 	- → "Rückkoppelung"
 
@@ -78,7 +67,6 @@ unterscheidet.
 ## TODO
 
 - **Mehrere y-Skalen unterstützen, Einheitenindex?**
-
 
 
 - **Stacked Lines für gleiche Einheiten?**
@@ -97,4 +85,3 @@ Man muss dafür sorgen, dass die Darstellungen auch wirklich den Informationsert
 
 Man sollte klar darstellen, für welche Aspekte der Arbeit und wieso man d3 verwendet hat.
 Die Verwendung von Tutorials erlaubt eine effiziente und kommeriziell kostengünstige Programmierung. (Eigene Erfahrung während eines Praktikums bei kommerziellen App-Entwicklern, welche u. a. die Swisscom Cloud entwickeln).
-										
