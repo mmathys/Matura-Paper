@@ -9,8 +9,8 @@
  * @param  {[Object]} config Config-Objekt
  * @return {[String]}        ID
  */
-module.exports.get = function(config) {
-  return config.row + "#" + config.url;
+module.exports.get = function (config) {
+  return config.row + '#' + config.url
 }
 
 /**
@@ -19,10 +19,10 @@ module.exports.get = function(config) {
  * @param  {[Array]} values Array von Config-Objekten aller Datenspalten
  * @return {[Object]}       Config-Objekt der Spalte
  */
-module.exports.invert = function(id, values) {
-  for(var i = 0; i<values.length; i++) {
-    if(id == values[i].rowId) {
-      return values[i];
+module.exports.invert = function (id, values) {
+  for (var i = 0; i < values.length; i++) {
+    if (id === values[i].rowId) {
+      return values[i]
     }
   }
 }
@@ -33,6 +33,6 @@ module.exports.invert = function(id, values) {
  * @param  {[String]} url  URL des Datensatzes
  * @return {[String]}      ID
  */
-module.exports.raw = function(attr, url) {
-  return attr+"#"+url;
+module.exports.raw = function (attr, url) {
+  return attr + '#' + url
 }

@@ -10,8 +10,8 @@
  * @param  {{Function}} accessor  Der Accessor für die zu untersuchende Datenreihe
  * @return {[Number]}             Das Minimum
  */
-module.exports.min = function(data, accessor) {
-  return d3.min(data, accessor);
+module.exports.min = function (data, accessor) {
+  return d3.min(data, accessor)
 }
 
 /**
@@ -20,8 +20,8 @@ module.exports.min = function(data, accessor) {
  * @param  {{Function}} index Der Accessor für die zu untersuchende Datenreihe
  * @return {[Object]}         Das Maximum
  */
-module.exports.max = function(data, accessor) {
-  return d3.max(data, accessor);
+module.exports.max = function (data, accessor) {
+  return d3.max(data, accessor)
 }
 
 /**
@@ -33,21 +33,21 @@ module.exports.max = function(data, accessor) {
  *                                  Reihe den Accessor zurückgibt.
  * @return {[Object]}               Das Minimum
  */
-module.exports.minMultipleSets = function(data, values, v_bundle) {
-  var min;
-  for(var i = 0; i<values.length; i++){
-    if(!values[i].activated) {
-      continue;
+module.exports.minMultipleSets = function (data, values, v_bundle) {
+  var min
+  for (var i = 0; i < values.length; i++) {
+    if (!values[i].activated) {
+      continue
     }
-    var lmin = d3.min(data, v_bundle.raw(values[i]));
-    if(typeof lmin == "undefined"){
-      continue;
+    var lmin = d3.min(data, v_bundle.raw(values[i]))
+    if (typeof lmin === 'undefined') {
+      continue
     }
-    if(typeof min == "undefined" || lmin<min) {
-      min = lmin;
+    if (typeof min === 'undefined' || lmin < min) {
+      min = lmin
     }
   }
-  return min;
+  return min
 }
 
 /**
@@ -59,19 +59,19 @@ module.exports.minMultipleSets = function(data, values, v_bundle) {
  *                                   Reihe den Accessor zurückgibt.
  * @return {[Object]}               Das Maximum
  */
-module.exports.maxMultipleSets = function(data, values, v_bundle) {
-  var max;
-  for(var i = 0; i<values.length; i++){
-    if(!values[i].activated) {
-      continue;
+module.exports.maxMultipleSets = function (data, values, v_bundle) {
+  var max
+  for (var i = 0; i < values.length; i++) {
+    if (!values[i].activated) {
+      continue
     }
-    var lmax = d3.max(data, v_bundle.raw(values[i]));
+    var lmax = d3.max(data, v_bundle.raw(values[i]))
 
-    if(typeof max == "undefined" || lmax>max) {
-      max = lmax;
+    if (typeof max === 'undefined' || lmax > max) {
+      max = lmax
     }
   }
-  return max;
+  return max
 }
 
 //  Wertebereich der Daten bestimmen mit d3: Um einen kleinen Abstand zwischen
@@ -90,10 +90,10 @@ module.exports.maxMultipleSets = function(data, values, v_bundle) {
  * @param  {{String}} data_type Der Datentyp von min und max
  * @return {[Number]}           Das Maximum mit Overflow.
  */
-module.exports.applyOverflow = function(min, max, factor, data_type) {
-  if(data_type == "Date") {
-    return new Date(min.getTime() + (max.getTime()-min.getTime()) * factor);
-  } else if(data_type == "Number") {
-    return min + (max-min) * factor;
+module.exports.applyOverflow = function (min, max, factor, data_type) {
+  if (data_type === 'Date') {
+    return new Date(min.getTime() + (max.getTime() - min.getTime()) * factor)
+  } else if (data_type === 'Number') {
+    return min + (max - min) * factor
   }
 }

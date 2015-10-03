@@ -1,5 +1,5 @@
-var sort = require('./sort');
-var id = require('./id');
+var sort = require('./sort')
+var id = require('./id')
 
 /**
  * Modul: Format
@@ -14,19 +14,19 @@ var id = require('./id');
  * @param  {{Array}} config Array von Config-Objekten
  * @return {[Array]}        Gefilterter Datensatz
  */
-module.exports.data_types = function(data, config) {
+module.exports.data_types = function (data, config) {
   // index suchen
-  for(var i = 0; i<data.length; i++) {
-    for(var j = 0; j<config.length; j++) {
-      if(config[j].data_type == "Number") {
-        data[i][config[j].row] = parseFloat(data[i][config[j].row]);
-      } else if(config[j].data_type == "Date") {
+  for (var i = 0; i < data.length; i++) {
+    for (var j = 0; j < config.length; j++) {
+      if (config[j].data_type === 'Number') {
+        data[i][config[j].row] = parseFloat(data[i][config[j].row])
+      } else if (config[j].data_type === 'Date') {
         data[i][config[j].row] =  d3.time.format(config[j].date_format)
-                                    .parse(data[i][config[j].row]);
+                                    .parse(data[i][config[j].row])
       }
     }
   }
-  return data;
+  return data
 }
 
 /**
@@ -36,17 +36,16 @@ module.exports.data_types = function(data, config) {
  * @param  {{Array}} config Array von Config-Objekten
  * @return {[Array]}        Datensatz mit rowIds
  */
-module.exports.ids = function(data, config) {
-
-  for(var i = 0; i<data.length; i++) {
-    for(var j = 0; j<config.length; j++){
-      if(config[j].type == "index"){
-        continue;
+module.exports.ids = function (data, config) {
+  for (var i = 0; i < data.length; i++) {
+    for (var j = 0; j < config.length; j++) {
+      if (config[j].type === 'index') {
+        continue
       }
-      data[i][id.get(config[j])] = data[i][config[j].row];
-      delete data[i][config[j].row];
+      data[i][id.get(config[j])] = data[i][config[j].row]
+      delete data[i][config[j].row]
     }
   }
 
-  return data;
+  return data
 }

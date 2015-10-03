@@ -1,4 +1,4 @@
-var filter = require('./filter');
+var filter = require('./filter')
 
 /**
  * Modul: Tooltip
@@ -12,7 +12,7 @@ var filter = require('./filter');
  * 		definiert.
  * @type {Object}
  */
-module.exports.opt = {};
+module.exports.opt = {}
 
 /**
  * Findet den zu einem gegebenen Wert den nächsten in einem Array vorhandenem Wert.
@@ -22,23 +22,24 @@ module.exports.opt = {};
  * @param  {[type]} item          Der zu vergleichende Wert
  * @return {[Number]}             Der Index (0 < @return < data.length-1)
  */
-function nextIndex(data, index, item){
-  var pos = -1;
-  for(var i = 0; i<data.length-1; i++){
+function nextIndex (data, index, item) {
+  var pos = -1
+  for (var i = 0; i < data.length - 1; i++) {
     // Liegt der Punkt zwischen zwei gegebenen Punkten?
-    var this_d = index.accessor(data[i]);
-    var next = index.accessor(data[i+1]);
-    var afterThis = item >=this_d;
-    var beforeNext = item <= next;
+    var this_d = index.accessor(data[i])
+    var next = index.accessor(data[i + 1])
+    var afterThis = item >= this_d
+    var beforeNext = item <= next
+    var Δ1, Δ2
 
-    if(afterThis && beforeNext){
+    if (afterThis && beforeNext) {
       // Falls ja, setze 'index' auf den index des näheren Punktes.
-      Δ1 = Math.abs(index.accessor(data[i]) - item);
-      Δ2 = Math.abs(index.accessor(data[i+1]) - item);
-      pos = Δ1 < Δ2 ? i : i + 1;
+      Δ1 = Math.abs(index.accessor(data[i]) - item)
+      Δ2 = Math.abs(index.accessor(data[i + 1]) - item)
+      pos = Δ1 < Δ2 ? i : i + 1
     }
   }
-  return pos;
+  return pos
 }
 
 /**
@@ -54,49 +55,45 @@ function nextIndex(data, index, item){
  * @param {{Function}} textAccessor Funktion, die den Text für das Tooltip zu-
  *                                  rückgibt.
  */
-module.exports.tooltip = function(data, index, config, v_bundle, pos, indexTextAccessor, valueTextAccessor, activated) {
-
+module.exports.tooltip = function (data, index, config, v_bundle, pos, indexTextAccessor, valueTextAccessor, activated) {
   // tooltip-Variablen
-  var tip = d3.select("#tooltip[data-row='" + config.rowId + "']");
-  tip.classed("hidden", !activated);
+  var tip = d3.select('#tooltip[data-row="' + config.rowId + '"]')
+  tip.classed('hidden', !activated)
 
-  if(tip.empty()){
-    tip = d3.select("#graph").append("g")
-      .attr("id", "tooltip")
-      .attr("class", "tooltip")
-      .attr("data-row", config.rowId);
+  if (tip.empty()) {
+    tip = d3.select('#graph').append('g')
+      .attr('id', 'tooltip')
+      .attr('class', 'tooltip')
+      .attr('data-row', config.rowId)
 
-    tip.append("circle")
-      .attr("id", "tooltip-circle");
-
-    var label = tip.append("g")
-      .attr("id", "label");
+    tip.append('circle')
+      .attr('id', 'tooltip-circle')
   }
 
-  var indexText;
-  var valueText;
+  var indexText
+  var valueText
 
-  if(pos==-1){
-    tip.attr("visibility", "hidden");
-    indexText = "";
-    valueText = "";
+  if (pos === -1) {
+    tip.attr('visibility', 'hidden')
+    indexText = ''
+    valueText = ''
   } else {
-    indexText = indexTextAccessor(data[pos]);
-    valueText = valueTextAccessor(data[pos])+(config.unit?" "+config.unit:"");
-    tip.attr("visibility", "visible");
-    var cord = v_bundle.cord(index, config)(data[pos]);
-    tip.attr("transform", "translate("+cord[0]+","+cord[1]+")");
+    indexText = indexTextAccessor(data[pos])
+    valueText = valueTextAccessor(data[pos]) + (config.unit ? ' ' + config.unit : '')
+    tip.attr('visibility', 'visible')
+    var cord = v_bundle.cord(index, config)(data[pos])
+    tip.attr('transform', 'translate(' + cord[0] + ',' + cord[1] + ')')
   }
 
-  d3.select(".tip-element[data-row='"+config.rowId+"']"
-    + "> .tip-attribute[data-attribute='" + (index.name ? index.name : index.row ) + "']"
-    + "> span")
-    .text(indexText);
+  d3.select('.tip-element[data-row="' + config.rowId + '"]' +
+    '> .tip-attribute[data-attribute="' + (index.name ? index.name : index.row) + '"]' +
+    '> span')
+    .text(indexText)
 
-  d3.select(".tip-element[data-row='"+config.rowId+"']"
-    + "> .tip-attribute[data-attribute='" + (config.name ? config.name : config.row ) + "']"
-    + "> span")
-    .text(valueText);
+  d3.select('.tip-element[data-row="' + config.rowId + '"]' +
+    '> .tip-attribute[data-attribute="' + (config.name ? config.name : config.row) + '"]' +
+    '> span')
+    .text(valueText)
 }
 
 /**
@@ -109,29 +106,29 @@ module.exports.tooltip = function(data, index, config, v_bundle, pos, indexTextA
  * @param  {[Object]} xScale    X-Skalierung (d3)
  * @param  {[Object]} yScale    Y-Skalierung (d3)
  */
-module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, yScale){
-  var x = module.exports.mouse[0]-module.exports.opt.graphTransform.xstart;
+module.exports.updateTooltip = function (data, index, config, v_bundle, xScale, yScale) {
+  var x = module.exports.mouse[0] - module.exports.opt.graphTransform.xstart
 
-  var x_date = xScale.invert(x);
+  var x_date = xScale.invert(x)
 
-  var pos = nextIndex(data, index, x_date);
+  var pos = nextIndex(data, index, x_date)
 
-  //tooltip
-  module.exports.tooltip(data, index, config, v_bundle, pos, function(d){
-    d = index.accessor(d);
-    if(d instanceof Date){
-      var s=d.getDate().toString()+"/";
-      s+=(d.getMonth()+1).toString()+"/";
-      s+=d.getFullYear().toString();
-      return s;
+  //  tooltip
+  module.exports.tooltip(data, index, config, v_bundle, pos, function (d) {
+    d = index.accessor(d)
+    if (d instanceof Date) {
+      var s = d.getDate().toString() + '/'
+      s += (d.getMonth() + 1).toString() + '/'
+      s += d.getFullYear().toString()
+      return s
     }
-    return d.toString();
-  }, function(d) {
+    return d.toString()
+  }, function (d) {
     // Zahl runden
     // http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
-    var s = (Math.round(v_bundle.raw(config)(d) * 1000) / 1000).toString();
-    return s;
-  }, config.activated);
+    var s = (Math.round(v_bundle.raw(config)(d) * 1000) / 1000).toString()
+    return s
+  }, config.activated)
 }
 
 /**
@@ -143,12 +140,12 @@ module.exports.updateTooltip = function(data, index, config, v_bundle, xScale, y
  * @param  {[Object]} xScale    X-Skalierung (d3)
  * @param  {[Object]} yScale    Y-Skalierung (d3)
  */
-module.exports.updateAll = function(data, index, values, v_bundle, xScale, yScale){
-  if(!module.exports.mouse){
-    return;
+module.exports.updateAll = function (data, index, values, v_bundle, xScale, yScale) {
+  if (!module.exports.mouse) {
+    return
   }
   // updateTooltip aufrufen, Datensatz filtern.
   for (var i = 0; i < values.length; i++) {
-    module.exports.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale);
+    module.exports.updateTooltip(filter.row(data, values[i].rowId), index, values[i], v_bundle, xScale, yScale)
   }
 }

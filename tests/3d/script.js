@@ -1,12 +1,9 @@
-var tooltip = require('./modules/tooltip');
-var line = require('./modules/line');
 var sort = require('./modules/sort');
 var points = require('./modules/points');
 var id = require('./modules/id');
 var format = require('./modules/format');
 var filter = require('./modules/filter');
 var domain = require('./modules/domain');
-var toggle = require('./modules/toggle');
 var range = require('./modules/range')
 
 /*******************************************************************************
@@ -126,9 +123,6 @@ d3.json("meta.json", function(err, res) {
   h = 550;
 
   graphTransform = {xstart: 70, ytop: 0, xend:0, ybottom:50};
-
-  // Das Tooltip über die Transformation benachrichtigen
-  tooltip.opt.graphTransform = graphTransform;
 
   // Globale Maus-Variable initalisieren
   mouse = [];
