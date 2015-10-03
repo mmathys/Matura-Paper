@@ -1,50 +1,47 @@
 var tooltip = require('./modules/tooltip')
 var line = require('./modules/line')
 var sort = require('./modules/sort')
-var points = require('./modules/points');
-var id = require('./modules/id');
-var format = require('./modules/format');
-var filter = require('./modules/filter');
-var domain = require('./modules/domain');
-var toggle = require('./modules/toggle');
+var points = require('./modules/points')
+var id = require('./modules/id')
+var format = require('./modules/format')
+var filter = require('./modules/filter')
+var domain = require('./modules/domain')
+var toggle = require('./modules/toggle')
 
-/*******************************************************************************
+/**
  *
  *
  * Initialisierung Visualisation
  *
  *
- ******************************************************************************/
+ */
 
 // Für die Visualisation benötigte Variablen
 
-var config            // Config-Array für _alle_ Elemente
-  , datasetsMeta      // Das 'datasets'-Attribut von meta.json
-  , index             // Config-Objekt für die Index-Spalte (X-Wert)
-  , values            // Config-Array für Werte-Spalten (Y-Werte)
-  , v_accessor        // Funktion, die den Werteaccessor zurückgibt
-  , v_acessor_scaled  // Funktion, die den Skalierten Werteaccessor zurückgibt
-  , v_accessor_cord   // Funktion, die den Koordinatenaccessor zurückgibt
-  , v_bundle          // Objekt, das die drei v-Funktionen enthält.
+var config,         // Config-Array für _alle_ Elemente
+  datasetsMeta,     // Das 'datasets'-Attribut von meta.json
+  index,            // Config-Objekt für die Index-Spalte (X-Wert)
+  values,           // Config-Array für Werte-Spalten (Y-Werte)
+  v_accessor,       // Funktion, die den Werteaccessor zurückgibt
+  v_accessor_cord,  // Funktion, die den Koordinatenaccessor zurückgibt
+  v_accessor_scaled,// Funktion, die den skalierten Wert zurückgibt.
+  v_bundle,         // Objekt, das die drei v-Funktionen enthält.
 
-  , xScale            // X-Skala
-  , yScale            // Y-Skala
-  , xWertebereich     // Bereich der X-Werte
-  , yWertebereich     // Bereich der Y-Werte
-  , xAxis             // X-Achse
-  , yAxis             // Y-Achse
+  xScale,           // X-Skala
+  yScale,           // Y-Skala
+  xWertebereich,    // Bereich der X-Werte
+  yWertebereich,    // Bereich der Y-Werte
+  xAxis,            // X-Achse
+  yAxis,            // Y-Achse
 
-  , w                 // Breite der Visualisation
-  , h                 // Höhe der Visualisation
-  , graphTransform    // Verschiebung des Graphenbereichs
+  w,                // Breite der Visualisation
+  h,                // Höhe der Visualisation
+  graphTransform,   // Verschiebung des Graphenbereichs
 
-  , mouse             // Die Koordinaten der Maus
-  , showPoints        // Gibt an, ob Punkte angezeigt werden sollen
-  , showLines         // Gibt an, ob die Linien angezeigt werden sollen
+  showPoints,       // Gibt an, ob Punkte angezeigt werden sollen
+  showLines         // Gibt an, ob die Linien angezeigt werden sollen
 
-  ;
-
-showPoints = false;
+showPoints = false
 
 /**
  * Laden der Konfigurationsdatei
@@ -52,157 +49,152 @@ showPoints = false;
  *                                            Konfigurationsdatei
  * @param  {[Function]} function(err, config) Callback
  */
-d3.json("meta.json", function(err, res) {
-  if(err) {
-    console.log(err);
-    alert(err);
-    return;
+d3.json('meta.json', function (err, res) {
+  if (err) {
+    console.log(err)
+    alert(err)
+    return
   }
 
-  config = [];
-  datasetsMeta = res.datasets;
+  config = []
+  datasetsMeta = res.datasets
 
-  index = {};
-  values = [];
+  index = {}
+  values = []
 
-  var colors = d3.scale.category20();
+  var colors = d3.scale.category20()
 
-  for(var i = 0; i<datasetsMeta.length; i++) {
-    var dataset = datasetsMeta[i];
-    var url = dataset.url;
+  for (var i = 0; i < datasetsMeta.length; i++) {
+    var dataset = datasetsMeta[i]
+    var url = dataset.url
 
-    for(var j = 0; j<dataset.config.length; j++){
-      var c = dataset.config[j];
-      c.url = url;
+    for (var j = 0; j < dataset.config.length; j++) {
+      var c = dataset.config[j]
+      c.url = url
 
       // Generiere id
-      c.rowId = id.get(c);
+      c.rowId = id.get(c)
 
-      config.push(c);
+      config.push(c)
 
       // Einfügen der Config in index oder values
-      if(c.type == "index"){
-        index = c;
-      } else if(c.type == "value") {
+      if (c.type === 'index') {
+        index = c
+      } else if (c.type === 'value') {
         // Spaltenspezifische Farbe generieren
-        c.color = colors(values.length+1);
+        c.color = colors(values.length + 1)
 
         // Wenn das Attribut activated nicht gesetzt ist, setze es auch true.
-        if(typeof c.activated == 'undefined') {
-          c.activated = true;
+        if (typeof c.activated === 'undefined') {
+          c.activated = true
         }
-        values.push(c);
+        values.push(c)
       }
     }
     // Bei unbekannten Typen: nicht in values oder index einfügen.
   }
 
   // Datentyp der Skalen festlegen
-  if(index.data_type=="Number") {
-    xScale = d3.scale.linear();
-  } else if(index.data_type=="Date") {
-    xScale = d3.time.scale();
+  if (index.data_type === 'Number') {
+    xScale = d3.scale.linear()
+  } else if (index.data_type === 'Date') {
+    xScale = d3.time.scale()
   }
 
-  if(values[0].data_type=="Number"){
-    yScale = d3.scale.linear();
-  } else if(values[0].data_type=="Date") {
-    yScale = d3.time.scale();
+  if (values[0].data_type === 'Number') {
+    yScale = d3.scale.linear()
+  } else if (values[0].data_type === 'Date') {
+    yScale = d3.time.scale()
   }
 
 
 
   // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
   // Graphs
-  w = 1100;
-  h = 550;
+  w = 1100
+  h = 550
 
-  graphTransform = {xstart: 70, ytop: 0, xend:0, ybottom:50};
+  graphTransform = {xstart: 70, ytop: 0, xend: 0, ybottom: 50}
 
   // Das Tooltip über die Transformation benachrichtigen
-  tooltip.opt.graphTransform = graphTransform;
-
-  // Globale Maus-Variable initalisieren
-  mouse = [];
+  tooltip.opt.graphTransform = graphTransform
 
   // Wertebereich der Achsenskalierungen definieren. Hier ist die Anzahl der Pixel
   // gemeint, über die sich die Achsen erstrecken. Die x-Achse und die y-Achse
   // verschieben wir um 50 nach rechts, damit man die y-Achse beschriften kann.
-  xScale.range([0,w - graphTransform.xstart - graphTransform.xend]);
-  yScale.range([h - graphTransform.ytop - graphTransform.ybottom, 0]);
+  xScale.range([0, w - graphTransform.xstart - graphTransform.xend])
+  yScale.range([h - graphTransform.ytop - graphTransform.ybottom, 0])
 
   // Die Achsen werden von d3 generiert.
-  xAxis = d3.svg.axis().scale(xScale).orient("bottom")
-    .ticks(5);
-  yAxis = d3.svg.axis().scale(yScale).orient("left")
+  xAxis = d3.svg.axis().scale(xScale).orient('bottom')
     .ticks(5)
-      .innerTickSize(-w+graphTransform.xstart+graphTransform.xend)
-      .outerTickSize(2);
+  yAxis = d3.svg.axis().scale(yScale).orient('left')
+    .ticks(5)
+      .innerTickSize(-w + graphTransform.xstart + graphTransform.xend)
+      .outerTickSize(2)
 
-  /*******************************************************************************
+  /**
    *
    *
    * Accessors für die Daten
    *
    *
-   ******************************************************************************/
+   */
 
    // Index-Accessor-Funktion: Gibt für eine bestimmte Datenreihe den Wert der
    // Index-Spalte zurück.
 
-   index.accessor = function(d) {
-     return d[index.row];
-   };
+  index.accessor = function (d) {
+    return d[index.row]
+  }
 
-   // ..._scaled: Gibt den Skalierten Wert von accessor zurück.
-   index.accessor_scaled = function(d) {
-     return xScale(d[index.row]);
-   };
+  // ..._scaled: Gibt den Skalierten Wert von accessor zurück.
+  index.accessor_scaled = function (d) {
+    return xScale(d[index.row])
+  }
 
-   // Funktion, die die Werte-Accessor-Funktion zurückgibt. Da sich die Werte-
-   // Accessor-Funktionen im Gegensatz zum statischen Index-Accessor unterschei-
-   // den, müssen sie für jede Spalte neu generiert werden. Diese Funktion ist
-   // dafür zuständig.
+  // Funktion, die die Werte-Accessor-Funktion zurückgibt. Da sich die Werte-
+  // Accessor-Funktionen im Gegensatz zum statischen Index-Accessor unterschei-
+  // den, müssen sie für jede Spalte neu generiert werden. Diese Funktion ist
+  // dafür zuständig.
 
-   v_accessor = function(entry) {
-     return function(d) {
-       return d[entry.rowId];
-     };
-   };
+  v_accessor = function (entry) {
+    return function (d) {
+      return d[entry.rowId]
+    }
+  }
 
-   v_accessor_scaled = function(entry) {
-     return function(d) {
-       return yScale(d[entry.rowId]);
-     }
-   };
+  v_accessor_scaled = function (entry) {
+    return function (d) {
+      return yScale(d[entry.rowId])
+    }
+  }
 
    // Funktion, die den Koordinatenaccessor für die in entry angegebene Spalte
    // zurückgibt.
-   v_accessor_cord = function(index, entry) {
-     return function(d) {
-       return [index.accessor_scaled(d), v_accessor_scaled(entry)(d)];
-     };
-   };
+   v_accessor_cord = function (index, entry) {
+     return function (d) {
+       return [index.accessor_scaled(d), v_accessor_scaled(entry)(d)]
+     }
+   }
 
-   v_bundle = {
-     "raw": v_accessor,
-     "scaled": v_accessor_scaled,
-     "cord": v_accessor_cord
-   };
+  v_bundle = {
+    'raw': v_accessor,
+    'scaled': v_accessor_scaled,
+    'cord': v_accessor_cord
+  }
 
    // Die Daten laden
-   loadFiles();
-});
+  loadFiles()
+})
 
-
-/*******************************************************************************
+/**
  *
  *
  * Laden der Daten
  *
  *
- ******************************************************************************/
-
+ */
 
 /**
  * Die Funktion, die den Datensatz lädt und vorbereitet.
@@ -213,17 +205,16 @@ d3.json("meta.json", function(err, res) {
  * 						4. Sortieren
  * 						5. Die gemergten Datensätze weitergeben
  */
-function loadFiles() {
-
+function loadFiles () {
   // Anzahl von Dateien, die schon heruntergeladen wurden
-  var loaded = 0;
+  var loaded = 0
 
   // Die Variable für die gemergten Datensätze
-  var data = [];
+  var data = []
 
   // Jedes einzelne File herunterladen (1)
-  for(var i = 0; i<datasetsMeta.length; i++){
-    d3.csv(datasetsMeta[i].url, mkcb(i));
+  for (var i = 0; i < datasetsMeta.length; i++) {
+    d3.csv(datasetsMeta[i].url, mkcb(i))
   }
 
   /**
@@ -299,7 +290,7 @@ function loadVisualization(data) {
     .x(xScale)
     .y(yScale)
     .scaleExtent([0.9, 50])
-    .on("zoom", draw);
+    .on('zoom', draw);
 
   // Die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
   // wendet werden kann, obwohl sie erst später definiert wird.
@@ -316,8 +307,8 @@ function loadVisualization(data) {
     // Punkte neu berechnen.
     for(var i = 0; i<values.length; i++) {
       var p = v.selectAll("circle.data-point[data-row='" + values[i].rowId + "']")
-        .attr("cx", index.accessor_scaled)
-        .attr("cy", v_accessor_scaled(values[i]));
+        .attr('cx', index.accessor_scaled)
+        .attr('cy', v_accessor_scaled(values[i]));
     }
 
     // Tooltip und Linie aktualisieren
@@ -334,31 +325,31 @@ function loadVisualization(data) {
    */
 
   // SVG-Element mit id 'visualization' extrahieren aus html
-  var v = d3.select("#visualization")
-    .attr("width", w)
-    .attr("height", h)
+  var v = d3.select('#visualization')
+    .attr('width', w)
+    .attr('height', h)
 
   // Unterstützung für Zoom hinzufügen
     .call(zoom);
 
   // SVG-Maske für den Graph: Wir wollen nicht, dass Punkte aus unserem
   // definierten Feld auftauchen. Siehe Masken-Problem.
-  v.append("mask")
-    .attr("id", "mask")
-    .append("rect")
-      .attr("x", 0)
-      .attr("y", 0)
-      .attr("width", w - graphTransform.xstart - graphTransform.xend)
-      .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
-      .attr("fill", "white");
+  v.append('mask')
+    .attr('id', 'mask')
+    .append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', w - graphTransform.xstart - graphTransform.xend)
+      .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
+      .attr('fill', 'white');
 
   // Container für die Visualisation hinzufügen und zu der Maske linken
   // Transformation nach den definierten Angaben mit transform, translate
-  graph = v.append("g")
-    .attr("id", "graph")
-    .attr("transform", "translate(" + graphTransform.xstart +
-      "," + graphTransform.ytop + ")")
-    .attr("mask", "url(#mask)");
+  graph = v.append('g')
+    .attr('id', 'graph')
+    .attr('transform', 'translate(' + graphTransform.xstart +
+      ',' + graphTransform.ytop + ')')
+    .attr('mask', 'url(#mask)');
 
   // Die Punkte zeichnen für jede Datenspalte
   for(var i = 0; i<values.length; i++) {
@@ -374,11 +365,11 @@ function loadVisualization(data) {
       .data(filter.row(data, values[i].rowId)).enter();
 
     // Aktionen an Datengebundener Selektion ausführen
-    circles.append("circle")
-        .attr("class", "data-point")
-        .attr("data-row", values[i].rowId)
-        .attr("cx", index.accessor_scaled)
-        .attr("cy", v_accessor_scaled(values[i]));
+    circles.append('circle')
+        .attr('class', 'data-point')
+        .attr('data-row', values[i].rowId)
+        .attr('cx', index.accessor_scaled)
+        .attr('cy', v_accessor_scaled(values[i]));
   }
 
   // Sichtbarkeit der Punkte akualisieren
@@ -390,16 +381,16 @@ function loadVisualization(data) {
    *
    */
 
-  var xAxisContainer = v.append("g")
-    .attr("class", "axis axis-x")
-    .attr("transform", "translate(" +
-      graphTransform.xstart + "," +
-      (h - graphTransform.ybottom) + ")")
+  var xAxisContainer = v.append('g')
+    .attr('class', 'axis axis-x')
+    .attr('transform', 'translate(' +
+      graphTransform.xstart + ',' +
+      (h - graphTransform.ybottom) + ')')
     .call(xAxis);
 
-  var yAxisContainer = v.append("g")
-    .attr("class", "axis axis-y")
-    .attr("transform", "translate("+graphTransform.xstart+",0)")
+  var yAxisContainer = v.append('g')
+    .attr('class', 'axis axis-y')
+    .attr('transform', 'translate('+graphTransform.xstart+',0)')
     .call(yAxis);
 
   /**
@@ -410,25 +401,25 @@ function loadVisualization(data) {
 
   // Maus-Koordinaten: Um auf die Maus-Koordinaten zugreifen zu können, muss man
   // ein unsichtbares Element über den gesamten Graph legen, der alle
-  // 'Maus-Events' "aufnimmt". Ein leerer g-SVG-Container (wie 'graph') ist
+  // 'Maus-Events' 'aufnimmt'. Ein leerer g-SVG-Container (wie 'graph') ist
   // nicht fähig, Maus-Events aufzunehmen. Siehe Event-Problem.
-  v.append("rect")
-    .attr("id", "overlay")
-    .attr("x", graphTransform.xstart)
-    .attr("y", graphTransform.ytop)
-    .attr("width", w - graphTransform.xstart - graphTransform.xend)
-    .attr("height", h - graphTransform.ytop - graphTransform.ybottom)
-    .on("mousemove", function() {
+  v.append('rect')
+    .attr('id', 'overlay')
+    .attr('x', graphTransform.xstart)
+    .attr('y', graphTransform.ytop)
+    .attr('width', w - graphTransform.xstart - graphTransform.xend)
+    .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
+    .on('mousemove', function() {
       tooltip.mouse = d3.mouse(this);
       tooltip.updateAll(data, index, values, v_bundle, xScale, yScale);
     });
 
   // Overlay für die Detailanzeige für Tooltip
-  d3.select("#display-overlay")
-    .attr("style", "left: " + graphTransform.xstart + "px;" +
-      "top: " + graphTransform.ytop + "px;" +
-      "max-width: " + (w-graphTransform.xstart-graphTransform.xend) + "px;" +
-      "max-height: "+ (h-graphTransform.ytop-graphTransform.ybottom) +"px;" );
+  d3.select('#display-overlay')
+    .attr('style', 'left: ' + graphTransform.xstart + 'px;' +
+      'top: ' + graphTransform.ytop + 'px;' +
+      'max-width: ' + (w-graphTransform.xstart-graphTransform.xend) + 'px;' +
+      'max-height: '+ (h-graphTransform.ytop-graphTransform.ybottom) +'px;' );
 
   /**
    *
@@ -451,7 +442,7 @@ function loadVisualization(data) {
    // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
    // Sichtbarkeit akutalisieren.
    $('#checkbox-points').on('change', function() {
-     if($(this).is(":checked")){
+     if($(this).is(':checked')){
        showPoints = true;
      } else {
        showPoints = false;
@@ -461,7 +452,7 @@ function loadVisualization(data) {
    });
 
    $('#checkbox-lines').on('change', function() {
-     if($(this).is(":checked")){
+     if($(this).is(':checked')){
        showLines = true;
      } else {
        showLines = false;
