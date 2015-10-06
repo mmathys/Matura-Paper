@@ -39,19 +39,28 @@ Die von Shneidermann beschriebenen Prinzipien für das Design von Benutzeroberfl
 
 \section{Ziel dieser Arbeit}
 
-Das Ziel dieser Arbeit ist es, verschiedene Typen von Diagrammen zu dokumentieren und entwickeln, die in einem Web-Browser dargestellt werden können. Sie sollen den Prinzipien von Shneidermann folgen, und dem Nutzer erlauben, eine bessere Analyse, ein besseres Verständnis über des Datensatzes zu erlangen. Auch soll es dem Nutzer Spass machen ihn ermutigen, sich mit dem Diagramm auseinanderzusetzen.
+Das Ziel dieser Arbeit ist es, verschiedene Typen von Diagrammen zu dokumentieren und zu entwickeln, die in einem Web-Browser dargestellt werden können. Sie sollen den Prinzipien von Shneidermann folgen, und dem Nutzer erlauben, eine bessere Analyse, ein besseres Verständnis über des Datensatzes zu erlangen. Auch soll es dem Nutzer Spass machen ihn ermutigen, sich mit dem Diagramm auseinanderzusetzen.
 
 \section{Wahl des Diagrammtyps}
 
-Es gibt sehr viele Arten von Diagrammen, welche sich unterschiedlich für verschiedene Datentypen eignen. <beispiele pie diagramme und so?> Diese Arbeit beschränkt sich auf einen Diagrammtyp, das Punktediagramm. Das Punktediagramm wird in der Wissenschaft als auch in anderen Medien oft verwendet.
+Es gibt sehr viele Arten von Diagrammen, welche sich unterschiedlich für verschiedene Datentypen eignen. <beispiele pie diagramme und so?> Diese Arbeit beschränkt sich auf zwei grundlegende Diagrammtypen: Das \textit{Punktediagramm} und das \textit{Liniendiagramm}.
 
-<spezialisieren auf punktediagramme sehen p. 131>
-<allgemein beschreiben, was punktediagramme sind>
+\begin{figure}[!htbp]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/scatterplot_no_interpolation}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/scatterplot_interpolated}
+	\end{minipage}
+	\caption[Vergleich zwischen Punktediagramm und Liniendiagramm]{Beispiel von Diagrammen am Datensatz des CO\textsubscript{2}-Verbrauchs von Afghanistan. Links: Punktediagramm. Rechts: Liniendiagramm mit linearer Interpolation.}
+	\label{fig:scatterplot}
+\end{figure}
 
-Dadurch entsteht eine Menge vom Punkten. In der Praxis, falls ein Verlauf von Werten, zum Beispiel über eine Zeit, dargestellt werden will, werden die Punkte oft nicht gezeichnet und durch eine Linie verbunden.
-
-Die Beschränkung der Arbeit auf ein einzigen Diagrammtyp ermöglicht, dass man auf sehr spezifische Aspekte des Arbeitsproduktes eingehen kann und nicht die Untersuchung generell formulieren muss.
+Das Punktediagramm und das Liniendiagramm werden in der Wissenschaft als auch in anderen Medien oft verwendet. In diesen Diagrammen werden Skalen in der Ebene oder Raum festgelegt, die ein Koordinatensystem beschreiben. Mindestens eine Achse dient als Skala der unabhängigen Variablen (der Dimension, die den Beobachtungsraum der Daten aufspannen). Die restlichen Achsen dienen als Skala der abhängigen Variablen, Ausprägungen, die abgetragen werden und mit graphischen Symbolen, wie etwa Kreise, Kreuze oder Vierecke markiert werden \cite{viz}. Beim Liniendiagramm werden zusätzlich die benachbarten Punkte durch eine Linien oder Kurvenabschnitt verbunden, was Trends und Strukturen der Daten deutlicher darstellt, und Datenpunkte, die durch Linien verbunden sind, werden zusätzlich gruppiert \cite{interpolation_wirkung}. In der Abbildung \ref{fig:scatterplot} sind ein Punktediagramm und ein Liniendiagramm dargestellt, die den Verlauf den CO\textsubscript{2}-Verbrauchs darstellen.
 
 \section{Technologie}
 
-Die interaktiven Diagramme werden in der Praxis fast ausschliesslich für den Web-Browser entwickelt, wie auch in dieser Arbeit. Technologien wie HTML (für den Inhalt), CSS (für das Aussehen), SVG (für Vektorgrafiken), JavaScript (für die Berechnung) werden verwendet, diese ermöglichen die dynamische Manipulation durch den Nutzer. Der Prozess der Entwicklung in diesen Technologien wird im Kapitel \ref{chapter:praktischer_teil} dokumentiert.
+Interaktiven Diagramme werden in der Praxis fast ausschliesslich für den Web-Browser entwickelt, wie auch in dieser Arbeit. Technologien wie HTML (für den Inhalt), CSS (für das Aussehen), SVG (für Vektorgrafiken), JavaScript (für die Berechnung) werden verwendet, diese ermöglichen die dynamische Manipulation durch den Nutzer. Die Technologien sinDer Prozess der Entwicklung in diesen Technologien wird im Kapitel \ref{chapter:praktischer_teil} dokumentiert.
