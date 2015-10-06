@@ -1,7 +1,10 @@
 \chapter{Einleitung}
 Die graphische Darstellung von Daten, das Diagramm, ist von grosser Bedeutung für die Gesellschaft. Man findet Diagramme überall: In etlichen Wissenschaften, wo sie nicht wegzudenken sind, in jeglichen Industrien, in Zeitungen, in Werbungen.
 
-Das Ziel eines Diagramms ist die visuelle Repräsentation einer gegebenen Datenmenge, um damit eine effektive Auswertung zu ermöglichen. Die Analyse, das Verständnis und die Kommunikation sollen erleichtert werden \cite{viz}. Der Leser sollte sich mit der Datenmenge auseinandersetzen können, ohne die Rohdaten selbst betrachten zu müssen. Je nachdem wie das Diagramm graphisch umgesetzt wird, können verschiedene Zusammenhänge und Informationen des Datensatzes hervorgehoben oder in den Hintergrund gestellt werden, was einen Einfluss auf die Vermittlung hat.
+% kann man das gleiche zitat wie im visualisierungs buch hinzufügen?
+
+Das Ziel eines Diagramms ist die visuelle Repräsentation einer gegebenen Datenmenge, um damit eine effektive Auswertung zu ermöglichen. Die Analyse, das Verständnis und die Kommunikation sollen erleichtert werden \cite{viz}. Der Leser sollte sich mit der Datenmenge auseinandersetzen können, ohne die Rohdaten selbst betrachten zu müssen. Je nachdem wie das Diagramm graphisch umgesetzt wird, können verschiedene Zusammenhänge und Informationen des Datensatzes hervorgehoben oder in den Hintergrund gestellt werden, was einen Einfluss auf die Vermittlung hat. 
+Das Ziel jedoch eines Diagramms ist es, die darzustellende Datenmenge möglichst unverfälscht darzustellen \cite{ziel}. % kann man direkt aus visualisationsbuch abschreiben, dann aber nur die quelle angeben, die im buch verwiesen ist?
 
 Im Informationszeitalter sind Daten von grosser Bedeutung, der Datenfluss vergrössert sich ständig. Um Daten darstellen zu können, müssen sie zuerst gesammelt, sortiert und formatiert werden, bevor mit der Auswertung begonnen werden kann. Das Sammeln von Daten stellt oftmals keine besondere Schwierigkeit dar, das Auswerten, Darstellen und Interpretieren ist eine Herausforderung.
 
@@ -27,7 +30,7 @@ Die Webseite in Abbildung \ref{fig:nytimes-realestate} berechnet anhand von vom 
 	\label{fig:nytimes-realestate}
 \end{figure}
 
-<beispiele aus ingenieurbereich?>
+%beispiele aus ingenieurbereich?
 
 Diese Maturaarbeit wurde von dem Artikel \textit{The Eyes Have It: A Task by Data Type for Information Visualizations} von B. Shneidermann \cite{shneiderman} inspiriert. Der Artikel untersucht, wie ein Benutzer eine Programmoberfläche wahrnimmt und auf welche Weise er mit ihr interagiert. Auch beschreibt der Artikel, wie die Oberfläche aufgebaut sein sollte, damit der Benutzer sich im Programm orientieren kann, die Programmlogik versteht und es ohne grossen Aufwand bedienen kann. In dem Artikel stellte der zudem das \textit{Mantra der Informationsvisualisierung (Information-Seeking Mantra)} auf, das beschreibt, wie der Benutzer typischerweise mit einer Oberfläche interagiert: Überblick zuerst, Zoomen und Filtern, als letztes Details auf Abruf \cite{shneiderman}.
 
@@ -39,11 +42,13 @@ Die von Shneidermann beschriebenen Prinzipien für das Design von Benutzeroberfl
 
 \section{Ziel dieser Arbeit}
 
-Das Ziel dieser Arbeit ist es, verschiedene Typen von Diagrammen zu dokumentieren und zu entwickeln, die in einem Web-Browser dargestellt werden können. Sie sollen den Prinzipien von Shneidermann folgen, und dem Nutzer erlauben, eine bessere Analyse, ein besseres Verständnis über des Datensatzes zu erlangen. Auch soll es dem Nutzer Spass machen ihn ermutigen, sich mit dem Diagramm auseinanderzusetzen.
+Das Ziel dieser Arbeit ist es, verschiedene Typen von Diagrammen, statische und dynamische, zu dokumentieren und zu entwickeln, die in einem Web-Browser dargestellt werden können. Sie sollen den Prinzipien von Shneidermann folgen, und dem Nutzer erlauben, eine bessere Analyse, ein besseres Verständnis über des Datensatzes zu erlangen. Auch soll es dem Nutzer Spass machen ihn ermutigen, sich mit dem Diagramm auseinanderzusetzen.
 
 \section{Wahl des Diagrammtyps}
 
-Es gibt sehr viele Arten von Diagrammen, welche sich unterschiedlich für verschiedene Datentypen eignen. <beispiele pie diagramme und so?> Diese Arbeit beschränkt sich auf zwei grundlegende Diagrammtypen: Das \textit{Punktediagramm} und das \textit{Liniendiagramm}.
+Es gibt sehr viele Arten von Diagrammen, welche sich unterschiedlich für verschiedene Datentypen eignen. 
+% beispiele pie diagramme und so?
+Diese Arbeit beschränkt sich auf zwei grundlegende Diagrammtypen: Das \textit{Punktediagramm} und das \textit{Liniendiagramm}.
 
 \begin{figure}[!htbp]
 	\centering
@@ -61,6 +66,8 @@ Es gibt sehr viele Arten von Diagrammen, welche sich unterschiedlich für versch
 
 Das Punktediagramm und das Liniendiagramm werden in der Wissenschaft als auch in anderen Medien oft verwendet. In diesen Diagrammen werden Skalen in der Ebene oder Raum festgelegt, die ein Koordinatensystem beschreiben. Mindestens eine Achse dient als Skala der unabhängigen Variablen (der Dimension, die den Beobachtungsraum der Daten aufspannen). Die restlichen Achsen dienen als Skala der abhängigen Variablen, Ausprägungen, die abgetragen werden und mit graphischen Symbolen, wie etwa Kreise, Kreuze oder Vierecke markiert werden \cite{viz}. Beim Liniendiagramm werden zusätzlich die benachbarten Punkte durch eine Linien oder Kurvenabschnitt verbunden, was Trends und Strukturen der Daten deutlicher darstellt, und Datenpunkte, die durch Linien verbunden sind, werden zusätzlich gruppiert \cite{interpolation_wirkung}. In der Abbildung \ref{fig:scatterplot} sind ein Punktediagramm und ein Liniendiagramm dargestellt, die den Verlauf den CO\textsubscript{2}-Verbrauchs darstellen.
 
+%ist es so klar, dass das liniendiagramm eine untertyp eines punktediagramms ist?
+
 \section{Technologie}
 
-Interaktiven Diagramme werden in der Praxis fast ausschliesslich für den Web-Browser entwickelt, wie auch in dieser Arbeit. Technologien wie HTML (für den Inhalt), CSS (für das Aussehen), SVG (für Vektorgrafiken), JavaScript (für die Berechnung) werden verwendet, diese ermöglichen die dynamische Manipulation durch den Nutzer. Die Technologien sinDer Prozess der Entwicklung in diesen Technologien wird im Kapitel \ref{chapter:praktischer_teil} dokumentiert.
+Interaktive Diagramme werden in der Praxis fast ausschliesslich für den Web-Browser entwickelt, wie auch in dieser Arbeit. Technologien wie HTML (für den Inhalt), CSS (für das Aussehen), SVG (für Vektorgrafiken), JavaScript (für die Berechnung) werden verwendet, diese ermöglichen die dynamische Manipulation durch den Nutzer. Diese Technologien werden durch praktisch alle neueren Smarthphones, Tablets, Laptops, Desktops unterstützt. Der Prozess der Entwicklung in diesen Technologien wird im Kapitel \ref{chapter:praktischer_teil} dokumentiert.
