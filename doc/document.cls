@@ -22,6 +22,7 @@
 
 %define the default submitted text insert if needed
 \newcommand{\submittedtext}{{}}
+\newcommand{\supervisor}{{}}
 
 %
 % DECLARATIONS
@@ -105,6 +106,8 @@
     {{\Large \@author} \par}
 {\large \vspace*{1ex}
     {{\@college} \par}
+    \vspace*{1ex}
+    {{\supervisor} \par}
 \vspace*{1ex}
 %insert university before par if needed
     { \par}
@@ -176,7 +179,10 @@
 {\begin{alwayssingle} \thispagestyle{empty}
 \begin{center}
 \vspace*{1.5cm}
-{\Large \bfseries Statement of Originality}
+{\Large \bfseries 
+	%Statement of Originality
+	Bestätigung der Eigenständigkeit
+}
 \end{center}
 \vspace{0.5cm}
 \begin{quote}}
