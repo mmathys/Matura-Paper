@@ -62,24 +62,30 @@
 
 \begin{romanpages}          % start roman page numbering
 \tableofcontents            % generate and include a table of contents
-\listoffigures              % generate and include a list of figures
 \end{romanpages}            % end roman page numbering
 
 %now include the files of latex for each of the chapters etc
 \include{content/einleitung}
-\include{content/grundlagen}
-\include{content/prozess}
-\include{content/reflexion}
+\include{content/hauptteil}
+\include{content/schlusswort}
 
 
+\newpage
 %now enable appendix numbering format and include any appendices
 \appendix
 
 %next line adds the Bibliography to the contents page
-\addcontentsline{toc}{chapter}{Literatur}
-%uncomment next line to change bibliography name to references
+%\renewcommand{\bibname}{Literatur}
+\chapter{Literatur}
+\printbibliography[heading=none]     %use a bibtex bibliography file refs.bib
 
-\renewcommand{\bibname}{Literatur}
-\printbibliography     %use a bibtex bibliography file refs.bib
+\newpage
+\chapter{Abbildungsverzeichnis}
+\makeatletter
+\@starttoc{lof} % Print List of Figures
+\makeatother
+
+\newpage
+\include{content/bestatigung}
 
 \end{document}
