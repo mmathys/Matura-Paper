@@ -10,18 +10,17 @@
 
 ## Datenverarbeitung
 
-- Von URL Laden
+- Bevor das Diagramm erstellt werden kann, müssen Daten geladen werden
 - Typische Datenquellen angeben (Open (Government) Data)
-- Format CSV, Prinzip erklären
-- Was das Programm intern die Daten verwendet
 - Verarbeitung: Standardablauf von Visualisierungen-Buch zitieren
   - Erklären was das Programm in den jeweiligen Schritten genau macht
+  - Format CSV, Prinzip erklären
+  - Wie das Programm intern die Daten verwendet
   - meta.json (JSON auch erklären)
+  - Von URL Laden
   - Merge
   - Spalten-ID-Zuweisung
   - Filter-Methode
-
-
 <!--
       TODO
       VVVV
