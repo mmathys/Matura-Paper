@@ -8,6 +8,8 @@ var filter = require('./modules/filter')
 var domain = require('./modules/domain')
 var toggle = require('./modules/toggle')
 
+/* global d3, alert, $ */
+
 /**
  *
  *
@@ -106,8 +108,6 @@ d3.json('meta.json', function (err, res) {
   } else if (values[0].data_type === 'Date') {
     yScale = d3.time.scale()
   }
-
-
 
   // Höhe und Breite des gesamten SVG-Elements definieren; Verschiebung des
   // Graphs
@@ -225,59 +225,59 @@ function loadFiles () {
    * @return {[Function]}   Das generierte Callback, das nach dem Laden der
    *                        Datei ausgeführt wird.
    */
-  function mkcb(i) {return function(err, resp) {
-    if(err){
-      alert(err);
-      console.log(err);
-      return;
+  function mkcb (i) {
+    return function (err, resp) {
+      if (err) {
+        alert(err)
+        console.log(err)
+        return
+      }
+
+      // Formatieren (2)
+      resp = format.data_types(resp, datasetsMeta[i].config)
+      resp = format.ids(resp, datasetsMeta[i].config)
+
+      // Merge (3)
+      for (var j = 0; j < resp.length; j++) {
+        data.push(resp[j])
+      }
+
+      if (++loaded === datasetsMeta.length) {
+        // Alle Datein sind heruntergeladen worden und gemergt.
+
+        // Sortieren (4)
+        data = sort(data, index)
+
+        // Weitergeben (5)
+        loadVisualization(data)
+      }
     }
-
-    // Formatieren (2)
-    resp = format.data_types(resp, datasetsMeta[i].config);
-    resp = format.ids(resp, datasetsMeta[i].config);
-
-    // Merge (3)
-    for(var j = 0; j<resp.length; j++){
-      data.push(resp[j]);
-    }
-
-
-    if(++loaded == datasetsMeta.length){
-      // Alle Datein sind heruntergeladen worden und gemergt.
-
-      // Sortieren (4)
-      data = sort(data, index);
-
-      // Weitergeben (5)
-      loadVisualization(data);
-    }
-  };}
+  }
 }
 
-/*******************************************************************************
+/*
  *
  *
  * Laden der Visualisation
  *
  *
- ******************************************************************************/
+ */
 
 /**
  * Lädt die Visualisation
  * @param  {[Array]} data Die gemergten Datensätze
  */
-function loadVisualization(data) {
-
+function loadVisualization (data) {
   /**
    *
    *  Achsen initalisieren (d3)
    *
    */
 
-  xWertebereich = domain.overflowX(data, index, 1.1);
-  yWertebereich = domain.overflowY(data, values, v_bundle, 1.1);
-  xScale.domain(xWertebereich);
-  yScale.domain(yWertebereich);
+  xWertebereich = domain.overflowX(data, index, 1.1)
+  yWertebereich = domain.overflowY(data, values, v_bundle, 1.1)
+  xScale.domain(xWertebereich)
+  yScale.domain(yWertebereich)
 
   /**
    *
@@ -290,32 +290,31 @@ function loadVisualization(data) {
     .x(xScale)
     .y(yScale)
     .scaleExtent([0.9, 50])
-    .on('zoom', draw);
+    .on('zoom', draw)
 
   // Die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
   // wendet werden kann, obwohl sie erst später definiert wird.
-  var graph;
+  var graph
 
   /**
    * Wird aufgerufen, sobald der Graph neu gezeichnet werden sollte.
    */
-  function draw() {
+  function draw () {
     // Achsen neu zeichnen
-    xAxisContainer.call(xAxis);
-    yAxisContainer.call(yAxis);
+    xAxisContainer.call(xAxis)
+    yAxisContainer.call(yAxis)
 
     // Punkte neu berechnen.
-    for(var i = 0; i<values.length; i++) {
-      var p = v.selectAll("circle.data-point[data-row='" + values[i].rowId + "']")
+    for (var i = 0; i < values.length; i++) {
+      v.selectAll("circle.data-point[data-row='" + values[i].rowId + "']")
         .attr('cx', index.accessor_scaled)
-        .attr('cy', v_accessor_scaled(values[i]));
+        .attr('cy', v_accessor_scaled(values[i]))
     }
 
     // Tooltip und Linie aktualisieren
-    tooltip.updateAll(data, index, values, v_bundle, xScale, yScale);
+    tooltip.updateAll(data, index, values, v_bundle, xScale, yScale)
 
-    line.updateAll(data, index, values, v_bundle);
-
+    line.updateAll(data, index, values, v_bundle)
   }
 
   /**
@@ -330,7 +329,7 @@ function loadVisualization(data) {
     .attr('height', h)
 
   // Unterstützung für Zoom hinzufügen
-    .call(zoom);
+    .call(zoom)
 
   // SVG-Maske für den Graph: Wir wollen nicht, dass Punkte aus unserem
   // definierten Feld auftauchen. Siehe Masken-Problem.
@@ -341,7 +340,7 @@ function loadVisualization(data) {
       .attr('y', 0)
       .attr('width', w - graphTransform.xstart - graphTransform.xend)
       .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
-      .attr('fill', 'white');
+      .attr('fill', 'white')
 
   // Container für die Visualisation hinzufügen und zu der Maske linken
   // Transformation nach den definierten Angaben mit transform, translate
@@ -349,31 +348,30 @@ function loadVisualization(data) {
     .attr('id', 'graph')
     .attr('transform', 'translate(' + graphTransform.xstart +
       ',' + graphTransform.ytop + ')')
-    .attr('mask', 'url(#mask)');
+    .attr('mask', 'url(#mask)')
 
   // Die Punkte zeichnen für jede Datenspalte
-  for(var i = 0; i<values.length; i++) {
-
+  for (var i = 0; i < values.length; i++) {
     // Die Punkte einer Spalte haben für das Attribut data-row die generierte id
     // (siehe Identifikations-Problem)
-    var circles = graph.selectAll("circle[data-row='"+values[i].rowId+"']")
+    var circles = graph.selectAll("circle[data-row='" + values[i].rowId + "']")
 
       // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
       // entsprechende Reihe besitzen. Siehe Merge-Problem.
       // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
       // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
-      .data(filter.row(data, values[i].rowId)).enter();
+      .data(filter.row(data, values[i].rowId)).enter()
 
     // Aktionen an Datengebundener Selektion ausführen
     circles.append('circle')
         .attr('class', 'data-point')
         .attr('data-row', values[i].rowId)
         .attr('cx', index.accessor_scaled)
-        .attr('cy', v_accessor_scaled(values[i]));
+        .attr('cy', v_accessor_scaled(values[i]))
   }
 
   // Sichtbarkeit der Punkte akualisieren
-  points.updateVisibility(values);
+  points.updateVisibility(values)
 
   /**
    *
@@ -386,12 +384,12 @@ function loadVisualization(data) {
     .attr('transform', 'translate(' +
       graphTransform.xstart + ',' +
       (h - graphTransform.ybottom) + ')')
-    .call(xAxis);
+    .call(xAxis)
 
   var yAxisContainer = v.append('g')
     .attr('class', 'axis axis-y')
-    .attr('transform', 'translate('+graphTransform.xstart+',0)')
-    .call(yAxis);
+    .attr('transform', 'translate(' + graphTransform.xstart + ',0)')
+    .call(yAxis)
 
   /**
    *
@@ -409,17 +407,17 @@ function loadVisualization(data) {
     .attr('y', graphTransform.ytop)
     .attr('width', w - graphTransform.xstart - graphTransform.xend)
     .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
-    .on('mousemove', function() {
-      tooltip.mouse = d3.mouse(this);
-      tooltip.updateAll(data, index, values, v_bundle, xScale, yScale);
-    });
+    .on('mousemove', function () {
+      tooltip.mouse = d3.mouse(this)
+      tooltip.updateAll(data, index, values, v_bundle, xScale, yScale)
+    })
 
   // Overlay für die Detailanzeige für Tooltip
   d3.select('#display-overlay')
     .attr('style', 'left: ' + graphTransform.xstart + 'px;' +
       'top: ' + graphTransform.ytop + 'px;' +
-      'max-width: ' + (w-graphTransform.xstart-graphTransform.xend) + 'px;' +
-      'max-height: '+ (h-graphTransform.ytop-graphTransform.ybottom) +'px;' );
+      'max-width: ' + (w - graphTransform.xstart - graphTransform.xend) + 'px;' +
+      'max-height: ' + (h - graphTransform.ytop - graphTransform.ybottom) + 'px;')
 
   /**
    *
@@ -428,37 +426,37 @@ function loadVisualization(data) {
    */
 
    // Für jede Datenspalte die Linie einfügen
-   for(var i = 0; i<values.length; i++) {
-      line.addLine(filter.row(data, values[i].rowId), index, values[i], v_bundle);
+   for (var i = 0; i < values.length; i++) {
+      line.addLine(filter.row(data, values[i].rowId), index, values[i], v_bundle)
    }
 
    // Falls der Interpolationsmodus wechselt: Neuen Modus setzen und Linien
    // aktualisieren.
-   $('select').on('change', function() {
-     line.mode = this.value;
-     line.updateAll(data, index, values, v_bundle);
-   });
+   $('select').on('change', function () {
+     line.mode = this.value
+     line.updateAll(data, index, values, v_bundle)
+   })
 
    // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
    // Sichtbarkeit akutalisieren.
-   $('#checkbox-points').on('change', function() {
-     if($(this).is(':checked')){
-       showPoints = true;
+   $('#checkbox-points').on('change', function () {
+     if ($(this).is(':checked')) {
+       showPoints = true
      } else {
-       showPoints = false;
-      }
-      points.visible = showPoints;
-      points.updateVisibility(values);
-   });
+       showPoints = false
+     }
+     points.visible = showPoints
+     points.updateVisibility(values)
+   })
 
-   $('#checkbox-lines').on('change', function() {
-     if($(this).is(':checked')){
-       showLines = true;
-     } else {
-       showLines = false;
-      }
+  $('#checkbox-lines').on('change', function () {
+    if ($(this).is(':checked')) {
+      showLines = true
+    } else {
+      showLines = false
+    }
     line.lineVisibility(showLines, values)
-   });
+  })
 
    /**
     *
@@ -467,7 +465,7 @@ function loadVisualization(data) {
     */
 
    // Die Toggle-Elemente für jede Spalte generieren.
-   for(var i = 0; i<values.length; i++){
-     toggle.add(data, index, values, values[i], v_bundle, zoom, yWertebereich, yScale, yAxis, draw);
+  for (var i = 0; i < values.length; i++) {
+    toggle.add(data, index, values, values[i], v_bundle, zoom, yWertebereich, yScale, yAxis, draw)
   }
 }

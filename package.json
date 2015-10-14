@@ -32,5 +32,8 @@
   },
   "devDependencies": {
     "gulp-minify-css": "^1.2.0"
+  },
+  "standard": {
+    "globals": ["alert", "d3", "$"]
   }
 }
