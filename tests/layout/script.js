@@ -20,28 +20,28 @@ var toggle = require('./modules/toggle')
 
 // Für die Visualisation benötigte Variablen
 
-var config,         // Config-Array für _alle_ Elemente
-  datasetsMeta,     // Das 'datasets'-Attribut von meta.json
-  index,            // Config-Objekt für die Index-Spalte (X-Wert)
-  values,           // Config-Array für Werte-Spalten (Y-Werte)
-  v_accessor,       // Funktion, die den Werteaccessor zurückgibt
-  v_accessor_cord,  // Funktion, die den Koordinatenaccessor zurückgibt
-  v_accessor_scaled,// Funktion, die den skalierten Wert zurückgibt.
-  v_bundle,         // Objekt, das die drei v-Funktionen enthält.
+var config,           // Config-Array für _alle_ Elemente
+  datasetsMeta,       // Das 'datasets'-Attribut von meta.json
+  index,              // Config-Objekt für die Index-Spalte (X-Wert)
+  values,             // Config-Array für Werte-Spalten (Y-Werte)
+  v_accessor,         // Funktion, die den Werteaccessor zurückgibt
+  v_accessor_cord,    // Funktion, die den Koordinatenaccessor zurückgibt
+  v_accessor_scaled,  // Funktion, die den skalierten Wert zurückgibt.
+  v_bundle,           // Objekt, das die drei v-Funktionen enthält.
 
-  xScale,           // X-Skala
-  yScale,           // Y-Skala
-  xWertebereich,    // Bereich der X-Werte
-  yWertebereich,    // Bereich der Y-Werte
-  xAxis,            // X-Achse
-  yAxis,            // Y-Achse
+  xScale,             // X-Skala
+  yScale,             // Y-Skala
+  xWertebereich,      // Bereich der X-Werte
+  yWertebereich,      // Bereich der Y-Werte
+  xAxis,              // X-Achse
+  yAxis,              // Y-Achse
 
-  w,                // Breite der Visualisation
-  h,                // Höhe der Visualisation
-  graphTransform,   // Verschiebung des Graphenbereichs
+  w,                  // Breite der Visualisation
+  h,                  // Höhe der Visualisation
+  graphTransform,     // Verschiebung des Graphenbereichs
 
-  showPoints,       // Gibt an, ob Punkte angezeigt werden sollen
-  showLines         // Gibt an, ob die Linien angezeigt werden sollen
+  showPoints,         // Gibt an, ob Punkte angezeigt werden sollen
+  showLines           // Gibt an, ob die Linien angezeigt werden sollen
 
 showPoints = false
 
@@ -93,7 +93,7 @@ d3.json('meta.json', function (err, res) {
         values.push(c)
       }
     }
-    // Bei unbekannten Typen: nicht in values oder index einfügen.
+  // Bei unbekannten Typen: nicht in values oder index einfügen.
   }
 
   // Datentyp der Skalen festlegen
@@ -130,8 +130,8 @@ d3.json('meta.json', function (err, res) {
     .ticks(5)
   yAxis = d3.svg.axis().scale(yScale).orient('left')
     .ticks(5)
-      .innerTickSize(-w + graphTransform.xstart + graphTransform.xend)
-      .outerTickSize(2)
+    .innerTickSize(-w + graphTransform.xstart + graphTransform.xend)
+    .outerTickSize(2)
 
   /**
    *
@@ -141,8 +141,8 @@ d3.json('meta.json', function (err, res) {
    *
    */
 
-   // Index-Accessor-Funktion: Gibt für eine bestimmte Datenreihe den Wert der
-   // Index-Spalte zurück.
+  // Index-Accessor-Funktion: Gibt für eine bestimmte Datenreihe den Wert der
+    // Index-Spalte zurück.
 
   index.accessor = function (d) {
     return d[index.row]
@@ -170,13 +170,13 @@ d3.json('meta.json', function (err, res) {
     }
   }
 
-   // Funktion, die den Koordinatenaccessor für die in entry angegebene Spalte
-   // zurückgibt.
-   v_accessor_cord = function (index, entry) {
-     return function (d) {
-       return [index.accessor_scaled(d), v_accessor_scaled(entry)(d)]
-     }
-   }
+  // Funktion, die den Koordinatenaccessor für die in entry angegebene Spalte
+  // zurückgibt.
+  v_accessor_cord = function (index, entry) {
+    return function (d) {
+      return [index.accessor_scaled(d), v_accessor_scaled(entry)(d)]
+    }
+  }
 
   v_bundle = {
     'raw': v_accessor,
@@ -184,7 +184,7 @@ d3.json('meta.json', function (err, res) {
     'cord': v_accessor_cord
   }
 
-   // Die Daten laden
+  // Die Daten laden
   loadFiles()
 })
 
@@ -328,7 +328,7 @@ function loadVisualization (data) {
     .attr('width', w)
     .attr('height', h)
 
-  // Unterstützung für Zoom hinzufügen
+    // Unterstützung für Zoom hinzufügen
     .call(zoom)
 
   // SVG-Maske für den Graph: Wir wollen nicht, dass Punkte aus unserem
@@ -336,11 +336,11 @@ function loadVisualization (data) {
   v.append('mask')
     .attr('id', 'mask')
     .append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', w - graphTransform.xstart - graphTransform.xend)
-      .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
-      .attr('fill', 'white')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', w - graphTransform.xstart - graphTransform.xend)
+    .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
+    .attr('fill', 'white')
 
   // Container für die Visualisation hinzufügen und zu der Maske linken
   // Transformation nach den definierten Angaben mit transform, translate
@@ -364,10 +364,10 @@ function loadVisualization (data) {
 
     // Aktionen an Datengebundener Selektion ausführen
     circles.append('circle')
-        .attr('class', 'data-point')
-        .attr('data-row', values[i].rowId)
-        .attr('cx', index.accessor_scaled)
-        .attr('cy', v_accessor_scaled(values[i]))
+      .attr('class', 'data-point')
+      .attr('data-row', values[i].rowId)
+      .attr('cx', index.accessor_scaled)
+      .attr('cy', v_accessor_scaled(values[i]))
   }
 
   // Sichtbarkeit der Punkte akualisieren
@@ -425,29 +425,29 @@ function loadVisualization (data) {
    *
    */
 
-   // Für jede Datenspalte die Linie einfügen
-   for (var i = 0; i < values.length; i++) {
-      line.addLine(filter.row(data, values[i].rowId), index, values[i], v_bundle)
-   }
+  // Für jede Datenspalte die Linie einfügen
+  for (var i = 0; i < values.length; i++) {
+    line.addLine(filter.row(data, values[i].rowId), index, values[i], v_bundle)
+  }
 
-   // Falls der Interpolationsmodus wechselt: Neuen Modus setzen und Linien
-   // aktualisieren.
-   $('select').on('change', function () {
-     line.mode = this.value
-     line.updateAll(data, index, values, v_bundle)
-   })
+  // Falls der Interpolationsmodus wechselt: Neuen Modus setzen und Linien
+  // aktualisieren.
+  $('select').on('change', function () {
+    line.mode = this.value
+    line.updateAll(data, index, values, v_bundle)
+  })
 
-   // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
-   // Sichtbarkeit akutalisieren.
-   $('#checkbox-points').on('change', function () {
-     if ($(this).is(':checked')) {
-       showPoints = true
-     } else {
-       showPoints = false
-     }
-     points.visible = showPoints
-     points.updateVisibility(values)
-   })
+  // Falls die Checkbox für die Sichtbarkeit der Punkte angeklickt wird:
+  // Sichtbarkeit akutalisieren.
+  $('#checkbox-points').on('change', function () {
+    if ($(this).is(':checked')) {
+      showPoints = true
+    } else {
+      showPoints = false
+    }
+    points.visible = showPoints
+    points.updateVisibility(values)
+  })
 
   $('#checkbox-lines').on('change', function () {
     if ($(this).is(':checked')) {
@@ -458,13 +458,13 @@ function loadVisualization (data) {
     line.lineVisibility(showLines, values)
   })
 
-   /**
-    *
-    * Toggles: Ein- und ausblenden von Datenreihen.
-    *
-    */
+  /**
+   *
+   * Toggles: Ein- und ausblenden von Datenreihen.
+   *
+   */
 
-   // Die Toggle-Elemente für jede Spalte generieren.
+  // Die Toggle-Elemente für jede Spalte generieren.
   for (var i = 0; i < values.length; i++) {
     toggle.add(data, index, values, values[i], v_bundle, zoom, yWertebereich, yScale, yAxis, draw)
   }
