@@ -19,13 +19,13 @@ In Abbildung \ref{fig:csv} wird die Funktion des CSV-Formats demonstriert.
 	\centering
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\begin{lstlisting}
-		Date,Value
-		2010-12-31,4220.717
-		2009-12-31,4352.729
-		2008-12-31,5555.505
-		2007-12-31,5067.794
-		\end{lstlisting}
+		\begin{minted}{text}
+Date,Value
+2010-12-31,4220.717
+2009-12-31,4352.729
+2008-12-31,5555.505
+2007-12-31,5067.794
+		\end{minted}
 	\end{minipage}\hfill
 	\begin{minipage}{0.5\textwidth}
 		\centering
@@ -55,48 +55,51 @@ Die Software lädt die Datei durch eine \textit{Ajax}-Anfrage (\textit{Asynchron
 
 Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filterings sind zum Beispiel die Vervollständigung, Reduzierung, Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisationspipeline verwendet werden können \cite[Kap. 2]{viz}.
 
-\subsubsection{Konvertierung in das JavaScript Object Notation-Format (JSON)}
+\subsubsection{Konvertierung in JavaScript Objects}
 
-Als erster Schritt wird in der Applikation die CSV-Datei in das von JavaScript benutzte \textit{JavaScript Object Notation}-Format (\textit{JSON}) umgewandelt. Das Laden und \textit{Parsing} der Datei von CSV zu JSON ist von D3 implementiert.
+Als erster Schritt wird in der Applikation die CSV-Datei in \textit{JavaScript-Objekte} umgewandelt. Das Laden und \textit{Parsing} der Datei von CSV zu Objekten ist von D3 implementiert.
+
+JavaScript Objekte werden im \textit{JavaScript Object Notation}-Format (\textit{JSON}) dargestellt.
 
 Im Abbildung \ref{fig:csv-json} ist der Prozess der Umwandlung ersichtlich: Es wird ein \textit{Array} von allen Zeilen in der Tabelle (ausgenommen der ersten Zeile, wo die Spalten beschriftet werden) erstellt. Jede Zeile wird als Objekt mit den dazugehörigen Spalten dargestellt.
 
 \begin{figure}[!htbp]
 	\centering
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}{0.35\textwidth}
 		\centering
-		\begin{lstlisting}
-		Date,Value
-		2010-12-31,4220.717
-		2009-12-31,4352.729
-		2008-12-31,5555.505
-		2007-12-31,5067.794
-		\end{lstlisting}
+		\begin{minted}{text}
+Date,Value
+2010-12-31,4220.717
+2009-12-31,4352.729
+2008-12-31,5555.505
+2007-12-31,5067.794
+		\end{minted}
 	\end{minipage}\hfill
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}{0.55\textwidth}
 		\centering
-		\begin{lstlisting}[language=javascript]
-		[
-			{
-				"Date": "2010-12-31",
-				"Value": "4220.717"
-				},
-			{
-				"Date": "2009-12-31",
-				"Value": "4352.729"
-			},
-			{
-				"Date": "2008-12-31",
-				"Value": "5555.505"
-			},
-			{
-				"Date": "2007-12-31",
-				"Value": "5067.794"
-			}
-		]
-		\end{lstlisting}
+
+		\begin{minted}{json}
+[
+  {
+    "Date": "2010-12-31",
+    "Value": "4220.717"
+  },
+  {
+    "Date": "2009-12-31",
+    "Value": "4352.729"
+  },
+  {
+    "Date": "2008-12-31",
+    "Value": "5555.505"
+  },
+  {
+    "Date": "2007-12-31",
+    "Value": "5067.794"
+  }
+]
+		\end{minted}
 	\end{minipage}
-	\caption[CSV und JSON]{Konvertierung von CSV zu JSON. Links: CSV. Rechts: JSON.}
+	\caption[CSV und JSON]{Konvertierung von CSV zu JavaScript Objekten. Links: CSV. Rechts: JSON.}
 	\label{fig:csv-json}
 \end{figure}
 
@@ -112,9 +115,73 @@ Die Software benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu for
 
 \textbf{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
 
-In dem Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3 wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring, eine Umwandlung in das JavaScript-Date-Objekt, das ein Datum darstellt, ist sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Konventionen entspricht: \lstinline|28.10.2015| (Schweiz), \lstinline|10/28/2015| (USA).
+In dem Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3 wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring, eine Umwandlung in das JavaScript-Date-Objekt, das ein Datum darstellt, ist sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Konventionen entspricht: 28.10.2015 (Schweiz), 10/28/2015 (USA).
 
 Nummern, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem Namen "`Value"' definiert, wandeln wir in Nummern um. Nur an Nummer-Objekten können Rechenoperationen durchgeführt werden.
+
+\textbf{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Software geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in ein JavaScript-Array umgewandelt.
+
+Ich entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil dies für die Programmlogik mehr Sinn macht.
+
+Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} oben). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige ID ersetzt (Abbildung \ref{fig:merge} unten). Die eindeutige ID wird durch den Spaltennamen und die URL der Datensatzes generiert: Der Spaltennamen wird ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem herkömmlichen Datensatz zuordnen kann.
+
+In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit dem Dateinamen ch-co2.csv und af-co2.csv gemergt. Im unteren Beispiel wurden die Spaltennamen der abhängigen Variablen durch die eindeutige ID ersetzt.
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{minipage}{0.40\textwidth}
+		\centering
+		\begin{minted}{json}
+[
+  {
+    "Date": "2010-12-31",
+    "Value": "4220.717"
+  },
+  {
+    "Date": "2009-12-31",
+    "Value": "4352.729"
+  },
+  {
+    "Date": "2010-12-31",
+    "Value": "1320.717"
+  },
+  {
+    "Date": "2009-12-31",
+    "Value": "7353.129"
+  }
+]
+		\end{minted}
+	\end{minipage}\hfill
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\begin{minted}{json}
+[
+  {
+    "Date": "2010-12-31",
+    "Value#ch-co2.csv": "4220.717"
+  },
+  {
+    "Date": "2009-12-31",
+    "Value#ch-co2.csv": "4352.729"
+  },
+  {
+    "Date": "2010-12-31",
+    "Value#af-co2.csv": "1320.717"
+  },
+  {
+    "Date": "2009-12-31",
+    "Value#af-co2.csv": "7353.129"
+  }
+]
+		\end{minted}
+	\end{minipage}
+	\caption[Merge-Strategie]{Demonstration der Merge-Strategie und Anwendung der ID-Generierung. Oben: Gemergter Datensatz, ohne eindeutige IDs. Unten: Gemergter Datensatz, mit eindeutigen IDs.}
+	\label{fig:merge}
+\end{figure}
+
+\textbf{Sortieren vom gemergten Datensatz.} Der Datensatz wird nach der unabhängigen Variable ansteigend sortiert, damit die Berechnung von Interpolationen ermöglicht werden.
+
+\subsubsection{Datensatzspezifische Konfiguration und Hard Coding}
 
 \subsection{Aufbereitete Daten}
 
