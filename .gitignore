@@ -107,3 +107,6 @@ dist
 
 # ignore pdf output of latex project, as we changed it often
 doc/arbeit.pdf
+
+# ignore minted generated files
+**/_minted-*/*
