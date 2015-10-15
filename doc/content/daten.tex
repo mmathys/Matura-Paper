@@ -9,7 +9,112 @@ Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspip
 
 \subsection{Rohdaten}
 
+\subsubsection{Comma-seperated values (CSV)}
+
+Die Software verwendet als Datenformat \textit{Comma-seperated values} (\textit{CSV}). CSV stellt eine Tabelle dar. Zeilen werden im Format durch einen Umbruch und Spaltenwerte durch ein Komma getrennt. Optional steht in der ersten Zeile (Abbildung \ref{fig:csv} links, Zeile 1) der Datei die Beschriftung der Spalten.
+
+In Abbildung \ref{fig:csv} wird die Funktion des CSV-Formats demonstriert.
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\begin{lstlisting}
+		Date,Value
+		2010-12-31,4220.717
+		2009-12-31,4352.729
+		2008-12-31,5555.505
+		2007-12-31,5067.794
+		\end{lstlisting}
+	\end{minipage}\hfill
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\begin{tabular}{ | l | l |}
+			\hline
+			\textbf{Date} & \textbf{Value} \\ \hline
+			2010-21-31 & 4220.717 \\ \hline
+			2009-21-31 & 4352.729 \\ \hline
+			2008-21-31 & 5555.505 \\ \hline
+			2007-21-31 & 5067.794 \\ \hline
+		\end{tabular}
+	\end{minipage}
+	\caption[Demonstration des CSV-Formats]{Demonstration des CSV-Formats. Links: Die CSV-Datei in Rohtext. Rechts: Darstellung der Informationen der CSV-Datei in einer Tabelle.}
+	\label{fig:csv}
+\end{figure}
+
+Man verwendet das CSV-Format oft, weil es sehr einfach aufgebaut ist. Das Lesen von solchen Tabellenformaten ist ohne grossen Aufwand in Programmen umsetzbar. 
+
+ Zudem beschränkt sich das CSV-Format nur auf die Vermittlung der Daten, und beinhaltet keine Informationen zu der Darstellung der Tabelle. Excel-Dateien (XLS/XLSX) hingegen speichern auch Daten zu der Formatierung, also auch Zeilengrösse, Textgrösse, Textformat und viele mehr. Für die Zwecke der Software sind diese Informationen irrelevant.
+ 
+ 
+Wenn die Software die CSV-Datei laden und verarbeiten will, dann braucht sie zunächst zusätzliche Informationen zu der Datei: Die \textit{URL}, die den Ort der Datei angibt.
+
+Die Software lädt die Datei durch eine \textit{Ajax}-Anfrage (\textit{Asynchronous JavaScript and XML}) herunter, bevor sie sie weiter verarbeitet.
+
 \subsection{Filtering}
+
+Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filterings sind zum Beispiel die Vervollständigung, Reduzierung, Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisationspipeline verwendet werden können \cite[Kap. 2]{viz}.
+
+\subsubsection{Konvertierung in das JavaScript Object Notation-Format (JSON)}
+
+Als erster Schritt wird in der Applikation die CSV-Datei in das von JavaScript benutzte \textit{JavaScript Object Notation}-Format (\textit{JSON}) umgewandelt. Das Laden und \textit{Parsing} der Datei von CSV zu JSON ist von D3 implementiert.
+
+Im Abbildung \ref{fig:csv-json} ist der Prozess der Umwandlung ersichtlich: Es wird ein \textit{Array} von allen Zeilen in der Tabelle (ausgenommen der ersten Zeile, wo die Spalten beschriftet werden) erstellt. Jede Zeile wird als Objekt mit den dazugehörigen Spalten dargestellt.
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\begin{lstlisting}
+		Date,Value
+		2010-12-31,4220.717
+		2009-12-31,4352.729
+		2008-12-31,5555.505
+		2007-12-31,5067.794
+		\end{lstlisting}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\begin{lstlisting}[language=javascript]
+		[
+			{
+				"Date": "2010-12-31",
+				"Value": "4220.717"
+				},
+			{
+				"Date": "2009-12-31",
+				"Value": "4352.729"
+			},
+			{
+				"Date": "2008-12-31",
+				"Value": "5555.505"
+			},
+			{
+				"Date": "2007-12-31",
+				"Value": "5067.794"
+			}
+		]
+		\end{lstlisting}
+	\end{minipage}
+	\caption[CSV und JSON]{Konvertierung von CSV zu JSON. Links: CSV. Rechts: JSON.}
+	\label{fig:csv-json}
+\end{figure}
+
+\subsubsection{Formatierung}
+
+Die Software benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu formatieren, damit er im Diagramm verwendet werden kann. Der Prozess muss folgende Aufgaben erledigen:
+
+\begin{itemize}
+	\item (Zeichenstring-) Elemente gegebenfalls in JavaScript-Objekte umwandeln
+	\item Falls mehrere Datensätze vorhanden sind, diese \textit{mergen}, also in einen einzigen Array zusammenfassen
+	\item Den gesamten gemergten Datensatz nach der unabhängigen Variable aufsteigend sortieren
+\end{itemize}
+
+\textbf{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
+
+In dem Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3 wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring, eine Umwandlung in das JavaScript-Date-Objekt, das ein Datum darstellt, ist sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Konventionen entspricht: \lstinline|28.10.2015| (Schweiz), \lstinline|10/28/2015| (USA).
+
+Nummern, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem Namen "`Value"' definiert, wandeln wir in Nummern um. Nur an Nummer-Objekten können Rechenoperationen durchgeführt werden.
 
 \subsection{Aufbereitete Daten}
 

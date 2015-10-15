@@ -16,11 +16,14 @@
 
 ### Rohdaten
 
-  - Von URL Laden (d3)
   - Format CSV, Prinzip erklären
-  - meta.json (JSON auch erklären), Format des Datensatzes spezifizieren.
+  - Von URL Laden (d3)
 
 ### Filtering
+
+  - CSV in JSON
+  - Hard coding.
+  - meta.json (JSON auch erklären), Format und URL des Datensatzes spezifizieren.
 
   (Jeder Datensatz in meta.json)
   - Formatieren durch data_types (Modul format, format.data_types)
