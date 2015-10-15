@@ -1,4 +1,4 @@
-\section{Technologie}
+\section{Softwaretechnologie}
 
 Für die Entwicklung einer Applikation für den Web-Browser werden verschiedene Technologien benötigt, die jeweils für einen einzelnen Aspekt der Applikation verantwortlich sind.
 
@@ -6,17 +6,19 @@ Für die Entwicklung einer Applikation für den Web-Browser werden verschiedene 
 
 JavaScript ist die Programmiersprache, die der Web-Browser unterstützt. Die Programmlogik wird in dieser Sprache geschrieben.
 
-Für bessere Programmqualität und Lesbarkeit wird in dieser Arbeit der \textit{JavaScript Standard Style} gebraucht, eine verbreitete Syntaxkonvention. Viele Programmierer tendieren dazu, den JavaScript Code nach persönlicher Weise und auf nicht konsequente Weise zu formatieren, was die Lesbarkeit des Programmcodes, für den Autor als auch besonders für andere Betrachter, beeinträchtigt. Dies kann sich vor allem in umfangreichen Projekten, wo mehrere hundert Zeilen Code vorhanden sind, markant auf die Übersichtlichkeit auswirken. Da Open-Source von mehr und mehr praktiziert wird, gewinnen Konvetionen an Bedeutung. "`Das Anwenden der [Syntax-] Konvention bedeutet, die Syntaxkonventionen der Community und den Belang der Lesbarkeit des Programmcodes über die persönliche Programmierweise zu stellen"' \cite{feross}.
+Viele Programmierer tendieren dazu, den JavaScript Code nach persönlicher Weise und auf nicht konsequente Weise zu formatieren, was die Lesbarkeit des Programmcodes, für den Autor als auch besonders für andere Betrachter, beeinträchtigt. Dies kann sich vor allem in umfangreichen Projekten, wo mehrere hundert Zeilen Code vorhanden sind, markant auf die Übersichtlichkeit auswirken. Da Open-Source von mehr und mehr praktiziert wird, gewinnen Syntaxkonventionen an Bedeutung. "`Das Anwenden der [Syntax-] Konvention bedeutet, die Syntaxkonventionen der Community und den Belang der Lesbarkeit des Programmcodes über die persönliche Programmierweise zu stellen"' \cite{feross}. Für bessere Programmqualität und Lesbarkeit wird deshalb in dieser Arbeit der \textit{JavaScript Standard Style} gebraucht, eine verbreitete Syntaxkonvention.
 
-Das Produkt dieser Arbeit verwendet in allen Tests die Programmierbibliothek \textit{Data-Driven-Documents (D3)}. Sie wurde von Michael Bostock, Vadim Ogievetsky und Jeffrey Heer erstellt und dient zur Entwicklung von Visualisationen im Web. Sie erleichtert die Benutzung des Document Object Models (DOM) (vgl. Abbildung <todo>), ermöglicht effizienteres Debugging und verbessert die Leistung (\textit{"`Performance"'}) der Applikation \cite{bostock}.
+Diese Software verwendet die Programmierbibliothek \textit{Data-Driven-Documents (D3)}. Sie wurde von Michael Bostock, Vadim Ogievetsky und Jeffrey Heer erstellt und dient zur Entwicklung von Visualisationen im Web. Sie erleichtert die Benutzung des Document Object Models (DOM) (vgl. Abbildung <todo>), ermöglicht effizienteres Debugging und verbessert die Leistung (\textit{"`Performance"'}) der Applikation \cite{bostock}.
 
-\subsection{HTML, Document Object Model (DOM)}
+\subsection{Hypertext Markup Language (HTML), Document Object Model (DOM)}
 
-HTML (Hypertext Markup Language) ist in der Entwicklung einer Web-Applikation für den Inhalt der Seite zuständig. Die Sprache beschreibt durch \textit{Elemente}, die einen Wert haben können, verschachtelt sein können und denen \textit{Attribute} zugewiesen werden können die zu darstellenden Informationen. Das Document Object Model (DOM) ermöglicht die dynamische Manipulation dieser Elemente durch Schnittstellen in JavaScript-Programmen.
+Hypertext Markup Language (HTML) ist in der Entwicklung einer Web-Applikation für den Inhalt (Text, Links, Bilder, Buttons...) der Seite zuständig. Die Sprache beschreibt durch \textit{Elemente}, die einen Wert haben können, verschachtelt sein können und denen \textit{Attribute} zugewiesen werden können die darzustellenden Informationen. 
+
+Das Document Object Model (DOM) ermöglicht die dynamische Manipulation dieser Elemente durch Schnittstellen in JavaScript-Programmen.
 
 \subsection{Scalable Vector Graphics (SVG)}
 
-SVG (Scalable Vector Graphics) ist ein Format für Vektorgrafiken. SVG-Bilder bestehen nicht wie andere Bilderformate (JPG, PNG) aus Pixeln, sondern aus Elementen wie Kreise, Ellipsen, Rechtecke, Linien. SVG-Grafiken können im Browser dargestellt werden und durch JavaScript ebenfalls dynamisch manipuliert werden.
+Scalable Vector Graphics (SVG) ist ein Format für Vektorgrafiken. SVG-Bilder bestehen nicht wie andere Bildformate (JPG, PNG) aus Pixeln, sondern aus Elementen wie Kreisen, Ellipsen, Rechtecke, Linien. SVG-Grafiken können im Browser dargestellt werden und durch JavaScript ebenfalls dynamisch manipuliert werden.
 
 \subsection{Cascading Style Sheets (CSS)}
 

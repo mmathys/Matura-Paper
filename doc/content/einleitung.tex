@@ -1,4 +1,6 @@
 \chapter{Einleitung}
+\section{Bedeutung  und Zweck von Diagrammen}
+
 Die graphische Darstellung von Daten, das Diagramm, ist von grosser Bedeutung für die Gesellschaft. Man findet Diagramme überall: In etlichen Wissenschaften, wo sie nicht wegzudenken sind, in jeglichen Industrien, in Zeitungen, in Werbungen.
 
 % kann man das gleiche zitat wie im visualisierungs buch hinzufügen?
@@ -17,7 +19,7 @@ In der Abbildung \ref{fig:nytimes-taxes} ist ein Blasendiagramm dargestellt. Jed
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=\linewidth]{images/nytimes-taxes-zugeschnitten}
-	\caption[Blasendiagramm in der New York Times]{Ein Blasendiagramm, das Steuerabgaben und Steuersätze von US-Firmen darstellt. \cite{nytimes-taxes}}
+	\caption[Blasendiagramm in The New York Times]{Ein Blasendiagramm, das Steuerabgaben und Steuersätze von US-Firmen darstellt. \cite{nytimes-taxes}}
 	\label{fig:nytimes-taxes}
 \end{figure}
 
@@ -26,7 +28,7 @@ Die Webseite in Abbildung \ref{fig:nytimes-realestate} berechnet anhand von vom 
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=\linewidth]{images/nytimes-realestate-zugeschnitten}
-	\caption[Interaktives Diagramm in der New York Times]{Interaktives Diagramm mit verstellbaren Reglern, das die Profitabilität des Kaufs eines Hauses darstellt. \cite{nytimes-realestate}}
+	\caption[Interaktives Diagramm in The New York Times]{Interaktives Diagramm mit verstellbaren Reglern, das die Profitabilität des Kaufs eines Hauses darstellt. \cite{nytimes-realestate}}
 	\label{fig:nytimes-realestate}
 \end{figure}
 
@@ -42,13 +44,15 @@ Die von Shneidermann beschriebenen Prinzipien für das Design von Benutzeroberfl
 
 \section{Ziel dieser Arbeit}
 
-Das Ziel dieser Arbeit ist es, verschiedene Typen von Diagrammen, statische und dynamische, zu dokumentieren und zu entwickeln, die in einem Web-Browser dargestellt werden können. Sie sollen den Prinzipien von Shneidermann folgen, und dem Nutzer erlauben, eine bessere Analyse, ein besseres Verständnis über des Datensatzes zu erlangen. Auch soll es dem Nutzer Spass machen ihn ermutigen, sich mit dem Diagramm auseinanderzusetzen.
+Das Ziel dieser Arbeit ist die eigene Entwicklung einer Software, die dynamische Diagramme in einem Web-Browser darstellt. Sie sollen den Prinzipien von Shneidermann folgen, und dem Nutzer erlauben, eine bessere Analyse, ein besseres Verständnis über des Datensatzes zu erlangen. Auch soll es dem Nutzer Spass machen und ihn ermutigen, sich mit dem Diagramm auseinanderzusetzen.
 
-\section{Wahl des Diagrammtyps}
+Ich will auch die "`Taktik"' zeigen, mit der diese Diagramme erstellt werden, welche Probleme bei der Entwicklung aufgetreten sind und verwendete Entwicklungswerkzeuge vorstellen.
+
+\section{Wahl des Diagrammtyps für die Software}
 
 Es gibt sehr viele Arten von Diagrammen, welche sich unterschiedlich für verschiedene Datentypen eignen. 
 % beispiele pie diagramme und so?
-Diese Arbeit beschränkt sich auf zwei grundlegende Diagrammtypen: Das \textit{Punktediagramm} und das \textit{Liniendiagramm}.
+Diese Applikation beschränkt sich auf zwei grundlegende Diagrammtypen: Das \textit{Punktediagramm} und das \textit{Liniendiagramm}.
 
 \begin{figure}[!htbp]
 	\centering
@@ -66,8 +70,8 @@ Diese Arbeit beschränkt sich auf zwei grundlegende Diagrammtypen: Das \textit{P
 
 Das Punktediagramm und das Liniendiagramm werden in der Wissenschaft als auch in anderen Medien oft verwendet. In diesen Diagrammen werden Skalen in der Ebene oder Raum festgelegt, die ein Koordinatensystem beschreiben. Mindestens eine Achse dient als Skala der unabhängigen Variablen (der Dimension, die den Beobachtungsraum der Daten aufspannen). Die restlichen Achsen dienen als Skala der abhängigen Variablen, Ausprägungen, die abgetragen werden und mit graphischen Symbolen, wie etwa Kreise, Kreuze oder Vierecke markiert werden \cite{viz}. Beim Liniendiagramm werden zusätzlich die benachbarten Punkte durch eine Linien oder Kurvenabschnitt verbunden, was Trends und Strukturen der Daten deutlicher darstellt, und Datenpunkte, die durch Linien verbunden sind, werden zusätzlich gruppiert \cite{interpolation_wirkung}. In der Abbildung \ref{fig:scatterplot} sind ein Punktediagramm und ein Liniendiagramm dargestellt, die den Verlauf den CO\textsubscript{2}-Verbrauchs darstellen.
 
-%ist es so klar, dass das liniendiagramm eine untertyp eines punktediagramms ist?
+Ich habe andere Diagramme, wie zum Beispiel Kreisdiagramme, Säulendiagramme, Baumdiagramme oder Histogramme nicht gewählt, weil sie nicht oft verwendet werden. Zudem können solche Diagramme oft nur einen spezifischen Datentyp darstellen. Benutzer sind sich oft an Punkte- und Liniendiagramme gewöhnt.
 
-\section{Wahl der Programmiersprache, Programmierplattform}
+\section{Wahl der Programmiersprache für die Software}
 
 Interaktive Diagramme werden in der Praxis fast ausschliesslich für den Web-Browser entwickelt, wie auch in dieser Arbeit. Technologien wie HTML, CSS, SVG, JavaScript werden verwendet, diese ermöglichen die dynamische Manipulation durch den Nutzer. Diese Technologien werden durch praktisch alle neueren Smarthphones, Tablets, Laptops, Desktops unterstützt.

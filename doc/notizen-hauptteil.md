@@ -13,14 +13,31 @@
 - Bevor das Diagramm erstellt werden kann, müssen Daten geladen werden
 - Typische Datenquellen angeben (Open (Government) Data)
 - Verarbeitung: Standardablauf von Visualisierungen-Buch zitieren
-  - Erklären was das Programm in den jeweiligen Schritten genau macht
-  - Format CSV, Prinzip erklären
-  - Wie das Programm intern die Daten verwendet
-  - meta.json (JSON auch erklären)
+
+### Rohdaten
+
   - Von URL Laden
+  - Format CSV, Prinzip erklären
+
+### Filtering
+  - meta.json (JSON auch erklären)
+  - Wie das Programm intern die Daten verwendet
   - Merge
   - Spalten-ID-Zuweisung
+
+### Aufbereitete Daten
   - Filter-Methode
+
+### Mapping
+
+
+### Geometriedaten
+
+
+### Rendering
+
+
+### Bilddaten
 
 
 <!--
