@@ -110,3 +110,4 @@ doc/arbeit.pdf
 
 # ignore minted generated files
 **/_minted-*/*
+*.pytxcode
