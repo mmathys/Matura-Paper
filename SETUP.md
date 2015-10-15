@@ -9,4 +9,4 @@ Node.js muss installiert sein
 
 - `gulp init`
 - `gulp develop`
-- Im Browser auf `localhost:8000/<Testname>` gehen (z. B. `http://localhost:8000/layout/`).
+- Im Browser auf `localhost:3000/<Testname>` gehen (z. B. `http://localhost:3000/layout/`).
