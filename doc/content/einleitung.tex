@@ -6,7 +6,7 @@ Die graphische Darstellung von Daten, das Diagramm, ist von grosser Bedeutung f�
 % kann man das gleiche zitat wie im visualisierungs buch hinzufügen?
 
 Das Ziel eines Diagramms ist die visuelle Repräsentation einer gegebenen Datenmenge, um damit eine effektive Auswertung zu ermöglichen. Die Analyse, das Verständnis und die Kommunikation sollen erleichtert werden \cite{viz}. Der Leser sollte sich mit der Datenmenge auseinandersetzen können, ohne die Rohdaten selbst betrachten zu müssen. Je nachdem wie das Diagramm graphisch umgesetzt wird, können verschiedene Zusammenhänge und Informationen des Datensatzes hervorgehoben oder in den Hintergrund gestellt werden, was einen Einfluss auf die Vermittlung hat. 
-Das Ziel jedoch eines Diagramms ist es, die darzustellende Datenmenge möglichst unverfälscht darzustellen \cite{ziel}. % kann man direkt aus visualisationsbuch abschreiben, dann aber nur die quelle angeben, die im buch verwiesen ist?
+Das Ziel jedoch eines Diagramms ist es, die darzustellende Datenmenge möglichst unverfälscht darzustellen \cite{viz}. % kann man direkt aus visualisationsbuch abschreiben, dann aber nur die quelle angeben, die im buch verwiesen ist?
 
 Im Informationszeitalter sind Daten von grosser Bedeutung, der Datenfluss vergrössert sich ständig. Um Daten darstellen zu können, müssen sie zuerst gesammelt, sortiert und formatiert werden, bevor mit der Auswertung begonnen werden kann. Das Sammeln von Daten stellt oftmals keine besondere Schwierigkeit dar, das Auswerten, Darstellen und Interpretieren ist eine Herausforderung.
 
@@ -46,7 +46,7 @@ Die von Shneidermann beschriebenen Prinzipien für das Design von Benutzeroberfl
 
 Das Ziel dieser Arbeit ist die eigene Entwicklung einer Software, die dynamische Diagramme in einem Web-Browser darstellt. Sie sollen den Prinzipien von Shneidermann folgen, und dem Nutzer erlauben, eine bessere Analyse, ein besseres Verständnis über des Datensatzes zu erlangen. Auch soll es dem Nutzer Spass machen und ihn ermutigen, sich mit dem Diagramm auseinanderzusetzen.
 
-Ich will auch die "`Taktik"' zeigen, mit der diese Diagramme erstellt werden, welche Probleme bei der Entwicklung aufgetreten sind und verwendete Entwicklungswerkzeuge vorstellen.
+Die "`Taktik"' wird auch aufgezeigt, mit der diese Diagramme erstellt werden, welche Probleme bei der Entwicklung aufgetreten sind und verwendete Entwicklungswerkzeuge werden vorgestellt.
 
 \section{Wahl des Diagrammtyps für die Software}
 
@@ -68,10 +68,10 @@ Diese Applikation beschränkt sich auf zwei grundlegende Diagrammtypen: Das \tex
 	\label{fig:scatterplot}
 \end{figure}
 
-Das Punktediagramm und das Liniendiagramm werden in der Wissenschaft als auch in anderen Medien oft verwendet. In diesen Diagrammen werden Skalen in der Ebene oder Raum festgelegt, die ein Koordinatensystem beschreiben. Mindestens eine Achse dient als Skala der unabhängigen Variablen (der Dimension, die den Beobachtungsraum der Daten aufspannen). Die restlichen Achsen dienen als Skala der abhängigen Variablen, Ausprägungen, die abgetragen werden und mit graphischen Symbolen, wie etwa Kreise, Kreuze oder Vierecke markiert werden \cite{viz}. Beim Liniendiagramm werden zusätzlich die benachbarten Punkte durch eine Linien oder Kurvenabschnitt verbunden, was Trends und Strukturen der Daten deutlicher darstellt, und Datenpunkte, die durch Linien verbunden sind, werden zusätzlich gruppiert \cite{interpolation_wirkung}. In der Abbildung \ref{fig:scatterplot} sind ein Punktediagramm und ein Liniendiagramm dargestellt, die den Verlauf den CO\textsubscript{2}-Verbrauchs darstellen.
+Das Punktediagramm und das Liniendiagramm werden in der Wissenschaft als auch in anderen Medien oft verwendet. In diesen Diagrammen werden Skalen in der Ebene oder Raum festgelegt, die ein Koordinatensystem beschreiben. Mindestens eine Achse dient als Skala der unabhängigen Variablen (der Dimension, die den Beobachtungsraum der Daten aufspannen). Die restlichen Achsen dienen als Skala der abhängigen Variablen, Ausprägungen, die abgetragen werden und mit graphischen Symbolen, wie etwa Kreise, Kreuze oder Vierecke markiert werden \cite{viz}. Beim Liniendiagramm werden zusätzlich die benachbarten Punkte durch eine Linien oder Kurvenabschnitt verbunden, was Trends und Strukturen der Daten deutlicher darstellt, und Datenpunkte, die durch Linien verbunden sind, werden zusätzlich gruppiert \cite{viz}. In der Abbildung \ref{fig:scatterplot} sind ein Punktediagramm und ein Liniendiagramm dargestellt, die den Verlauf den CO\textsubscript{2}-Verbrauchs darstellen.
 
 Ich habe andere Diagramme, wie zum Beispiel Kreisdiagramme, Säulendiagramme, Baumdiagramme oder Histogramme nicht gewählt, weil sie nicht oft verwendet werden. Zudem können solche Diagramme oft nur einen spezifischen Datentyp darstellen. Benutzer sind sich oft an Punkte- und Liniendiagramme gewöhnt.
 
 \section{Wahl der Programmiersprache für die Software}
 
-Interaktive Diagramme werden in der Praxis fast ausschliesslich für den Web-Browser entwickelt, wie auch in dieser Arbeit. Technologien wie HTML, CSS, SVG, JavaScript werden verwendet, diese ermöglichen die dynamische Manipulation durch den Nutzer. Diese Technologien werden durch praktisch alle neueren Smarthphones, Tablets, Laptops, Desktops unterstützt.
+Interaktive Diagramme werden in der Praxis fast ausschliesslich für den Web-Browser entwickelt, wie auch in dieser Arbeit. Technologien wie HTML, CSS, SVG, JavaScript werden verwendet, diese ermöglichen die dynamische Manipulation durch den Nutzer. Diese Technologien werden durch praktisch alle neueren Smartphones, Tablets, Laptops, Desktops unterstützt.

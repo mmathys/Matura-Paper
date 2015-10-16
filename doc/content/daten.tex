@@ -1,9 +1,9 @@
 \section{Verarbeitung der Daten}
 
-Bevor das Diagramm im Browser dargestellt werden kann, müssen zuerst die Daten geladen verarbeitet werden. Die Beispiele dieser Arbeit nutzen grösstenteils Datensätze, die frei verfügbar sind.  %hier näher erklären TODO
+Bevor das Diagramm im Browser dargestellt werden kann, müssen zuerst die Daten geladen und verarbeitet werden. Die Beispiele dieser Arbeit nutzen ausschliesslich Datensätze, die frei verfügbar sind \cite{worldbank}.  %hier näher erklären TODO
 Die Diagramme in Abbildung \ref{fig:scatterplot} benutzen einen Datensatz der Weltbank, der den $CO_2$-Verbrauch von Afghanistan beinhaltet.
 
-Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspipeline} durchlaufen \cite{pipeline}. Diese Pipeline stellt drei wesentliche Schritte des Prozesses dar: Die Datenaufbereitung (\textit{Filtering}), die Erzeugung des Geometriemodells (\textit{Mapping}) und die Bildgenerierung (\textit{Rendering}).
+Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspipeline} durchlaufen \cite{viz}. Diese Pipeline stellt drei wesentliche Schritte des Prozesses dar: Die Datenaufbereitung (\textit{Filtering}), die Erzeugung des Geometriemodells (\textit{Mapping}) und die Bildgenerierung (\textit{Rendering}).
 
 % = rohdaten -> aufbereitete Daten -> geometriedaten -> Bilddaten
 
@@ -11,7 +11,7 @@ Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspip
 
 \subsubsection{Comma-seperated values (CSV)}
 
-Die Software verwendet als Datenformat \textit{Comma-seperated values} (\textit{CSV}). CSV stellt eine Tabelle dar. Zeilen werden im Format durch einen Umbruch und Spaltenwerte durch ein Komma getrennt. Optional steht in der ersten Zeile (Abbildung \ref{fig:csv} links, Zeile 1) der Datei die Beschriftung der Spalten.
+Die Software verwendet als Datenformat \textit{Comma-seperated values} (\textit{CSV}). Das CSV-Format wird verwendet, um Tabellendaten zwischen Programmen auszutauschen \cite{csv}. Tabellenzeilen werden im der CSV-Datei durch einen Umbruch dargestellt, Spaltenwerte durch Kommas. Optional steht in der ersten Zeile (Abbildung \ref{fig:csv} links, Zeile 1) der Datei die Beschriftung der Spalten.
 
 In Abbildung \ref{fig:csv} wird die Funktion des CSV-Formats demonstriert.
 
@@ -19,7 +19,7 @@ In Abbildung \ref{fig:csv} wird die Funktion des CSV-Formats demonstriert.
 	\centering
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\begin{minted}{text}
+		\begin{minted}[linenos]{text}
 Date,Value
 2010-12-31,4220.717
 2009-12-31,4352.729
@@ -44,18 +44,18 @@ Date,Value
 
 Man verwendet das CSV-Format oft, weil es sehr einfach aufgebaut ist. Das Lesen von solchen Tabellenformaten ist ohne grossen Aufwand in Programmen umsetzbar. 
 
- Zudem beschränkt sich das CSV-Format nur auf die Vermittlung der Daten, und beinhaltet keine Informationen zu der Darstellung der Tabelle. Excel-Dateien (XLS/XLSX) hingegen speichern auch Daten zu der Formatierung, auch Zeilengrösse, Textgrösse, Textformat und viele mehr. Für die Zwecke dieser Software sind diese Informationen irrelevant.
+ Zudem beschränkt sich das CSV-Format nur auf die Vermittlung der Daten, und beinhaltet keine Informationen zur Darstellung der Tabelle. Excel-Dateien (XLS/XLSX) hingegen speichern auch Daten zur Formatierung, auch Zeilengrösse, Textgrösse, Textformat und viele mehr. Für die Zwecke dieser Software sind diese Informationen irrelevant.
  
  
-Wenn die Software die CSV-Datei laden und verarbeiten will, dann braucht sie zunächst zusätzliche Informationen zu der Datei: Die \textit{URL}, die den Ort der Datei angibt.
+Wenn die Software die CSV-Datei laden und verarbeiten will, dann braucht sie zunächst zusätzliche Informationen zu der Datei: Die \textit{URL}, ein Zeichenstring, der eine über das Internet zugängliche Ressource repräsentiert \cite{url}.
 
 Die Software lädt die Datei durch eine \textit{Ajax}-Anfrage (\textit{Asynchronous JavaScript and XML}) herunter, bevor sie sie weiter verarbeitet.
 
 \subsection{Filtering}
 
-Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filterings sind zum Beispiel die Vervollständigung, Reduzierung, Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisationspipeline verwendet werden können \cite[Kap. 2]{viz}.
+Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filtering sind zum Beispiel die Vervollständigung, Reduzierung, Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisationspipeline verwendet werden können \cite[Kap. 2]{viz}.
 
-\subsubsection{Konvertierung in JavaScript Objects}
+\subsubsection{Konvertierung in JavaScript Objekte}
 
 Als erster Schritt wird in der Applikation die CSV-Datei in \textit{JavaScript-Objekte} umgewandelt. Das Laden und \textit{Parsing} der Datei von CSV zu Objekten ist von D3 implementiert.
 
@@ -67,7 +67,7 @@ Im Abbildung \ref{fig:csv-json} ist der Prozess der Umwandlung ersichtlich: Es w
 	\centering
 	\begin{minipage}{0.35\textwidth}
 		\centering
-		\begin{minted}{text}
+		\begin{minted}[linenos]{text}
 Date,Value
 2010-12-31,4220.717
 2009-12-31,4352.729
@@ -78,7 +78,7 @@ Date,Value
 	\begin{minipage}{0.55\textwidth}
 		\centering
 
-		\begin{minted}{json}
+		\begin{minted}[linenos]{json}
 [
   {
     "Date": "2010-12-31",
@@ -108,30 +108,30 @@ Date,Value
 Die Software benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu formatieren, damit er im Diagramm verwendet werden kann. Der Prozess muss folgende Aufgaben erledigen:
 
 \begin{itemize}
-	\item (Zeichenstring-) Elemente gegebenfalls in JavaScript-Objekte umwandeln
-	\item Falls mehrere Datensätze vorhanden sind, diese \textit{mergen}, also in einen einzigen Array zusammenfassen
-	\item Den gesamten gemergten Datensatz nach der unabhängigen Variable aufsteigend sortieren
+	\item (Zeichenstring-) Elemente gegebenfalls in JavaScript-Objekte umwandeln;
+	\item Falls mehrere Datensätze vorhanden sind, diese \textit{mergen}, also in einen einzigen Array zusammenfassen;
+	\item Den gesamten gemergten Datensatz nach der unabhängigen Variable aufsteigend sortieren.
 \end{itemize}
 
 \textbf{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
 
-In dem Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3 wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring, eine Umwandlung in das JavaScript-Date-Objekt, das ein Datum darstellt, ist sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Konventionen entspricht: 28.10.2015 (Schweiz), 10/28/2015 (USA).
+Im Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3 wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring; damit ist eine Umwandlung in das JavaScript Date-Objekt, das ein Datum darstellt, sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Gegebenheiten entspricht: 28.10.2015 (Schweiz), 10/28/2015 (USA).
 
-Nummern, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem Namen "`Value"' definiert, wandeln wir in Nummern um. Nur an Nummer-Objekten können Rechenoperationen durchgeführt werden.
+Zahlen, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem Namen "`Value"' definiert, werden zunächst von JavaScript als Zeichenstring behandelt. Diese Strings müssen in Zahl-Objekte umgewandelt werden, denn nur an Zahl-Objekten können Rechenoperationen durchgeführt werden.
 
-\textbf{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Software geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in ein JavaScript-Array umgewandelt.
+\textbf{Merging von Datensätzen.} Oft werden mehrere Dyatensätze in der Software geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in ein JavaScript-Array umgewandelt.
 
-Ich entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil dies für die Programmlogik mehr Sinn macht.
+Es wurde entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil die Umsetzung aus Sicht der Programmierlogik einfacher ist. 
 
-Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} oben). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige ID ersetzt (Abbildung \ref{fig:merge} unten). Die eindeutige ID wird durch den Spaltennamen und die URL der Datensatzes generiert: Der Spaltennamen wird ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem herkömmlichen Datensatz zuordnen kann.
+Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} oben). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige Identifikation ersetzt (Abbildung \ref{fig:merge} unten). Die eindeutige Identifikation wird durch den Spaltennamen und die URL der Datensatzes generiert: Dem Spaltennamen wird ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem ursprünglichen Datensatz zuordnen kann.
 
-In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit dem Dateinamen ch-co2.csv und af-co2.csv gemergt. Im unteren Beispiel wurden die Spaltennamen der abhängigen Variablen durch die eindeutige ID ersetzt.
+In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-co2.csv und af-co2.csv gemergt. Im unteren Beispiel wurden die Spaltennamen der abhängigen Variablen durch die eindeutige Identifikation ersetzt.
 
 \begin{figure}[!htbp]
 	\centering
 	\begin{minipage}{0.40\textwidth}
 		\centering
-		\begin{minted}{json}
+		\begin{minted}[linenos]{json}
 [
   {
     "Date": "2010-12-31",
@@ -154,7 +154,7 @@ In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit dem Dateinamen ch-c
 	\end{minipage}\hfill
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\begin{minted}{json}
+		\begin{minted}[linenos]{json}
 [
   {
     "Date": "2010-12-31",
@@ -181,7 +181,74 @@ In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit dem Dateinamen ch-c
 
 \textbf{Sortieren vom gemergten Datensatz.} Der Datensatz wird nach der unabhängigen Variable ansteigend sortiert, damit die Berechnung von Interpolationen ermöglicht werden.
 
-\subsubsection{Datensatzspezifische Konfiguration und Hard Coding}
+\subsubsection{Datensatzspezifische Filteringkonfiguration und Hard Coding}
+
+Die Software soll fähig sein, mehrere Formate von CSV-Datensätzen verarbeiten zu können. Der Benutzer sollte die Anweisungen zum Filtering anpassen können.
+
+Die Implementation dieser Anweisungen zum Filtering (Spezifikation der URLs, abhängige und unabhängige Variablen, Datentypen der Spalten des Datensatzes) kann auf zwei Arten durchgeführt werden.
+
+\begin{itemize}
+	\item Die Anweisungen zum Filtering sind im Sinne des \textit{Hard Coding} implementiert;
+	\item Die Anweisungen zum Filtering sind in einer; \textit{Konfiguration} abgelegt (\textit{Soft Coding}).
+\end{itemize}
+
+\textbf{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden wollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
+
+\textbf{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei, Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so ermöglicht, die Funktionsweise der Applikation anzupassen.
+
+\subsubsection{meta.json}
+
+Die Software verwendet als Konfiguration eine Datei im JSON-Format, die vor dem Filtering in ein JavaScript-Objekt umgewandelt werden kann. In Abbildung \ref{fig:meta} ist ein Beispiel der Konfigurationsdatei meta.json aufgelistet.
+
+\begin{itemize}
+	\item \texttt{dataset} (Zeile 3-22) beschreibt ein Datensatz;
+	\item \texttt{url} (Zeile 4) gibt die URL des Datensatzes an;
+	\item \texttt{config} (Zeile 5-21) ist ein Array, in dem die Spalten des Datensatzes konfiguriert werden;
+	\item \texttt{row} (Zeile 7, 14) gibt die zu konfigurierende Spalte an;
+	\item \texttt{type} (Zeile 8, 15) hat entweder den Wert \texttt{index} oder \texttt{value}. \texttt{index}  beschreibt, dass die Spalte eine unabhängige, \texttt{value} bedeutet, dass die Spalte eine abhängige Variable ist;
+	\item \texttt{data\_type} (Zeile 9, 16) gibt den Datentyp der Spalte an, damit sie in das entsprechende JavaScript-Objekt umgewandelt werden kann. Kann den Wert \texttt{Date} oder \texttt{Number} haben.
+	\item \texttt{date\_format} (Zeile 10) gibt bei Spalten mit Datentyp \texttt{Date} das Format des Datums an, damit es geparst werden kann.
+	\item \texttt{name} (Zeile 11, 17) setzt einen Namen für den Datensatz, der in dem Diagramm angezeigt werden soll.
+	\item \texttt{activated} (Zeile 18) gibt an, ob der Datensatz standardmässig im Diagramm angezeigt werden soll. Dieses Attribut spielt besonders eine Rolle bei Diagrammen, die mehrere Datensätze darstellen.
+	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variablen dar. Sie wird als Information im Diagramm angezeigt.6
+\end{itemize}
+
+
+
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{minted}[linenos]{javascript}
+{
+  "datasets": [
+    {
+      "url":"data/WWDI-AFG_EN_ATM_CO2E_KT.csv",
+      "config": [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Value",
+          "type": "value",
+          "data_type": "Number",
+          "name": "Afghanistan",
+          "activated": true,
+          "unit": "kt"
+        }
+      ]
+    }
+  ]	
+}
+	\end{minted}
+	
+	
+	\caption[Beispiel der Konfigurationsdatei: meta.json]{\textbf{meta.json}: Beispiel der Konfigurationsdatei, die die Applikation verwendet.}
+	\label{fig:meta}
+\end{figure}
 
 \subsection{Aufbereitete Daten}
 
