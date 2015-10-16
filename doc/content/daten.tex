@@ -194,7 +194,7 @@ Die Implementation dieser Anweisungen zum Filtering (Spezifikation der URLs, abh
 
 \textbf{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden wollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
 
-\textbf{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei, Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so ermöglicht, die Funktionsweise der Applikation anzupassen.
+\textbf{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei, Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so ermöglicht, die Funktionsweise der Applikation anzupassen. Soft Coding wird in dieser Software verwendet.
 
 \subsubsection{meta.json}
 
@@ -210,7 +210,7 @@ Die Software verwendet als Konfiguration eine Datei im JSON-Format, die vor dem 
 	\item \texttt{date\_format} (Zeile 10) gibt bei Spalten mit Datentyp \texttt{Date} das Format des Datums an, damit es geparst werden kann.
 	\item \texttt{name} (Zeile 11, 17) setzt einen Namen für den Datensatz, der in dem Diagramm angezeigt werden soll.
 	\item \texttt{activated} (Zeile 18) gibt an, ob der Datensatz standardmässig im Diagramm angezeigt werden soll. Dieses Attribut spielt besonders eine Rolle bei Diagrammen, die mehrere Datensätze darstellen.
-	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variablen dar. Sie wird als Information im Diagramm angezeigt.6
+	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variablen dar. Sie wird als Information im Diagramm angezeigt.
 \end{itemize}
 
 
@@ -218,7 +218,7 @@ Die Software verwendet als Konfiguration eine Datei im JSON-Format, die vor dem 
 
 \begin{figure}[!htbp]
 	\centering
-	\begin{minted}[linenos]{javascript}
+	\begin{minted}[linenos]{json}
 {
   "datasets": [
     {
@@ -250,12 +250,18 @@ Die Software verwendet als Konfiguration eine Datei im JSON-Format, die vor dem 
 	\label{fig:meta}
 \end{figure}
 
-\subsection{Aufbereitete Daten}
-
 \subsection{Mapping}
 
-\subsection{Geometriedaten}
+Das Mapping ist der Prozess der Umwandlung von der aufbereiteten Daten zu Geometriedaten, es ist das Kernstück der Diagrammerstellung. Es wird eine \textit{Daten-zu-Geometrie-Abbildung} realisiert \cite{viz}.
+
+In der Software, die in dieser Arbeit entwickelt wird, stellen die Geometriedaten die SVG-Elemente wie zum Beispiel Rechtecke, Kreise, Linien, Text.
+
+Die Programmlogik des Mappings unterscheidet sich grundlegend bei jedem Diagrammtyp. In dieser Arbeit werden mehrere Typen von Diagrammen entwickelt, der Prozess des Mappings wird für jeden Typ separat behandelt.
 
 \subsection{Rendering}
 
-\subsection{Bilddaten}
+% geometriedaten -> bilddaten
+
+Das Rendering ist der letzte Schritt der Diagrammerstellung, wo die Abbildung der Geometriedaten in Bilddaten erfolgt \cite{viz}.
+
+In unserem Falle sind Bilddaten das Diagramm, das im Browser angezeigt wird. Es ist die Aufgabe des Browsers, die Geometriedaten (SVG-Elemente) mit Darstellungsanweisungen (CSS) in Bilddaten (Pixel, angezeigte Grafik) zu rendern.
