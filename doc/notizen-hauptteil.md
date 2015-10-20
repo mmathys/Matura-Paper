@@ -1,4 +1,5 @@
-# Notizen zum Hauptteil
+Notizen zum Hauptteil
+=====================
 
 ## Technologie
 
@@ -56,11 +57,19 @@
 
   - Ansicht = Bilddaten
 
-               <!----------------- TODO
-                                   VVVV ------------------>
+## 2-Dimensionales Punktediagramm
 
-## 2-D Scatterplot
+  - 2-D Punktediagramme werden in der Praxis am meisten verwendet.
+  - unabhängige (x) und abhängige (y) variable.
 
-## 3-D Scatterplot
+### Grundlegende Features
 
-# n-D Scatterplot
+  - Grössen
+  - Achsen (Wertebereiche, Overflow)
+  - Gitter
+  - Ticks (Beschriftungen)
+  - Wahl der grauen Farben (hervorheben druch grösse und farbe TODO design medium article)
+
+## 3-Dimensionales Punktediagramm
+
+## n-Dimensionales Punktediagramm
