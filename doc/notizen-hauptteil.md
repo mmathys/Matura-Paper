@@ -62,6 +62,7 @@ Notizen zum Hauptteil
 ## 2-Dimensionales Punktediagramm
 
   - 2-D Punktediagramme werden in der Praxis am meisten verwendet.
+  - Der Benutzer ist sich 2-D Punktediagramme gewöhnt.
   - unabhängige (x) und abhängige (y) variable.
 
 ### Mantra
@@ -105,6 +106,10 @@ act as zoom/filter
     - Tooltip Funktionsweise: Springen zu nächsten Punkt. Algorithmus?
     - Beschriftung: Anzeige der genauen Daten (mit einheit)
       - exakte Daten
+
+### Verbesserungsideen
+
+  - Mantra: History
 
 
 ## 3-Dimensionales Punktediagramm
