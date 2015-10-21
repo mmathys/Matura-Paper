@@ -1,8 +1,7 @@
 =>PYTHONTEX:SETTINGS#
-version=0.14
+version=v0.12
 outputdir=pythontex-files-arbeit
-workingdir=.
-workingdirset=false
+workingdir=pythontex-files-arbeit
 gobble=none
 rerun=default
 hashdependencies=default
