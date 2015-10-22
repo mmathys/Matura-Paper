@@ -1,6 +1,14 @@
 Notizen zum Hauptteil
 =====================
 
+TO DO
+
+Die gesamte Applikation wurde selber erstellt und entwickelt, mit Ausnahme der folgenden Elemente d3 ..
+
+Den Abschnitt über information seeking mantra, der sich im teil 2.3.1 befindet, sollte einen eigenen Abschnitt (z.B. 2.3,) erhalten
+
+
+
 ## Technologie
 
 - Javascript (Standard Style, npm packages, modules mit browserify)
