@@ -114,4 +114,20 @@ act as zoom/filter
 
 ## 3-Dimensionales Punktediagramm
 
+  - Typ von daten mit einer unabhängigen und zwei abhängigen variablen:
+    - zwei attribute im verlauf der zeit.
+    - drei attribute: geschwindigkeit, luftwiderstand, oberfläche
+  - dreidimensionales punktediagramm
+    - three.js
+    - 3 pfeile mit farben als achsen.
+    - spheres als punkte, abbildung auf drei achsen.
+    - mit maus rotierbar
+    - kein zoom, weil sehr verwirrend.
+    - reduktion auf 2d
+      - reduktion verzerrt bei perpective camera.
+      - andere ansicht: ortho camera.
+      - klickbar auf jede projektion.
+      - verlauf auf jede position, weil sonst ist der nutzer verwirrt und versteht
+        den vorgang nicht.
+
 ## n-Dimensionales Punktediagramm
