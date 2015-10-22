@@ -50,28 +50,28 @@ Im Diagramm werden nur die Methoden \textit{Überblick}, \textit{Zoom}, \textit{
 	\label{fig:screenshot}
 \end{figure}
 
-Der Screenshot in \ref{fig:screenshot} zeigt die entwickelte Applikation. Es sind Datensätze \cite{worldbank} zum $CO_2$-Verbrauch von 15 Ländern vorhanden, drei davon sind im Diagramm eingeblendet.
+Der Screenshot in Abbildung \ref{fig:screenshot} zeigt die entwickelte Applikation. Es sind Datensätze \cite{worldbank} zum $CO_2$-Verbrauch von 15 Ländern vorhanden, drei davon sind im Diagramm eingeblendet.
 
-\textbf{Achsen.} Es wurden Achsen mit linearer Skala für die Applikation gewählt. Beschriftungen, sogenannte \textit{Ticks}, sind vorhanden. Die Ticks auf der Y-Achse wurden in Richtung der Innenseite des Diagramms verlängert, sodass ein Gitter entsteht.
+\textbf{Achsen.} Es wurden Achsen mit linearer Skala für die Applikation gewählt. Beschriftungen, sogenannte \textit{Ticks}, sind vorhanden. Die Ticks auf der Ordinatenachse (y-Achse) wurden in Richtung der Innenseite des Diagramms verlängert, so dass ein Gitter entsteht.
 
-Falls in einem Diagramm mehrere Datensätze parallel dargestellt werden, wie es der Fall in \ref{fig:screenshot} ist, müssen die abgebildeten Werte gleiche Einheiten besitzen. Bei der parallelen Darstellung von mehreren Datensätzen mit verschiedenen Einheiten in einem Diagramm muss für jede vorhandene Einheit eine eigene Achse gezeichnet werden.
+Falls in einem Diagramm mehrere Datensätze gleichzeitig dargestellt werden sollen, wie es der Fall in Abbildung \ref{fig:screenshot} ist, so müssen die abgebildeten Werte die gleiche Einheit (zum Beispiel Meter, Kilogramm, Franken) besitzen. Bei der gleichzeitigen Darstellung von mehreren Datensätzen mit verschiedenen Einheiten in einem Diagramm muss für jede vorhandene Einheit eine eigene Achse und Skala gezeichnet werden.
 
-\textbf{Datenpunkte.} Die Applikation bietet an, die Daten entweder als Punkte oder als Linien anzuzeigen. In Abbildung \ref{fig:screenshot} unten wird durch Kontrollkästchen ermöglicht, die Anzeige zu verändern.
+\textbf{Datenpunkte.} Die Applikation bietet an, die Daten als Punkte und bzw. oder verbunden durch eine Linie anzuzeigen. In Abbildung \ref{fig:screenshot} unten wird durch Kontrollkästchen ermöglicht, die Anzeige zu verändern.
 
-\textbf{Layout und Textformatierung.} Für den Schritt \textit{Übersicht} ist das Layout und auch die Formatierung des Textes von Wichtigkeit. Eine klare Oberflächenstruktur nach modernen Minimalismus (nach Designtrends wie \textit{Flat Design} als auch wie \textit{Material Design}) wurde geschaffen, wo der Inhalt im Vordergrund steht. "`Benutzer betrachten keine Details, sie benutzen Details."' \cite{minimalism}.
+\textbf{Layout und Textformatierung.} Für den Schritt \textit{Übersicht} ist das Layout und auch die Formatierung des Textes von Bedeutung. Eine klare Oberflächenstruktur nach modernen Minimalismus (nach Designtrends wie \textit{Flat Design} oder \textit{Material Design}) wurde geschaffen, bei denen der Inhalt im Vordergrund steht. "`Benutzer betrachten keine Details, sie benutzen Details."' \cite{minimalism}.
 
 Zur besseren Orientierung des Benutzers wird hier das Prinzip von "`\textit{pop}"' und "`\textit{unpop}"' von Text, das von Erik Kennedy \cite{pop} beschrieben wurde, berücksichtigt: Durch die Anpassung der Typographie kann ein Text hervorgehoben, beziehungsweise in den Hintergrund gestellt werden. Folgende Eigenschaften von Texten im Diagramm werden in der Applikation entsprechend der Wichtigkeit angepasst:
 
 \begin{itemize}
 	\item Grösse (grösser bzw. kleiner)
-	\item Farbe (höherer bzw. kleinerer Kontrast)
-	\item Schriftstärke (fetter bzw. dünner)
-	\item Schriftart (Grosschreibung btw. Kleinschreibung)
+	\item Farbe (grösser bzw. kleinerer Kontrast)
+	\item Schriftstärke (fetter bzw. leichter)
+	\item Schriftart (Grossschreibung bzw. Kleinschreibung)
 	\item Laufweite (kleiner bzw. grösser)
 	\item Unterstreichung (unterstrichen bzw. nicht unterstrichen)
 \end{itemize}
 
-\textbf{Linien.} Der Verlauf der abgebildeten Datenwerte wird verdeutlicht, indem die Punkte im Diagramm durch eine Linie verbunden werden. Die lineare Interpolation wurde durch ein selbstgeschriebenes Modul implementiert. Weitere Interpolationen, wie der \textit{Kubisch Hermitescher Spline} oder \textit{Basis-Spline}, wurden mit D3 implementiert und können auf das Diagramm angewandt werden.
+\textbf{Linien.} Der Verlauf der abgebildeten Datenwerte wird verdeutlicht, indem die Punkte im Diagramm durch eine Linie verbunden werden. Die lineare Interpolation wurde durch ein selbstgeschriebenes Modul implementiert. Weitere Interpolationen, wie der \textit{Kubisch Hermitescher Spline} oder \textit{Basis-Spline}, wurden mit D3 implementiert und können auf das Diagramm angewendet werden.
 
 \begin{figure}[!htbp]
 	\begin{minipage}{\textwidth}
@@ -86,13 +86,13 @@ Zur besseren Orientierung des Benutzers wird hier das Prinzip von "`\textit{pop}
 	\label{fig:vergleich}
 \end{figure}
 
-Verschiedenen Farben von Linien ermöglichen die Zuordnung von Datensätzen. Die den Datensätzen zugewiesenen Farben werden in der Detailanzeige dargestellt.
+Verschiedene Farben von Linien ermöglichen die Zuordnung von Datensätzen. Die den Datensätzen zugewiesenen Farben werden in der Detailanzeige dargestellt.
 
 \textbf{Zoom.} Der Schritt \textit{Zoomen} wurde im Diagramm umgesetzt. Es kann durch Scrollen gezoomt werden. Die Programmlogik wurde mittels D3 implementiert.
 
-\textbf{Datensatzauswahl.} Aus in diesem Beispiel (Abbildung \ref{fig:screenshot}) 15 Ländern können die entsprechenden Linien ein- und ausgeblendet werden. Dieser Vorgang gehört zum Schritt \textit{Filtern}. Aktivierte, angezeigte Datensätze werden sind nach den Prinzipien von Kennedy hervorgehoben, nicht aktivierte, versteckte Datensätze sind in den Hintergrund gestellt.
+\textbf{Datensatzauswahl.} In diesem Beispiel (Abbildung \ref{fig:screenshot}) können Linien ein- und ausgeblendet werden, die Datensätzen für 15 Länder entsprechen. Dieser Vorgang gehört zum Schritt \textit{Filtern}. Aktivierte, angezeigte Datensätze werden nach den Prinzipien von Kennedy hervorgehoben, nicht aktivierte, versteckte Datensätze sind in den Hintergrund gestellt.
 
-\textbf{Tooltip und Detailanzeige.} Beim Tooltip wird der der Maus am nächsten liegende Datenpunkt jedes Datensatzes markiert und auf der Detailanzeige dargestellt. Auf der Detailanzeige werden, falls im Datensatz vorhanden, weitere Informationen (Datenspalten) und genaue X- und Y-Werte mit Einheit angezeigt. Dieser Vorgang entspricht dem Schritt \textit{Details auf Abruf}.
+\textbf{Tooltip und Detailanzeige.} Beim Tooltip wird der der Maus am nächsten liegende Datenpunkt jedes Datensatzes markiert und erscheint in der Detailanzeige. In der Detailanzeige werden, falls im Datensatz vorhanden, weitere Informationen (Datenspalten) und genaue x- und y-Werte mit Einheit angezeigt. Dieser Vorgang entspricht dem Schritt \textit{Details auf Abruf}.
 
-\textbf{Dynamik der Applikation.} Der Screenshot dieses Beispiels (Abbildung \ref{fig:screenshot}) ist das Resultat der Anzeige der Applikation, die für einen bestimmten Datensatz konfiguriert ist. Elemente des Diagramms, wie der Wertebereich der Achsen, die Datensatzauswahl, Tooltip, Detailanzeige werden dynamisch generiert, sodass diese ohne Einstellung für anderen Datensätze funktionieren.
+\textbf{Dynamik der Applikation.} Der Screenshot dieses Beispiels (Abbildung \ref{fig:screenshot}) ist das Resultat der Anzeige der Applikation, die für einen bestimmten Datensatz konfiguriert ist. Elemente des Diagramms, wie der Wertebereich der Achsen, die Datensatzauswahl, Tooltip, Detailanzeige, werden dynamisch generiert, so dass diese Module ohne weitere Einstellung auch für andere Datensätze funktionieren.
 
