@@ -9,8 +9,9 @@ Den Abschnitt über information seeking mantra, der sich im teil 2.3.1 befindet,
 
 overflow beschreiben im 2d teil
 
-
 basscss erwähnen technologie
+
+die daten in 3d sind gar nicht genau beschrieben (welches land????????? quelle)
 
 
 ## Technologie
@@ -106,15 +107,8 @@ basscss erwähnen technologie
     - nachteil: änderungen in y-bereich werden nicht sichtbar.
 
 
-### select
-act as zoom/filter
+### select Anstellung in Mio. Personen
 
-  - nur bei mehreren datensätzen. rein und auszoomen. das prinzip des pop und unpop kommt vor.
-
-### Tooltip
-  act as details on demand
-
-  - Tooltip und Beschriftung
     - Tooltip Funktionsweise: Springen zu nächsten Punkt. Algorithmus?
     - Beschriftung: Anzeige der genauen Daten (mit einheit)
       - exakte Daten
