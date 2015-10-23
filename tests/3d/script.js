@@ -265,7 +265,6 @@ function loadVisualization (data) {
     1.1, values[1].data_type)
 
   xScale.domain(xWertebereich)
-
   yScale.domain(yWertebereich)
   zScale.domain(zWertebereich)
 
@@ -319,7 +318,7 @@ function loadVisualization (data) {
   function render () {
     renderer.render(scene, camera)
     console.log('cords: ', camera.position.x, camera.position.y, camera.position.z)
-  // console.log("in scene: ", camera.position.x+50, camera.position.y+50, camera.position.z+50)
+    console.log('in scene: ', camera.position.x + 50, camera.position.y + 50, camera.position.z + 50)
   // console.log(camera.rotation.x*180/Math.PI, camera.rotation.y*180/Math.PI, camera.rotation.z*180/Math.PI)
   }
 
@@ -342,6 +341,7 @@ function loadVisualization (data) {
       scale: 1
     })
 
+    // Box zeichnen
     var xy1 = [toScene(100, 100, 0), toScene(100, 0, 0)]
     var xy2 = [toScene(100, 100, 0), toScene(0, 100, 0)]
     var yz1 = [toScene(0, 100, 100), toScene(0, 100, 0)]
@@ -415,10 +415,9 @@ function loadVisualization (data) {
     }
     var cc
     if (mode === 'xy') {
-      cc = toScene(50, -100, 50) // eigentlich xz [y]
-      // rot: 90 0 0
-    } else if (mode === 'xz') { // eigentlich xy [z]
       cc = toScene(50, 50, 200)
+    } else if (mode === 'xz') {
+      cc = toScene(50, -100, 50)
     // rot: 0 0 0
     } else if (mode === 'yz') { // eigentlich yz [x]
       cc = toScene(-100, 50, 50)

@@ -7,6 +7,10 @@ Die gesamte Applikation wurde selber erstellt und entwickelt, mit Ausnahme der f
 
 Den Abschnitt über information seeking mantra, der sich im teil 2.3.1 befindet, sollte einen eigenen Abschnitt (z.B. 2.3,) erhalten
 
+overflow beschreiben im 2d teil
+
+
+basscss erwähnen technologie
 
 
 ## Technologie
@@ -130,6 +134,7 @@ act as zoom/filter
     - 3 pfeile mit farben als achsen.
     - spheres als punkte, abbildung auf drei achsen.
     - mit maus rotierbar
+      - bessere erkundung des datensatzes, interaktiv.
     - kein zoom, weil sehr verwirrend.
     - reduktion auf 2d
       - reduktion verzerrt bei perpective camera.
