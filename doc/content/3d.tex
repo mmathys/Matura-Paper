@@ -35,3 +35,15 @@ Die Applikation wurde mit der Programmierbibliothek \textit{Three.js} erstellt. 
 	\caption{Die Richtungsvektoren der Achsen im dreidimensionalen Punktediagramm.}
 	\label{fig:vectors}
 \end{figure}
+
+\textbf{Punkte.} Die Datenpunkte wurden an den drei Achsen abgetragen und als schwarze Kugeln im Raum abgebildet.
+
+\subsection{Interaktion}
+
+\textbf{Rotation.} Das dreidimensionale Punktediagramm ist mit der Maus rotierbar. Die Kamera bleibt während der Rotation stets auf die Mitte des Diagramms gerichtet. Die Rotation ermöglicht eine bessere Erkundung des Datensatzes und bietet die Ansicht aus verschiedenen Winkeln dar.
+
+Eine Funktion für das Zommen wurde nicht implementiert, weil sie sich als kontraproduktiv herausstellte: Die Orientation des Benutzers geht schnell verloren, zum Beispiel wenn zu weit herausgezoomt wird, sodass das Diagramm nicht mehr sichtbar ist, oder wenn sich die Kamera innerhalb der Punktewolke befindet.
+
+\subsection{Projektion des Diagramms}
+
+Beim Entwickeln dieses Diagramms ist aufgefallen, dass, falls die Kamera an bestimmte Orte verschoben wird, das dreidimensionale Diagramm projiziert werden kann. 
