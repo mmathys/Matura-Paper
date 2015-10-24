@@ -46,24 +46,29 @@ Eine Funktion für das Zommen wurde nicht implementiert, weil sie sich als kontr
 
 \subsection{Projektion des Diagramms}
 
-Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist das Potential von orthographischen Projektionen innerhalb des dreidimensionalen Punktediagramms.
+Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist die Erkennung des Potentials von orthographischen Projektionen innerhalb des dreidimensionalen Punktediagramms.
 
 Das Punktediagramm kann durch Verschieben der Kamera und Verwendung der orthographischen Projektion auf ein zweidimensionales Punktediagramm reduziert werden.
 
-Die Projektion der XY-Fläche kann zum Beispiel erzielt werden, wenn die Kamera auf halber X-Achsen-Position, halber Y-Achsen-Position und auf doppelter Z-Achsen-Position ist und in die Richtung der Mitte des Diagrammes ausgerichtet ist.
+Zum Beispiel führt die Projektion der YZ-Fläche zur Darstellung eines zweidimensionalen Punktediagramms: Die neue Abszisse ist die Y-Achse, die neue Ordinate die Z-Achse. Der Effekt kann in diesem Beispiel erzielt werden, wenn die Kamera auf halber X-Achsen-Position, negativer Y-Achsen-Position und auf halber Z-Achsen-Position ist und in die Richtung der Mitte des Diagrammes ausgerichtet ist.
+
+Abbildung \ref{fig:3dmath} erklärt Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse, Ordinatenachse und Applikatenachse, $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{yz}}$, $P_{\text{zx}}$ die Position der Kamera für die entsprechende Projektion:
 
 \begin{figure}[H]
+$$S = (0|0|0)$$
 
-	$S = (0|0|0)$
-	
-	$M = (\frac{1}{2} a | \frac{1}{2} a | \frac{1}{2} a)$
-	
-	$P_{xy} = (\frac{1}{2} a | \frac{1}{2} a| a + a)$
-	
-	$P_{yz} = (\frac{1}{2} a | -a| \frac{1}{2} a)$
-	
-	$P_{zx} = (-a | \frac{1}{2} a| \frac{1}{2} a)$
+$$M = (\frac{a}{2} | \frac{a}{2} | \frac{a}{2})$$
+
+$$P_{\text{xy}} = (\frac{a}{2} | \frac{a}{2}| a + a)$$
+
+$$P_{\text{yz}} = (\frac{a}{2} | -a | \frac{a}{2})$$
+
+$$P_{\text{zx}} = (-a | \frac{a}{2}| \frac{a}{2})$$
+\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktediagramm}
+\label{fig:3dmath}
 \end{figure}
+
+
 
 \begin{figure}[!htbp]
 	\centering
