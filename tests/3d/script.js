@@ -403,8 +403,8 @@ function loadVisualization (data) {
     ortho('xz')
   })
 
-  $('#yz').click(function () {
-    ortho('yz')
+  $('#zy').click(function () {
+    ortho('zy')
   })
 
   function ortho (mode) {
@@ -418,10 +418,8 @@ function loadVisualization (data) {
       cc = toScene(50, 50, 200)
     } else if (mode === 'xz') {
       cc = toScene(50, -100, 50)
-    // rot: 0 0 0
-    } else if (mode === 'yz') { // eigentlich yz [x]
+    } else if (mode === 'zy') {
       cc = toScene(-100, 50, 50)
-    // rot: 0 -90 0
     }
 
     var posx = { x: camera.position.x }
@@ -449,6 +447,7 @@ function loadVisualization (data) {
     tz.onUpdate(function () {
       camera.position.z = posz.x
     })
+
     tx.start()
     ty.start()
     tz.start()

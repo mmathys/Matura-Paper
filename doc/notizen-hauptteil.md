@@ -1,18 +1,9 @@
 Notizen zum Hauptteil
 =====================
 
-TO DO
+say which datasets were used in 3d and nd
 
-Die gesamte Applikation wurde selber erstellt und entwickelt, mit Ausnahme der folgenden Elemente d3 ..
-
-Den Abschnitt über information seeking mantra, der sich im teil 2.3.1 befindet, sollte einen eigenen Abschnitt (z.B. 2.3,) erhalten
-
-overflow beschreiben im 2d teil
-
-basscss erwähnen technologie
-
-die daten in 3d sind gar nicht genau beschrieben (welches land????????? quelle)
-
+replace "Programmierbibliothek" in "Programmbibliothek"
 
 ## Technologie
 
@@ -107,8 +98,15 @@ die daten in 3d sind gar nicht genau beschrieben (welches land????????? quelle)
     - nachteil: änderungen in y-bereich werden nicht sichtbar.
 
 
-### select Anstellung in Mio. Personen
+### select
+act as zoom/filter
 
+  - nur bei mehreren datensätzen. rein und auszoomen. das prinzip des pop und unpop kommt vor.
+
+### Tooltip
+  act as details on demand
+
+  - Tooltip und Beschriftung
     - Tooltip Funktionsweise: Springen zu nächsten Punkt. Algorithmus?
     - Beschriftung: Anzeige der genauen Daten (mit einheit)
       - exakte Daten
@@ -127,14 +125,22 @@ die daten in 3d sind gar nicht genau beschrieben (welches land????????? quelle)
     - three.js
     - 3 pfeile mit farben als achsen.
     - spheres als punkte, abbildung auf drei achsen.
+  - interaktion
     - mit maus rotierbar
       - bessere erkundung des datensatzes, interaktiv.
-    - kein zoom, weil sehr verwirrend.
-    - reduktion auf 2d
-      - reduktion verzerrt bei perpective camera.
-      - andere ansicht: ortho camera.
-      - klickbar auf jede projektion.
-      - verlauf auf jede position, weil sonst ist der nutzer verwirrt und versteht
-        den vorgang nicht.
+      - kein zoom, weil sehr verwirrend.
+  - reduktion auf 2d
+    - reduktion verzerrt bei perpective camera.
+    - andere ansicht: ortho camera.
+    - klickbar auf jede projektion.
+    - verlauf auf jede position, weil sonst ist der nutzer verwirrt und versteht
+      den vorgang nicht.
 
 ## n-Dimensionales Punktediagramm
+
+  - mehr als zwei abhängige variablen
+  - umgesetzt wie in Visualisierungen-Buch
+  - Scatterplotmatrix:
+    - ein scatterplot: darstellung basiert auf der auswahl von zwei interessierenden variablen.
+    - scatterplot matrix hat n^2 elemente und n^2-1 scatterplots. n ist anzahl dimension.
+    - anzahl scatterplots auch (m^2-1)/2, da sich scatterplots oberhalb und unterhalb der nebendiagonale nur durch die vertauschung der achsen unterscheiden.
