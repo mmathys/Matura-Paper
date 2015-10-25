@@ -1,4 +1,4 @@
-# "Interaktive Diagramme darstellen"
+# Interactive Diagrams
 Matura paper, Max Mathys
 
 ## Active tests
