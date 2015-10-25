@@ -11,7 +11,7 @@ Problemstellung, Aufbau, Ergebnisse / Schlussfolgerungen
 
 - Untersucht, wie Punkte und Liniendiagramme durch interaktion verbessert werden können und suchen von lösungen.
 
-dazu
+dazu..
 
 - Entwicklung einer Webapplikation.
   - Technologie
