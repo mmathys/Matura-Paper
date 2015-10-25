@@ -1,7 +1,20 @@
-# Interaktive Diagramme darstellen
-Maturitätsarbeit Max Mathys
+# "Interaktive Diagramme darstellen"
+Matura paper, Max Mathys
 
-## Aktive Tests
+## Active tests
 [`layout`](https://github.com/mmathys/maturaarbeit/tree/master/tests/layout), [`3d`](https://github.com/mmathys/maturaarbeit/tree/master/tests/3d), [`dimensions`](https://github.com/mmathys/maturaarbeit/tree/master/tests/dimensions)
 
-## [Setup](https://github.com/mmathys/maturaarbeit/blob/master/SETUP.md)
+## Setup
+
+Node.js must be installed
+
+- `cd <project folder>`
+- `npm install -g gulp`
+- `npm install`
+
+## Run tests
+
+- `gulp init`
+- `gulp develop`
+- Open `localhost:3000/<test name>` (e.g. `http://localhost:3000/layout/`)
+
