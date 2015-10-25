@@ -7,7 +7,20 @@ replace "Programmierbibliothek" in "Programmbibliothek"
 
 # Abstract
 
-TODO
+Problemstellung, Aufbau, Ergebnisse / Schlussfolgerungen
+
+- Untersucht, wie Punkte und Liniendiagramme durch interaktion verbessert werden können und suchen von lösungen.
+
+dazu
+- Entwicklung einer Webapplikation.
+  - Technologie
+  - Prozess
+  - Challenges bei der Entwicklung
+- Interaktives Diagramm
+  - Datenverarbeitung
+  - verschiedene typen von punkte und liniendiagrammen: 2-d, 3-d, n-d dokumentieren
+- durch interaktion bessere wege, datensätze zu erkunden
+- ergebnisse: 2 interaktive diagramme
 
 ## Technologie
 
