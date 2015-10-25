@@ -5,6 +5,10 @@ say which datasets were used in 3d and nd
 
 replace "Programmierbibliothek" in "Programmbibliothek"
 
+# Abstract
+
+TODO
+
 ## Technologie
 
 - Javascript (Standard Style, npm packages, modules mit browserify)
@@ -144,3 +148,7 @@ act as zoom/filter
     - ein scatterplot: darstellung basiert auf der auswahl von zwei interessierenden variablen.
     - scatterplot matrix hat n^2 elemente und n^2-1 scatterplots. n ist anzahl dimension.
     - anzahl scatterplots auch (m^2-1)/2, da sich scatterplots oberhalb und unterhalb der nebendiagonale nur durch die vertauschung der achsen unterscheiden.
+
+# Schlusswort
+
+TODO
