@@ -108,9 +108,9 @@ Date,Value
 Die Applikation benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu formatieren, damit er im Diagramm verwendet werden kann. Der Prozess muss folgende Aufgaben erledigen (diese Strategie wurde selber entwickelt):
 
 \begin{itemize}
-	\item (Zeichenstring-) Elemente gegebenfalls in JavaScript-Objekte umwandeln;
-	\item Falls mehrere Datensätze vorhanden sind, diese \textit{mergen}, also in einen einzigen Array zusammenfassen;
-	\item Den gesamten gemergten Datensatz nach der unabhängigen Variable aufsteigend sortieren.
+	\item (Zeichenstring-) Elemente gegebenfalls in JavaScript-Objekte umwandeln
+	\item Falls mehrere Datensätze vorhanden sind, diese \textit{mergen}, also in einen einzigen Array zusammenfassen
+	\item Den gesamten gemergten Datensatz nach der unabhängigen Variable aufsteigend sortieren
 \end{itemize}
 
 \textbf{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
@@ -188,8 +188,8 @@ Die Applikation soll fähig sein, mehrere Formate von CSV-Datensätzen verarbeit
 Die Implementation dieser Anweisungen zum Filtering (Spezifikation der URLs, abhängige und unabhängige Variablen, Datentypen der Spalten des Datensatzes) kann auf zwei Arten durchgeführt werden:
 
 \begin{itemize}
-	\item Die Anweisungen zum Filtering sind im Sinne des \textit{Hard Coding} implementiert;
-	\item Die Anweisungen zum Filtering sind in einer \textit{Konfiguration} abgelegt (\textit{Soft Coding}).
+	\item Die Anweisungen zum Filtering sind im Sinne des \textit{Hard Coding} implementiert
+	\item Die Anweisungen zum Filtering sind in einer \textit{Konfiguration} abgelegt (\textit{Soft Coding})
 \end{itemize}
 
 \textbf{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden sollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
@@ -201,16 +201,16 @@ Die Implementation dieser Anweisungen zum Filtering (Spezifikation der URLs, abh
 Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor dem Filtering in ein JavaScript-Objekt umgewandelt werden kann. In Abbildung \ref{fig:meta} ist ein Beispiel der Konfigurationsdatei meta.json aufgelistet:
 
 \begin{itemize}
-	\item \texttt{dataset} (Zeile 3-22) beschreibt ein Datensatz;
-	\item \texttt{url} (Zeile 4) gibt die URL des Datensatzes an;
-	\item \texttt{config} (Zeile 5-21) ist ein Array, in dem die Spalten des Datensatzes konfiguriert werden;
-	\item \texttt{row} (Zeile 7, 14) gibt die zu konfigurierende Spalte an;
-	\item \texttt{type} (Zeile 8, 15) hat entweder den Wert \texttt{index} oder \texttt{value}. \texttt{index} bedeutet, dass die Spalte eine unabhängige, \texttt{value} bedeutet, dass die Spalte eine abhängige Variable ist;
-	\item \texttt{data\_type} (Zeile 9, 16) gibt den Datentyp der Spalte an, damit sie in das entsprechende JavaScript-Objekt umgewandelt werden kann. Er kann den Wert \texttt{Date} oder \texttt{Number} haben;
-	\item \texttt{date\_format} (Zeile 10) gibt bei Spalten mit Datentyp \texttt{Date} das Format des Datums an, damit es geparst werden kann;
-	\item \texttt{name} (Zeile 11, 17) setzt einen Namen für den Datensatz, der im Diagramm angezeigt werden soll;
-	\item \texttt{activated} (Zeile 18) gibt an, ob der Datensatz standardmässig im Diagramm angezeigt werden soll. Dieses Attribut spielt besonders eine Rolle bei Diagrammen, die mehrere Datensätze darstellen;
-	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variablen dar. Sie wird als Information im Diagramm angezeigt.
+	\item \texttt{dataset} (Zeile 3-22) beschreibt ein Datensatz
+	\item \texttt{url} (Zeile 4) gibt die URL des Datensatzes an
+	\item \texttt{config} (Zeile 5-21) ist ein Array, in dem die Spalten des Datensatzes konfiguriert werden
+	\item \texttt{row} (Zeile 7, 14) gibt die zu konfigurierende Spalte an
+	\item \texttt{type} (Zeile 8, 15) hat entweder den Wert \texttt{index} oder \texttt{value}. \texttt{index} bedeutet, dass die Spalte eine unabhängige, \texttt{value} bedeutet, dass die Spalte eine abhängige Variable ist
+	\item \texttt{data\_type} (Zeile 9, 16) gibt den Datentyp der Spalte an, damit sie in das entsprechende JavaScript-Objekt umgewandelt werden kann. Er kann den Wert \texttt{Date} oder \texttt{Number} haben
+	\item \texttt{date\_format} (Zeile 10) gibt bei Spalten mit Datentyp \texttt{Date} das Format des Datums an, damit es geparst werden kann
+	\item \texttt{name} (Zeile 11, 17) setzt einen Namen für den Datensatz, der im Diagramm angezeigt werden soll
+	\item \texttt{activated} (Zeile 18) gibt an, ob der Datensatz standardmässig im Diagramm angezeigt werden soll. Dieses Attribut spielt besonders eine Rolle bei Diagrammen, die mehrere Datensätze darstellen
+	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variablen dar. Sie wird als Information im Diagramm angezeigt
 \end{itemize}
 
 \begin{figure}[!htbp]

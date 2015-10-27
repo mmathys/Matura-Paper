@@ -9,14 +9,14 @@ Beispiele für Datensätze, die in dreidimensionalen Punktdiagrammen dargestellt
 	\item Drei Attribute, die in einem bestimmten Verhältnis zueinander stehen. Zum Beispiel Geschwindigkeit, Luftwiderstand, Oberfläche
 \end{itemize}
 
-Es wurde entschieden, eine weitere Applikation zu entwickeln, die einen Datensatz mit einer unabhängigen und zwei abhängigen Variablen in einer 3D-Applikation anzeigt.
+Es wurde entschieden, eine weitere Applikation zu entwickeln, die einen Datensatz mit einer unabhängigen und zwei abhängigen Variablen in einer 3D-Applikation anzeigt. Dazu wurden Daten der World Bank \cite{worldbank} zur Bevölkerung und Arbeitsplätze der Schweiz im Verlauf der Zeit verwendet.
 
 \subsection{Applikation}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{images/3d}
-	\caption{Oberfläche der Applikation (dreidimensionales Punktediagramm), perspektivische Projektion}
+	\caption{Oberfläche der Applikation (dreidimensionales Punktdiagramm), perspektivische Projektion}
 	\label{fig:3d}
 \end{figure}
 
@@ -29,7 +29,7 @@ Abbildung \ref{fig:3d} zeigt die Oberfläche der entwickelten Applikation. Der N
 	$\vec{a}_x=\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$ (rot)\qquad
 	$\vec{a}_y=\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$ (grün)\qquad
 	$\vec{a}_z=\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$ (blau)\qquad
-	\caption{Die Richtungsvektoren der Achsen im dreidimensionalen Punktediagramm.}
+	\caption{Die Richtungsvektoren der Achsen im dreidimensionalen Punktdiagramm.}
 	\label{fig:vectors}
 \end{figure}
 
@@ -37,7 +37,7 @@ Die Beschriftung und Farben der Achsen werden über dem Diagramm angezeigt. Die 
 
 \textbf{Punkte.} Die Datenpunkte wurden an den drei Achsen abgetragen und als schwarze Kugeln im Raum abgebildet.
 
-\textbf{Würfel.} Ein Würfel wurde mit gestrichelten grauen Linien um das Diagramm dargestellt. Es soll dem Nutzer helfen, sich in dem dreidimensionalen Raum zu orientieren.
+\textbf{Würfel.} Ein Würfel wurde mit gestrichelten grauen Linien um das Diagramm dargestellt. Es soll dem Benutzer helfen, sich in dem dreidimensionalen Raum zu orientieren.
 
 \textbf{Rotation.} Das dreidimensionale Punktdiagramm ist mit der Maus rotierbar. Die Kamera bleibt während der Rotation stets auf die Mitte des Diagramms gerichtet. Die Rotation ermöglicht eine bessere Erkundung des Datensatzes und bietet die Ansicht aus verschiedenen Winkeln dar.
 
@@ -79,7 +79,7 @@ Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{
 		xz & Abszissenachse (x) & Applikatenachse (z) & In Richtung Ordinatenachse (y)\\ \hline
 		zy & Applikatenachse (z) & Ordinatenachse (y) & In Richtung Abzissenachse (x) \\ \hline
 	\end{tabular}
-	\caption{Beschreibung des projizierten zweidimensionalen Punktediagramms nach Projektion}
+	\caption{Beschreibung des projizierten zweidimensionalen Punktdiagramms nach Projektion}
 	\label{fig:3dtable}
 \end{figure}
 

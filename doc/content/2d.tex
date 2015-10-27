@@ -27,12 +27,12 @@ Falls in einem Diagramm mehrere Datensätze gleichzeitig dargestellt werden soll
 Zur besseren Orientierung des Benutzers wird hier das Prinzip von "`\textit{pop}"' und "`\textit{unpop}"' von Text, das von Erik Kennedy \cite{pop} beschrieben wurde, berücksichtigt: Durch die Anpassung der Typographie kann ein Text hervorgehoben beziehungsweise in den Hintergrund gestellt werden. Folgende Eigenschaften von Texten im Diagramm werden in der Applikation entsprechend der Wichtigkeit angepasst:
 
 \begin{itemize}
-	\item Grösse (grösser bzw. kleiner);
-	\item Farbe (grösserer bzw. kleinerer Kontrast);
-	\item Schriftstärke (fetter bzw. leichter);
-	\item Schriftart (Grossschreibung bzw. Kleinschreibung);
-	\item Laufweite (kleiner bzw. grösser);
-	\item Unterstreichung (unterstrichen bzw. nicht unterstrichen).
+	\item Grösse (grösser bzw. kleiner)
+	\item Farbe (grösserer bzw. kleinerer Kontrast)
+	\item Schriftstärke (fetter bzw. leichter)
+	\item Schriftart (Grossschreibung bzw. Kleinschreibung)
+	\item Laufweite (kleiner bzw. grösser)
+	\item Unterstreichung (unterstrichen bzw. nicht unterstrichen)
 \end{itemize}
 
 \textbf{Linien.} Der Verlauf der abgebildeten Datenwerte wird verdeutlicht, indem die Punkte im Diagramm durch eine Linie verbunden werden. Die lineare Interpolation wurde durch ein selbstgeschriebenes Modul implementiert. Weitere Interpolationen, wie der \textit{Kubisch Hermitescher Spline} oder \textit{Basis-Spline}, wurden mit D3 implementiert und können auf das Diagramm angewendet werden.
@@ -52,7 +52,11 @@ Zur besseren Orientierung des Benutzers wird hier das Prinzip von "`\textit{pop}
 
 Verschiedene Farben von Linien ermöglichen die Zuordnung von Datensätzen. Die den Datensätzen zugewiesenen Farben werden in der Detailanzeige dargestellt.
 
-\textbf{Zoom.} Der Schritt \textit{Zoomen} wurde im Diagramm umgesetzt. Es kann durch Scrollen gezoomt werden. Die Programmlogik wurde mittels D3 implementiert.
+\textbf{Zoom.} Der Schritt \textit{Zoomen} wurde im Diagramm umgesetzt. Es kann durch Scrollen gezoomt werden, indem die Skalierungen der Achsen verändert werden. Die Programmlogik wurde mittels D3 implementiert. 
+
+Es gibt zahlreiche interaktive Diagramme, in denen nur der Zoom durch Veränderung der Skalierung der Abszisse möglich ist. Dabei wird nach jedem Zoom-Vorgang die Skalierung der Ordinate and die Daten neu angepasst oder überhaupt nicht verändert.
+
+Diese Zoom-Strategie verwirrt den Benutzer, weil sich die Skalierungen der Achsen nicht gleichmässig beim Zoom verändern: Er nimmt ein Dehnen bzw. Zusammendrücken des Diagramms wahr. Der Benutzer ist es sich gewöhnt, dass die beiden Skalierungen stets im gleichen Verhältnis stehen. Dies ist auch beim Zoom bei Smartphones üblicherweise der Fall.
 
 \textbf{Datensatzauswahl.} In diesem Beispiel (Abbildung \ref{fig:screenshot}) können Linien ein- und ausgeblendet werden, die Datensätzen für 15 Länder entsprechen. Dieser Vorgang gehört zum Schritt \textit{Filtern}. Aktivierte, angezeigte Datensätze werden nach den Prinzipien von Kennedy hervorgehoben, nicht aktivierte, versteckte Datensätze sind in den Hintergrund gestellt.
 

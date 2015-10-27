@@ -1,30 +1,22 @@
 Notizen zum Hauptteil
 =====================
 
-###TODO: 
+###TODO
 
-- say which datasets were used in 3d and nd
-
-- replace "Programmierbibliothek" in "Programmbibliothek"
-
-- reflektieren: ist es wirklich klar, was die neuen features genau gebracht haben?
-  - Bei 2d sagen vielleicht: durch diese features ist die datensatz erkundung besser als je zuvor bei statischen usw
-
-- zoom: manche sagen nur x-achsen skalieren ist gut. ich war aber anderer meinung. gesagt?
-
-- listings: evtl strichpunkte ; und punkte .  remove.
-
+Sichau fragen.
 
 
 ###BAD WORDS
 
-Punktediagramm (-> Punktdiagramm)
+Punktediagramm (-> Punktdiagramm) ✔︎
 
-Shneidermann (-> Shneiderman)
+Shneidermann (-> Shneiderman) ✔︎
 
-Nutzer (-> Benutzer)
+Nutzer (-> Benutzer) ✔︎
 
-Software (-> Applikation)
+Software (-> Applikation) ✔︎
+
+Programmierbibliothek (-> Programmbibliothek) ✔︎
 
 # Abstract
 
