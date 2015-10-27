@@ -1,4 +1,4 @@
-# Interactive Diagrams
+# Matura Paper
 Matura paper, Max Mathys
 
 ## Active tests
