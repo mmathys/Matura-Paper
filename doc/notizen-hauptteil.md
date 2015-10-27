@@ -1,9 +1,15 @@
 Notizen zum Hauptteil
 =====================
 
-say which datasets were used in 3d and nd
+TODO: 
 
-replace "Programmierbibliothek" in "Programmbibliothek"
+- say which datasets were used in 3d and nd
+
+- replace "Programmierbibliothek" in "Programmbibliothek"
+
+- reflektieren: ist es wirklich klar, was die neuen features genau gebracht haben?
+  - Bei 2d sagen vielleicht: durch diese features ist die datensatz erkundung besser als je zuvor bei statischen usw
+
 
 # Abstract
 
@@ -165,4 +171,13 @@ act as zoom/filter
 
 # Schlusswort
 
-TODO
+(wichtigste Resultate des Hauptteils)
+
+__Interaktion, Interaktionsmethoden wurden verbessert, wie der Nutzer mit dem Diagrammm auseinandersetzen kann, effizienter, analyse besser, methoden aufzählen. in zwei von drei untersuchten diagrammtypen.__
+
+- 3d: unkonvetionelle darstellung eines 3d scatterplots in einem prototyp dargestellt, mithilfe der projektionen 3d verständlicher gemacht.
+
+- nd: erkannt, dass sich dieser diagrammtyp nicht wirklich gut eigent für die interaktion und der auch schwierig zu verstehen ist und nicht benutzerfreundlich.
+
+
+
