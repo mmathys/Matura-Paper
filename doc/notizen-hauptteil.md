@@ -3,6 +3,9 @@ Notizen zum Hauptteil
 
 ###TODO
 
+- Fussnote zu geschlechterneutral (Leser, Benutzer)
+- @ dynamische diagramme: eigener begriff. fussnote.
+
 Sichau fragen.
 
 
