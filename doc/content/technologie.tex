@@ -1,4 +1,4 @@
-\section{Softwaretechnologie}
+\section{Technologie}
 
 Für die Entwicklung einer Applikation für den Web-Browser werden verschiedene Technologien benötigt, die jeweils für einen einzelnen Aspekt der Applikation verantwortlich sind.
 
@@ -6,9 +6,9 @@ Für die Entwicklung einer Applikation für den Web-Browser werden verschiedene 
 
 JavaScript ist die Programmiersprache, die der Web-Browser unterstützt. Die Programmlogik wird in dieser Sprache geschrieben.
 
-Viele Programmierer tendieren dazu, den JavaScript Code nach persönlicher Weise und auf nicht konsequente Weise zu formatieren, was die Lesbarkeit des Programmcodes, für den Autor als auch besonders für andere Betrachter, beeinträchtigt. Dies kann sich vor allem in umfangreichen Projekten, wo mehrere hundert Zeilen Code vorhanden sind, markant auf die Übersichtlichkeit auswirken. Da Open-Source von mehr und mehr praktiziert wird, gewinnen Syntaxkonventionen an Bedeutung. "`Das Anwenden der [Syntax-] Konvention bedeutet, die Syntaxkonventionen der Community und den Belang der Lesbarkeit des Programmcodes über die persönliche Programmierweise zu stellen"' \cite{feross}. Für bessere Programmqualität und Lesbarkeit wird deshalb in dieser Arbeit der \textit{JavaScript Standard Style} gebraucht, eine verbreitete Syntaxkonvention.
+Viele Programmierer tendieren dazu, den JavaScript Code in einem persönlichen Stil und auf nicht konsequente Weise zu formatieren, was die Lesbarkeit des Programmcodes, für den Autor als auch besonders für andere Betrachter, beeinträchtigt. Dies kann sich vor allem in umfangreichen Projekten, wo mehrere hundert Zeilen Code vorhanden sind, die Übersichtlichkeit markant verschlechtern, was etwa die Zusammenarbeit mit anderen Programmierern verschlechtert und die Fehlersuche und -behebung (Debugging) erschwert. Da Open-Source von mehr und mehr praktiziert wird, gewinnen Syntaxkonventionen an Bedeutung. "`Das Anwenden der [Syntax-] Konvention bedeutet, die Syntaxkonventionen der Community und den Belang der Lesbarkeit des Programmcodes über die persönliche Programmierweise zu stellen"' \cite{feross}. Für bessere Programmqualität und Lesbarkeit wird deshalb in dieser Arbeit der \textit{JavaScript Standard Style} gebraucht, eine verbreitete Syntaxkonvention.
 
-Diese Software verwendet die Programmbibliothek \textit{Data-Driven-Documents (D3)}. Sie wurde von Michael Bostock, Vadim Ogievetsky und Jeffrey Heer erstellt und dient zur Entwicklung von Visualisationen im Web. Sie erleichtert die Benutzung des Document Object Models (DOM), ermöglicht effizienteres Debugging und verbessert die Leistung (\textit{"`Performance"'}) der Applikation \cite{bostock}.
+Die Applikation verwendet die Programmbibliothek \textit{Data-Driven-Documents (D3)}. Sie wurde von Michael Bostock, Vadim Ogievetsky und Jeffrey Heer erstellt und dient zur Entwicklung von Visualisationen im Web. Sie erleichtert die Benutzung des Document Object Model (DOM, siehe \ref{sec:dom}), ermöglicht effizienteres Debugging und verbessert die Leistung (\textit{"`Performance"'}) der Applikation \cite{bostock}.
 
 Für die Darstellung von dreidimensionalen Diagrammen wird die Bibliothek \textit{three.js} \cite{threejs} verwendet. Sie erleichtert den Zugriff auf die WebGL-Technologie des Browsers.
 
@@ -16,24 +16,24 @@ Für die Darstellung von dreidimensionalen Diagrammen wird die Bibliothek \texti
 
 Bei der Entwicklung einer Applikation ist die Verwendung von Buildsystem unerlässlich. Es sind zahlreiche Open-Source Projekte vorhanden, die von vielen verschiedenen Personen entwickelt wurden, wie zum Beispiel \textit{Gulp.js} \cite{gulp.js}, \textit{Node.js (NPM)} \cite{npm}. Unter anderem wurden folgende Module für diese Buildsysteme verwendet: \textit{Browserify} \cite{browserify},  \textit{BrowserSync} \cite{browsersync}, \textit{uglify} \cite{uglify} und viele weitere.
 
-Im Endeffekt sind am Code dieses verwendeten Buildsystems mehrere Hundert Autoren beteiligt, da die verwendeten Module wiederum selber auf weiteren Modulen aufgebaut sind.
+Im Endeffekt sind am Code des verwendeten Buildsystems mehrere Hundert Autoren beteiligt, da die Module wiederum selber auf weiteren Modulen aufgebaut sind.
 
-\subsection{Hypertext Markup Language (HTML), Document Object Model (DOM)}
+\subsection{Hypertext Markup Language (HTML), Document Object Model (DOM)} \label{sec:dom}
 
-Hypertext Markup Language (HTML) ist in der Entwicklung einer Web-Applikation für den Inhalt (Text, Links, Bilder, Buttons...) der Seite zuständig. Die Sprache beschreibt durch \textit{Elemente}, die einen Wert haben können, verschachtelt sein können und denen \textit{Attribute} zugewiesen werden können die darzustellenden Informationen. 
+Hypertext Markup Language (HTML) ist in der Entwicklung einer Web-Applikation für den Inhalt (Text, Links, Bilder, Buttons...) der Seite zuständig. Die Sprache beschreibt durch \textit{Elemente}, die einen Wert haben, verschachtelt sein und denen \textit{Attribute} zugewiesen werden können, die darzustellenden Informationen. 
 
 Das Document Object Model (DOM) ermöglicht die dynamische Manipulation dieser Elemente durch Schnittstellen in JavaScript-Programmen.
 
 \subsection{Scalable Vector Graphics (SVG)}
 
-Scalable Vector Graphics (SVG) ist ein Format für Vektorgrafiken. SVG-Bilder bestehen nicht wie andere Bildformate (JPG, PNG) aus Pixeln, sondern aus Elementen wie Kreisen, Ellipsen, Rechtecke, Linien. SVG-Grafiken können im Browser dargestellt werden und durch JavaScript ebenfalls dynamisch manipuliert werden.
+Scalable Vector Graphics (SVG) ist ein Format für Vektorgrafiken. SVG-Bilder bestehen nicht wie andere Bildformate (JPG, PNG) aus Pixeln, sondern aus Elementen wie Kreisen, Ellipsen, Rechtecken oder Linien. SVG-Grafiken können im Browser dargestellt werden und durch JavaScript ebenfalls dynamisch manipuliert werden.
 
 \subsection{Cascading Style Sheets (CSS)}
 
-Cascading Style Sheets (CSS) beschreiben die Darstellung der anzuzeigenden Elemente, die in HTML-Dokumenten oder SVG-Grafiken vorkommen. In dieser Software wird das CSS-Framework \textit{Basscss} \cite{basscss} verwendet, es erleichtert die Gestaltung der Weboberfläche.
+Cascading Style Sheets (CSS) beschreiben die Darstellung der anzuzeigenden Elemente, die in HTML-Dokumenten oder SVG-Grafiken vorkommen. In dieser Applikation wird das CSS-Framework \textit{Basscss} \cite{basscss} verwendet, es erleichtert die Gestaltung der Web-Oberfläche.
 
 \subsection{Originalität des Codes bei der Implementierung von Programmbibliotheken}
 
-Der Applikationscode und das Applikationsdesign wurde selber erstellt, falls nicht anders angemerkt durch Kommentare.
+Der Applikationscode und das Applikationsdesign wurden selber erstellt, falls nicht anders angemerkt durch Kommentare im Programmcode.
 
 Bei der Verwendung von Programmierbibliotheken (D3, three.js, tween.js) und Buildsystemen (NPM, Gulp.js) wird der Code nach Anweisung der entsprechenden Dokumentation geschrieben.

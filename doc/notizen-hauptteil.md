@@ -1,7 +1,7 @@
 Notizen zum Hauptteil
 =====================
 
-TODO: 
+###TODO: 
 
 - say which datasets were used in 3d and nd
 
@@ -10,6 +10,21 @@ TODO:
 - reflektieren: ist es wirklich klar, was die neuen features genau gebracht haben?
   - Bei 2d sagen vielleicht: durch diese features ist die datensatz erkundung besser als je zuvor bei statischen usw
 
+- zoom: manche sagen nur x-achsen skalieren ist gut. ich war aber anderer meinung. gesagt?
+
+- listings: evtl strichpunkte ; und punkte .  remove.
+
+
+
+###BAD WORDS
+
+Punktediagramm (-> Punktdiagramm)
+
+Shneidermann (-> Shneiderman)
+
+Nutzer (-> Benutzer)
+
+Software (-> Applikation)
 
 # Abstract
 
@@ -174,6 +189,13 @@ act as zoom/filter
 (wichtigste Resultate des Hauptteils)
 
 __Interaktion, Interaktionsmethoden wurden verbessert, wie der Nutzer mit dem Diagrammm auseinandersetzen kann, effizienter, analyse besser, methoden aufzählen. in zwei von drei untersuchten diagrammtypen.__
+
+- allgemein: technologie dokumentiert -> optimale datenverarbeitung entwickelt. mit konfigurationsfile.
+
+- ++++++++ experience mit webentwicklung: es wurde viel wissen über javascript, buildsysteme (npm, gulp, browserify) und umgang mit programmbibliotheken (d3, three.js, tween.js) erarbeitet.
+
+
+- 2d: methoden für interaktion mit benutzeroberflächen wurden entsprechend in unsere diagrammapplikation implementiert: Zoom, Tooltip, Detailanzeige, Datensatzauswahl; Techniken von diagrammdarstellung wurden implementiert: mit d3, achsen, skalierungen, interpolationen, wie auch ein wenig web design: css, minimalismus, pop unpop
 
 - 3d: unkonvetionelle darstellung eines 3d scatterplots in einem prototyp dargestellt, mithilfe der projektionen 3d verständlicher gemacht.
 
