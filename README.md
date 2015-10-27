@@ -1,5 +1,7 @@
-# Interactive Diagrams
-Matura paper, Max Mathys
+# Matura Paper
+Repository for the Matura paper, Max Mathys
+
+Contains notes, code and history of the matura project.
 
 ## Active tests
 [`layout`](https://github.com/mmathys/maturaarbeit/tree/master/tests/layout), [`3d`](https://github.com/mmathys/maturaarbeit/tree/master/tests/3d), [`dimensions`](https://github.com/mmathys/maturaarbeit/tree/master/tests/dimensions)
