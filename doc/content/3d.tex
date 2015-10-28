@@ -9,7 +9,7 @@ Beispiele für Datensätze, die in dreidimensionalen Punktdiagrammen dargestellt
 	\item Drei Attribute, die in einem bestimmten Verhältnis zueinander stehen. Zum Beispiel Geschwindigkeit, Luftwiderstand, Oberfläche
 \end{itemize}
 
-Es wurde entschieden, eine weitere Applikation zu entwickeln, die einen Datensatz mit einer unabhängigen und zwei abhängigen Variablen in einer 3D-Applikation anzeigt. Dazu wurden Daten der World Bank \cite{worldbank} zur Bevölkerung und Arbeitsplätze der Schweiz im Verlauf der Zeit verwendet.
+Es wurde entschieden, eine weitere Applikation zu entwickeln, die einen Datensatz mit einer unabhängigen und zwei abhängigen Variablen in einer 3D-Applikation anzeigt. Dazu wurden Daten der World Bank \cite{worldbank} zur Bevölkerung und Arbeitsplätzen der Schweiz im Verlauf der Zeit verwendet.
 
 \subsection{Applikation}
 
@@ -64,18 +64,18 @@ $$P_{\text{xz}} = (\frac{a}{2} | -a | \frac{a}{2})$$
 
 $$P_{\text{zy}} = (-a | \frac{a}{2}| \frac{a}{2})$$
 
-\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktediagramm.}
+\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktdiagramm.}
 \label{fig:3dmath}
 \end{figure}
 
-Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{zy}}$ senkrecht, die verbleibende Achse steht parallel zur Kamerarichtung; in Abbildung \ref{fig:3dtable} werden die neue Abszisse und Ordinate des projizierten zweidimensionalen Punktediagramms und die Kamerarichtung nach Projektion aufgelistet.
+Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{zy}}$ senkrecht, die verbleibende Achse steht parallel zur Kamerarichtung; in Abbildung \ref{fig:3dtable} werden die neue Abszisse und Ordinate des projizierten zweidimensionalen Punktdiagramms und die Kamerarichtung nach Projektion aufgelistet.
 
 \begin{figure}[H]
 	\centering
 	\begin{tabular}{ | m{0.15\linewidth} | m{0.2\linewidth} |m{0.2\linewidth} | m{0.3\linewidth} |}
 		\hline
 		\textbf{Projektion} & \textbf{neue Abszisse} & \textbf{neue Ordinate} & \textbf{Kamerarichtung}\\ \hline
-		xy & Abszissenachse (x) & Ordinatenachse (y) & Entgegen der Applikantenachse (z) \\ \hline
+		xy & Abszissenachse (x) & Ordinatenachse (y) & Entgegen der Applikatenachse (z) \\ \hline
 		xz & Abszissenachse (x) & Applikatenachse (z) & In Richtung Ordinatenachse (y)\\ \hline
 		zy & Applikatenachse (z) & Ordinatenachse (y) & In Richtung Abzissenachse (x) \\ \hline
 	\end{tabular}

@@ -21,6 +21,10 @@ Software (-> Applikation) ✔︎
 
 Programmierbibliothek (-> Programmbibliothek) ✔︎
 
+Visualisation (-> Visualisierung) ✔︎
+
+Applikantenachse (-> Applikatenachse) ✔︎
+
 # Abstract
 
 Problemstellung, Aufbau, Ergebnisse / Schlussfolgerungen
