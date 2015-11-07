@@ -1,29 +1,66 @@
 Notizen zum Hauptteil
 =====================
 
-###TODO
+### TODO
 
 - Fussnote zu geschlechterneutral (Leser, Benutzer)
 - @ dynamische diagramme: eigener begriff. fussnote.
 
-Sichau fragen.
+__Sichau__:
+- Alles sollte in der Vergangenheit geschrieben sein im Abstract.
+- n-Dimensionales Diagramm: löschen und referenzen zu diesem Diagramm in Einleitung und anderen Stellen löschen.
+- Am Ende (vor Schlusswort, letzter Punkt des Hauptteils) Diskussion, wieso genau jetzt diese Diagramme besser sind als statische.
+- Schlusswort: Wo gab es Schwierigkeiten? hinzufügen. persönliche Erfahrungen, Probleme, was gelernt?
+- Hauptteil umbenennen.
+- 1.1: Abschnitt "Diese Maturaarbeit wurde von ....." verschieben oder Sätze einfügen, die den
+vorgehenden Teil und den Abschnitt in Question "verbinden".
+- Pauschalaussage in 1.3 wegstreichen
+- Anfang von 2: Erhältlich auf GitHub und Stick.
+- 2.1.3-.5: nicht so genau, technisch beschreiben, sondern eher die Anwendung der Technologie beschreiben.
+- 2.3: beschreiben, dass Filtering nicht zu verwechseln mit "Filtern des Datensatzes" ist.
+- 2.4.1 Zoom: Was wurde umgesetzt?
+- 2.5: Warum wurde eine neue Applikation umgesetzt?
+- 2.5.1: Es gibt auch Lösungen dafür. siehe was geschrieben wurde.
+- Illustration der Projektionen: wo ist genau die kamera dann? wieso sieht man da die Achse nicht?
+vlcht verschieben der Illustration von unten nach oben.
 
+__Format__:
+- Abbildung 1.1 und 1.2: In der Short description datum reintun.
+- Einzüge: Europa Style, nicht US Style.
+- Slash bei Abbildung 2.5: Kein Abstand dazwischen
+- subsubsubsection --> paragraph. (2.2.2 ff)
+- S.18 und/oder
+- Abbildung 2.6: V.o.n.u ausschreibens
+- 2.4.1 Quelle Kennedy
+- Bibliographie:
+  - Nach Vorkommen ordnen, nicht alphabetisch.
+  - Bei Büchern die Seitenzahlen oder Kapitel (besser Kapitel) angeben im Text.
+  - et. al. anstatt u. a.
+- orthographische Projektion und perspektivische Projektion ist nicht der richtige Begriff. Wechseln.
+- 2.5.2 benutze eqn{} und sage Formeln 2.9 whatever
 
-###BAD WORDS
+__Finish__:
+- Seitenumbrüche (GANZ AM SCHLUSS)
+- Export von Code auf Stick
+- Export von pdf, drucken lassen.
 
-Punktediagramm (-> Punktdiagramm) ✔︎
+### BAD WORDS
 
-Shneidermann (-> Shneiderman) ✔︎
+Punktediagramm (-> Punktdiagramm)               ✔︎
 
-Nutzer (-> Benutzer) ✔︎
+Shneidermann (-> Shneiderman)                   ✔︎
 
-Software (-> Applikation) ✔︎
+Nutzer (-> Benutzer)                            ✔︎
 
-Programmierbibliothek (-> Programmbibliothek) ✔︎
+Software (-> Applikation)                       ✔︎
 
-Visualisation (-> Visualisierung) ✔︎
+Programmierbibliothek (-> Programmbibliothek)   ✔︎
 
-Applikantenachse (-> Applikatenachse) ✔︎
+Visualisation (-> Visualisierung)               ✔︎
+
+Applikantenachse (-> Applikatenachse)           ✔︎
+
+(C02-) Verbrauch (-> Ausstoss)                  ⬅
 
 # Abstract
 
@@ -199,6 +236,3 @@ __Interaktion, Interaktionsmethoden wurden verbessert, wie der Nutzer mit dem Di
 - 3d: unkonvetionelle darstellung eines 3d scatterplots in einem prototyp dargestellt, mithilfe der projektionen 3d verständlicher gemacht.
 
 - nd: erkannt, dass sich dieser diagrammtyp nicht wirklich gut eigent für die interaktion und der auch schwierig zu verstehen ist und nicht benutzerfreundlich.
-
-
-
