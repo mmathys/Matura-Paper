@@ -40,6 +40,7 @@ __Format__:
 - 2.5.2 benutze eqn{} und sage Formeln 2.9 whatever
 
 __Finish__:
+- Abgabedatum einfügen.
 - Seitenumbrüche (GANZ AM SCHLUSS)
 - Export von Code auf Stick
 - Export von pdf, drucken lassen.
