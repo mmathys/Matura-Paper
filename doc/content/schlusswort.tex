@@ -4,9 +4,10 @@ Durch Umsetzung von verschiedenen Interaktionsmethoden an selbstentwickelten Dia
 
 Neben der Dokumentation des Entwicklungsprozesses und der verwendeten Technologien wurde für die interaktiven Diagramme eine optimale Datenverarbeitungsstrategie entwickelt (siehe "`Merge"' und "`meta.json"'). Dabei wurde auch viel Wissen über JavaScript im Allgemeinen, JavaScript Buildsysteme (NPM, Gulp.js, Browserify), Open Source, Web Design (CSS, Minimalismus, Pop/Unpop) und über den Umgang mit Programmbibliotheken (D3, three.js, tween.js) erarbeitet.
 
-Beim zweidimensionalen Punkt-/Liniendiagramm wurden Möglichkeiten für die Interaktion mit Benutzeroberflächen entsprechend implementiert: Zoom, Tooltip, Detailanzeige, Datensatzauswahl. Es wurde so auch erreicht, dass Benutzer sich mit einer grossen Datenmenge effizienter auseinandersetzen können. Zudem wurden Diagrammtechniken implementiert wie Achsen, Skalierungen, Interpolationen. Die Theorie hinter diesen Möglichkeiten und Techniken sind ebenfalls in der Arbeit dokumentiert worden.
+Was den Entwicklungprozess der Applikation und das Verfassen des Codes betrifft wurden folgende Erkenntnisse gewonnen: Bei Projekten mit einer solchen grosser Menge Code ist es sehr wichtig, Teile zu abstrahieren. Diese Abstraktion konnte mittels \textit{Modulen} (Browserify) erzielt werden.
+
+Beim zweidimensionalen Punkt-/Liniendiagramm wurden Möglichkeiten für die Interaktion mit Benutzeroberflächen entsprechend implementiert: Zoom, Tooltip, Detailanzeige, Datensatzauswahl. Es wurde so auch erreicht, dass Benutzer sich mit einer grossen Datenmenge effizienter auseinandersetzen können. 
+
+Zudem wurden Diagrammtechniken implementiert wie Achsen, Skalierungen, Interpolationen. Die Theorie hinter diesen Möglichkeiten und Techniken sind ebenfalls in der Arbeit dokumentiert worden.
 
 Eine unkonventionelle Weise der Darstellung eines Datensatzes mit zwei abhängigen Variablen, das dreidimensionale Diagramm, wurde erläutert und als Applikation umgesetzt. Eine Methode wurde dazu entwickelt, welche die Benutzung des Diagramms produktiver machen sollte: Orthographische Projektionen, die das dreidimensionale Punktdiagramm auf zweidimensionale Punktdiagramme reduzieren können.
-
-Ein n-dimensionales Punktdiagramm wurde umgesetzt, doch es wurde erkannt, dass sich dieses Diagramm nicht als interaktives Diagramm eignet.
-
