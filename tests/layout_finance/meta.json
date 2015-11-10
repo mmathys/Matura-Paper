@@ -17,7 +17,7 @@
           "data_type": "Number",
           "name": "Wechselkurs Euro zu Schweizer Franken",
           "activated":true,
-          "unit": "EUR vs CHF"
+          "unit": "EUR/CHF"
         }
       ]
     }
