@@ -1,0 +1,25 @@
+{
+  "datasets": [
+    {
+      "url":"data/CURRFX-EURCHF.csv",
+      "config":
+      [
+        {
+          "row": "Date",
+          "type": "index",
+          "data_type": "Date",
+          "date_format": "%Y-%m-%d",
+          "name": "Datum"
+        },
+        {
+          "row": "Rate",
+          "type": "value",
+          "data_type": "Number",
+          "name": "Wechselkurs Euro zu Schweizer Franken",
+          "activated":true,
+          "unit": "EUR vs CHF"
+        }
+      ]
+    }
+  ]
+}

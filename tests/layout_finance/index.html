@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de-ch">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+      <meta name="description" content="Template">
+
+      <title>Layout</title>
+
+      <!-- Gemeinsames CSS, für alle Tests -->
+      <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+      <!-- Testspezifisches CSS -->
+      <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+
+  <body>
+    <br>
+
+    <!-- Titel, Auswahl Datensätze -->
+    <div class="toggle container clearfix">
+      <p class="caps toggle-title">Datensätze</p>
+      <div id="select-row" class="mxn1">
+      </div>
+    </div>
+
+    <!-- Visualisation -->
+    <div id="visualization-container">
+      <div id="visualization-wrap">
+        <div id="display-overlay">
+          <!-- Displays werden hier reinkopiert -->
+        </div>
+        <svg id="visualization">
+          <!-- Einfügen des SVG-Elements durch Javascript-Code -->
+        </svg>
+      </div>
+    </div>
+    <hr>
+
+    <!-- Auswahl der Interpolationen -->
+    <div class="container clearfix">
+      <h2>Interpolation</h2>
+      <select class="block mb1 field">
+        <option value="linear">Linear</option>
+        <option value="linear-closed">linear-closed (d3)</option>
+        <option value="step-before">step-before (d3)</option>
+        <option value="step-after">step-after (d3)</option>
+        <option value="basis">basis (d3)</option>
+        <option value="basis-open">basis-open (d3)</option>
+        <option value="basis-closed">basis-closed (d3)</option>
+        <option value="bundle">bundle (d3)</option>
+        <option value="cardinal">cardinal (d3)</option>
+        <option value="cardinal-open">cardinal-open (d3)</option>
+        <option value="cardinal-closed">cardinal-closed (d3)</option>
+        <option value="monotone">monotone (d3)</option>
+      </select>
+
+      <!-- Optionen für Anzeige -->
+      <label class="block col-12 mb2">
+        <input id="checkbox-points" type="checkbox">
+        Punkte anzeigen
+      </label>
+
+      <label class="block col-12 mb2">
+        <input id="checkbox-lines" type="checkbox" checked>
+        Linien anzeigen
+      </label>
+    </div>
+
+    <br><br>
+
+    <!-- JavaScript Bibliotheken -->
+    <script src="/js/d3.js"></script>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+
+    <!-- JavaScript des Tests -->
+    <script src="script.js"></script>
+  </body>
+</html>
