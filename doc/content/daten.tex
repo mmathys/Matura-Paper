@@ -113,13 +113,13 @@ Die Applikation benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu 
 	\item Den gesamten gemergten Datensatz nach der unabhängigen Variable aufsteigend sortieren
 \end{itemize}
 
-\textbf{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
+\paragraph{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
 
 Im Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3, wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring; damit ist eine Umwandlung in das JavaScript Date-Objekt, das ein Datum darstellt, sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Gegebenheiten entspricht: 28.10.2015 (Schweiz), 10/28/2015 (USA).
 
 Zahlen, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem Namen "`Value"' definiert, werden zunächst von JavaScript als Zeichenstring behandelt. Diese Strings müssen in Zahlen-Objekte umgewandelt werden, denn nur mit Zahlen-Objekten können Rechenoperationen durchgeführt werden.
 
-\textbf{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Applikation geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in einen JavaScript-Array umgewandelt.
+\paragraph{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Applikation geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in einen JavaScript-Array umgewandelt.
 
 Es wurde entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil die Umsetzung aus Sicht der Programmierlogik einfacher ist. 
 
@@ -179,7 +179,7 @@ In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-c
 	\label{fig:merge}
 \end{figure}
 
-\textbf{Sortieren des gemergten Datensatzes.} Der Datensatz wird nach der unabhängigen Variable ansteigend sortiert, damit die Berechnung von Interpolationen ermöglicht wird.
+\paragraph{Sortieren des gemergten Datensatzes.} Der Datensatz wird nach der unabhängigen Variable ansteigend sortiert, damit die Berechnung von Interpolationen ermöglicht wird.
 
 \subsubsection{Datensatzspezifische Filteringkonfiguration und Hard Coding}
 
@@ -192,9 +192,9 @@ Die Implementation dieser Anweisungen zum Filtering (Spezifikation der URLs, abh
 	\item Die Anweisungen zum Filtering sind in einer \textit{Konfiguration} abgelegt (\textit{Soft Coding})
 \end{itemize}
 
-\textbf{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden sollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
+\paragraph{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden sollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
 
-\textbf{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei oder Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so möglich, die Funktionsweise der Applikation anzupassen. Soft Coding wird in dieser Applikation verwendet.
+\paragraph{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei oder Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so möglich, die Funktionsweise der Applikation anzupassen. Soft Coding wird in dieser Applikation verwendet.
 
 \subsubsection{meta.json}
 
