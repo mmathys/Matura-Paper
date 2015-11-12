@@ -64,22 +64,23 @@ Abbildung \ref{fig:compare_projections} veranschaulicht die Funktionsweise der x
 	\label{fig:compare_projections}
 \end{figure}
 
-Abbildung \ref{fig:3dmath} erklärt Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse (x), Ordinatenachse (y) und Applikatenachse (z), $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{xz}}$, $P_{\text{zy}}$ die Position der Kamera für die entsprechende Projektion:
+Die Gleichungen in \ref{eqn:3dmath} erklären die Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse (x), Ordinatenachse (y) und Applikatenachse (z), $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{xz}}$, $P_{\text{zy}}$ die Position der Kamera für die entsprechende Projektion:
 
-\begin{figure}[H]
-$$S = (0|0|0)$$
-
-$$M = (\frac{a}{2} | \frac{a}{2} | \frac{a}{2})$$
-
-$$P_{\text{xy}} = (\frac{a}{2} | \frac{a}{2}| a + a)$$
-
-$$P_{\text{xz}} = (\frac{a}{2} | -a | \frac{a}{2})$$
-
-$$P_{\text{zy}} = (-a | \frac{a}{2}| \frac{a}{2})$$
-
-\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktdiagramm.}
-\label{fig:3dmath}
-\end{figure}
+\begin{equation}
+\begin{gathered}
+S = (0|0|0)
+\\
+M = (\frac{a}{2} | \frac{a}{2} | \frac{a}{2})
+\\
+P_{\text{xy}} = (\frac{a}{2} | \frac{a}{2}| a + a)
+\\
+P_{\text{xz}} = (\frac{a}{2} | -a | \frac{a}{2})
+\\
+P_{\text{zy}} = (-a | \frac{a}{2}| \frac{a}{2})
+\end{gathered}
+%\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktdiagramm.}
+\label{eqn:3dmath}
+\end{equation}
 
 Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{zy}}$ senkrecht, die verbleibende Achse steht parallel zur Kamerarichtung; in Abbildung \ref{fig:3dtable} werden die neue Abszisse und Ordinate des projizierten zweidimensionalen Punktdiagramms und die Kamerarichtung nach Projektion aufgelistet.
 
