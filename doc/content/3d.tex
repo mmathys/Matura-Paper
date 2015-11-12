@@ -45,7 +45,7 @@ Eine Funktion für das Zoomen wurde nicht implementiert, weil sie sich als kontr
 
 \subsection{Reduktion auf zweidimensionale Punktdiagramme durch Projektion}
 
-Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist das Erkennen des Potentials von orthographischen Projektionen innerhalb des dreidimensionalen Punktdiagramms.
+Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist das Erkennen des Potentials von Parallelprojektionen innerhalb des dreidimensionalen Punktdiagramms.
 
 Das Punktdiagramm kann durch Verschieben der Kamera und Verwendung der orthographischen Projektion auf ein zweidimensionales Punktdiagramm reduziert werden.
 
@@ -96,7 +96,7 @@ Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{
 	\label{fig:3dtable}
 \end{figure}
 
-In Abbildung \ref{fig:projections} wird die Projektion der xz-Ebene angezeigt. Bei dem linken Beispiel wird die \textit{perspektivische Projektion} verwendet. Die perspektivische Projektion wird in den meisten 3D-Applikationen verwendet. Die Geraden verlaufen durch einen festen Punkt. Das Auge verwendet ebenfalls die perspektivische Projektion: Strahlen werden so auf der Netzhaut abgebildet.
+In Abbildung \ref{fig:projections} wird die Projektion der xz-Ebene angezeigt. Bei dem linken Beispiel wird die \textit{Zentralprojektion} verwendet. Die Zentralprojektion wird in den meisten 3D-Applikationen verwendet. Die Geraden verlaufen durch einen festen Punkt. Das Auge verwendet ebenfalls die Zentralprojektion: Strahlen werden so auf der Netzhaut abgebildet.
 
 \begin{figure}[!htbp]
 	\centering
@@ -106,14 +106,14 @@ In Abbildung \ref{fig:projections} wird die Projektion der xz-Ebene angezeigt. B
 	\begin{minipage}{.45\textwidth}
 		\includegraphics[width=\linewidth]{images/ortho}
 	\end{minipage}
-	\caption[Projektion der xz-Ebene]{Projektion der XZ-Ebene. Links: Perspektivische Projektion. Rechts: Orthographische Projektion.}
+	\caption[Projektion der xz-Ebene]{Projektion der XZ-Ebene. Links: Zentralprojektion. Rechts: Parallelprojektion.}
 	\label{fig:projections}
 \end{figure}
 
-Die perspektivische Projektion hat den Nachteil, dass sie Objekte verzerrt, je nachdem, wie weit sie entfernt sind. Sie ist für unsere Zwecke (der Reduktion des dreidimensionalen Punktdiagramm auf ein zweidimensionales) nicht geeignet.
+Die Zentralprojektion hat den Nachteil, dass sie Objekte verzerrt, je nachdem, wie weit sie entfernt sind. Sie ist für unsere Zwecke (der Reduktion des dreidimensionalen Punktdiagramm auf ein zweidimensionales) nicht geeignet.
 
-Bei der orthographischen Projektion hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} ist somit das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
+Bei der Parallelprojektion hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} ist somit das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
 
-Es ist in der Applikation möglich, zwischen der perspektivischen und orthographischen Projektion, sowie zwischen der xy-, xz- und zy-Projektion umzuschalten. Der Benutzer kann sich so besser mit dem Datensatz auseinandersetzen, indem er einfach zwischen dreidimensionalem und zweidimensionalem Punktdiagramm navigieren kann.
+Es ist in der Applikation möglich, zwischen der Zentralprojektion und Parallelprojektion, sowie zwischen der xy-, xz- und zy-Projektion umzuschalten. Der Benutzer kann sich so besser mit dem Datensatz auseinandersetzen, indem er einfach zwischen dreidimensionalem und zweidimensionalem Punktdiagramm navigieren kann.
 
 Damit der Benutzer die Orientierung behält, wird die Kamerabewegung zwischen $P_{\text{xy}}$, $P_{\text{xz}}$ und $P_{\text{zy}}$ animiert. Dazu wird die JavaScript-Bibliothek \textit{tween.js} \cite{tween} verwendet.
