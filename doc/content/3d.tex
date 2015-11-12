@@ -49,7 +49,20 @@ Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist das Erkenne
 
 Das Punktdiagramm kann durch Verschieben der Kamera und Verwendung der orthographischen Projektion auf ein zweidimensionales Punktdiagramm reduziert werden.
 
-Zum Beispiel führt die Projektion der zy-Fläche zur Darstellung eines zweidimensionalen Punktdiagramms: Die \textit{neue Abszisse}\footnote{Mit dem Begriff "`\textit{neue Abszisse}"' ist die Abszisse des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} ist die y-Achse, die \textit{neue Ordinate}\footnote{Mit dem Begriff "`\textit{neue Ordinate}"' ist ebenfalls die Ordinate des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} die z-Achse. Der Effekt kann in diesem Beispiel erzielt werden, wenn die Kamera auf negativer x-Achsen-Position, halber y-Achsen-Position und halber z-Achsen-Position ist und in die Richtung der Mitte des Diagramms ausgerichtet ist.
+Zum Beispiel führt die Projektion der zy-Fläche (Abbildung \ref{fig:compare_projections} rechts) zur Darstellung eines zweidimensionalen Punktdiagramms: 
+Die \textit{neue Abszisse}\footnote{Mit dem Begriff "`\textit{neue Abszisse}"' ist die Abszisse des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} ist die y-Achse, die \textit{neue Ordinate}\footnote{Mit dem Begriff "`\textit{neue Ordinate}"' ist ebenfalls die Ordinate des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} die z-Achse. 
+Der Effekt kann in diesem Beispiel erzielt werden, wenn die Kamera auf negativer x-Achsen-Position, halber y-Achsen-Position und halber z-Achsen-Position ist und in die Richtung der Mitte des Diagramms ausgerichtet ist. Kurz gesagt, die Kamera ist in die Richtung der x-Achse ausgerichtet.
+
+Abbildung \ref{fig:compare_projections} veranschaulicht die Funktionsweise der xy-, xz- und zy-Projektion.
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{minipage}{\textwidth}
+		\includegraphics[width=\linewidth]{images/compare_projections}
+	\end{minipage}
+	\caption[Funktionweise der xy-, xz- und zy-Projektion]{Funktionsweise der Projektionen, von links nach rechts: xy, xz und zy.}
+	\label{fig:compare_projections}
+\end{figure}
 
 Abbildung \ref{fig:3dmath} erklärt Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse (x), Ordinatenachse (y) und Applikatenachse (z), $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{xz}}$, $P_{\text{zy}}$ die Position der Kamera für die entsprechende Projektion:
 
@@ -85,10 +98,6 @@ Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{
 
 In Abbildung \ref{fig:projections} wird die Projektion der xz-Ebene angezeigt. Bei dem linken Beispiel wird die \textit{perspektivische Projektion} verwendet. Die perspektivische Projektion wird in den meisten 3D-Applikationen verwendet. Die Geraden verlaufen durch einen festen Punkt. Das Auge verwendet ebenfalls die perspektivische Projektion: Strahlen werden so auf der Netzhaut abgebildet.
 
-Die perspektivische Projektion hat den Nachteil, dass sie Objekte verzerrt, je nachdem, wie weit sie entfernt sind. Sie ist für unsere Zwecke (der Reduktion des dreidimensionalen Punktdiagramm auf ein zweidimensionales) nicht geeignet.
-
-Bei der orthographischen Projektion hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} ist somit das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
-
 \begin{figure}[!htbp]
 	\centering
 	\begin{minipage}{.45\textwidth}
@@ -100,6 +109,10 @@ Bei der orthographischen Projektion hingegen werden Punkte auf einer Ebene abgeb
 	\caption[Projektion der xz-Ebene]{Projektion der XZ-Ebene. Links: Perspektivische Projektion. Rechts: Orthographische Projektion.}
 	\label{fig:projections}
 \end{figure}
+
+Die perspektivische Projektion hat den Nachteil, dass sie Objekte verzerrt, je nachdem, wie weit sie entfernt sind. Sie ist für unsere Zwecke (der Reduktion des dreidimensionalen Punktdiagramm auf ein zweidimensionales) nicht geeignet.
+
+Bei der orthographischen Projektion hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} ist somit das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
 
 Es ist in der Applikation möglich, zwischen der perspektivischen und orthographischen Projektion, sowie zwischen der xy-, xz- und zy-Projektion umzuschalten. Der Benutzer kann sich so besser mit dem Datensatz auseinandersetzen, indem er einfach zwischen dreidimensionalem und zweidimensionalem Punktdiagramm navigieren kann.
 
