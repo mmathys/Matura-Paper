@@ -9,7 +9,7 @@ Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspip
 
 \subsection{Rohdaten}
 
-\subsubsection{Comma-separated values (CSV)}
+\subsubsection*{Comma-separated values (CSV)}
 
 Die Applikation verwendet als Datenformat \textit{Comma-separated values} (\textit{CSV}). Das CSV-Format wird verwendet, um Tabellendaten zwischen Programmen auszutauschen \cite{csv}. Tabellenzeilen werden in der CSV-Datei durch einen Umbruch dargestellt, Spaltenwerte durch Kommas. Optional steht in der ersten Zeile (Abbildung \ref{fig:csv} links, Zeile 1) der Datei die Beschriftung der Spalten.
 
@@ -55,7 +55,7 @@ Die Applikation lädt die Datei durch eine \textit{Ajax}-Anfrage (\textit{Asynch
 
 Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filtering sind zum Beispiel die Vervollständigung, Reduzierung oder Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisierungspipeline verwendet werden können \cite[Kapitel 2.1]{viz}.
 
-\subsubsection{Konvertierung in JavaScript-Objekte}
+\subsubsection*{Konvertierung in JavaScript-Objekte}
 
 Als erster Schritt wird in der Applikation die CSV-Datei in \textit{JavaScript-Objekte} umgewandelt. Das Laden und \textit{Parsing} der Datei von CSV zu Objekten ist von D3 implementiert.
 
@@ -103,7 +103,7 @@ Date,Value
 	\label{fig:csv-json}
 \end{figure}
 
-\subsubsection{Formatierung}
+\subsubsection*{Formatierung}
 
 Die Applikation benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu formatieren, damit er im Diagramm verwendet werden kann. Der Prozess muss folgende Aufgaben erledigen (diese Strategie wurde selber entwickelt):
 
@@ -181,7 +181,7 @@ In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-c
 
 \paragraph{Sortieren des gemergten Datensatzes.} Der Datensatz wird nach der unabhängigen Variable ansteigend sortiert, damit die Berechnung von Interpolationen ermöglicht wird.
 
-\subsubsection{Datensatzspezifische Filteringkonfiguration und Hard Coding}
+\subsubsection*{Datensatzspezifische Filteringkonfiguration und Hard Coding}
 
 Die Applikation soll fähig sein, mehrere Formate von CSV-Datensätzen verarbeiten zu können. Der Benutzer sollte die Anweisungen zum Filtering anpassen können.
 
@@ -196,7 +196,7 @@ Die Implementation dieser Anweisungen zum Filtering (Spezifikation der URLs, abh
 
 \paragraph{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei oder Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so möglich, die Funktionsweise der Applikation anzupassen. Soft Coding wird in dieser Applikation verwendet.
 
-\subsubsection{meta.json}
+\subsubsection*{meta.json}
 
 Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor dem Filtering in ein JavaScript-Objekt umgewandelt werden kann. In Abbildung \ref{fig:meta} ist ein Beispiel der Konfigurationsdatei meta.json aufgelistet:
 
