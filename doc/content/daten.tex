@@ -5,7 +5,7 @@ Die Diagramme in Abbildung \ref{fig:scatterplot} benutzen einen Datensatz der We
 
 %TODO beschreiben wieso ich diesen teil so ausführlich beschreibe. weil die datenverarbeitung überraschend schwierig umzusetzen war.darum will ich zeigen wieso.
 
-Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspipeline} durchlaufen \cite{viz}. Diese Pipeline stellt drei wesentliche Schritte des Prozesses dar: Die Datenaufbereitung (\textit{Filtering}), die Erzeugung des Geometriemodells (\textit{Mapping}) und die Bildgenerierung (\textit{Rendering}).
+Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspipeline} durchlaufen \cite[Kapitel 2.1]{viz}. Diese Pipeline stellt drei wesentliche Schritte des Prozesses dar: Die Datenaufbereitung (\textit{Filtering}), die Erzeugung des Geometriemodells (\textit{Mapping}) und die Bildgenerierung (\textit{Rendering}).
 
 \subsection{Rohdaten}
 
@@ -53,7 +53,7 @@ Die Applikation lädt die Datei durch eine \textit{Ajax}-Anfrage (\textit{Asynch
 
 \subsection{Filtering}
 
-Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filtering sind zum Beispiel die Vervollständigung, Reduzierung oder Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisierungspipeline verwendet werden können \cite{viz}.
+Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filtering sind zum Beispiel die Vervollständigung, Reduzierung oder Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisierungspipeline verwendet werden können \cite[Kapitel 2.1]{viz}.
 
 \subsubsection{Konvertierung in JavaScript-Objekte}
 
@@ -249,7 +249,7 @@ Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor d
 
 \subsection{Mapping}
 
-Das Mapping ist der Prozess der Umwandlung von aufbereiteten Daten zu Geometriedaten, es ist das Kernstück der Diagrammerstellung. Es wird eine \textit{Daten-zu-Geometrie-Abbildung} realisiert \cite{viz}.
+Das Mapping ist der Prozess der Umwandlung von aufbereiteten Daten zu Geometriedaten, es ist das Kernstück der Diagrammerstellung. Es wird eine \textit{Daten-zu-Geometrie-Abbildung} realisiert \cite[Kapitel 2.1]{viz}.
 
 In der Applikation, die in dieser Arbeit entwickelt wird, stellen die Geometriedaten die SVG-Elemente wie zum Beispiel Rechtecke, Kreise, Linien, Text dar.
 
@@ -259,6 +259,6 @@ Die Programmlogik des Mappings unterscheidet sich grundlegend bei jedem Diagramm
 
 % geometriedaten -> bilddaten
 
-Das Rendering ist der letzte Schritt der Diagrammerstellung, bei dem die Abbildung der Geometriedaten in Bilddaten erfolgt \cite{viz}.
+Das Rendering ist der letzte Schritt der Diagrammerstellung, bei dem die Abbildung der Geometriedaten in Bilddaten erfolgt \cite[Kapitel 2.1]{viz}.
 
 In unserem Falle sind Bilddaten das Diagramm, das im Browser angezeigt wird. Es ist die Aufgabe des Browsers, die Geometriedaten (SVG-Elemente) mit Darstellungsanweisungen (CSS) in Bilddaten (Pixel, angezeigte Grafik) zu rendern.
