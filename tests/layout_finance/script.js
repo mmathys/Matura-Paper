@@ -22,8 +22,8 @@ var toggle = require('./modules/toggle')
 
 var config,           // Config-Array für _alle_ Elemente
   datasetsMeta,       // Das 'datasets'-Attribut von meta.json
-  index,              // Config-Objekt für die Index-Spalte (X-Wert)
-  values,             // Config-Array für Werte-Spalten (Y-Werte)
+  index,              // Config-Objekt für die Index-Spalte (X-Werte)
+  values,             // Config-Array für Werte-Spalten (y-Werte)
   v_accessor,         // Funktion, die den Werteaccessor zurückgibt
   v_accessor_cord,    // Funktion, die den Koordinatenaccessor zurückgibt
   v_accessor_scaled,  // Funktion, die den skalierten Wert zurückgibt.
@@ -148,7 +148,7 @@ d3.json('meta.json', function (err, res) {
     return d[index.row]
   }
 
-  // ..._scaled: Gibt den Skalierten Wert von accessor zurück.
+  // ..._scaled: Gibt den skalierten Wert von accessor zurück.
   index.accessor_scaled = function (d) {
     return xScale(d[index.row])
   }
@@ -342,7 +342,7 @@ function loadVisualization (data) {
     .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
     .attr('fill', 'white')
 
-  // Container für die Visualisation hinzufügen und zu der Maske linken
+  // Container für die Visualisation hinzufügen und zu der Maske "linken"
   // Transformation nach den definierten Angaben mit transform, translate
   graph = v.append('g')
     .attr('id', 'graph')
@@ -358,11 +358,11 @@ function loadVisualization (data) {
 
       // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
       // entsprechende Reihe besitzen. Siehe Merge-Problem.
-      // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
+      // Daten an Selektion binden: Alle Aktionen, die an diesem Element
       // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
       .data(filter.row(data, values[i].rowId)).enter()
 
-    // Aktionen an Datengebundener Selektion ausführen
+    // Aktionen an datengebundener Selektion ausführen
     circles.append('circle')
       .attr('class', 'data-point')
       .attr('data-row', values[i].rowId)

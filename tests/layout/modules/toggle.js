@@ -63,7 +63,7 @@ module.exports.add = function (data, index, values, config, v_bundle, zoom, yWer
       removeTooltipDetail(config)
     }
 
-    // und aktualisiere die Y-Achse und Skalierung.
+    // und aktualisiere die y-Achse und Skalierung.
     module.exports.updateYDomain(data, values, v_bundle, zoom, yWertebereich, yScale, yAxis, function () {
       draw()
     })
@@ -87,7 +87,7 @@ module.exports.updateYDomain = function (data, values, v_bundle, zoom, yWerteber
   zoom.scale(1)
   zoom.translate([0, 0])
 
-  // Y-Wertebereich und Y-Skalierung aktualisieren.
+  // y-Wertebereich und y-Skalierung aktualisieren.
   yWertebereich = domain.overflowY(data, values, v_bundle, 1.1)
   yScale.domain(yWertebereich)
   zoom.y(yScale)

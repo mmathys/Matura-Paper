@@ -34,7 +34,7 @@ module.exports.addLine = function (data, index, config, v_bundle) {
 }
 
 /**
- * Gibt die Lineare Interpolation als SVG-Path-String zurück
+ * Gibt die lineare Interpolation als SVG-Path-String zurück
  * @param  {[Array]} data        Das Datenarray
  * @param  {{Function}} accessor Die Funktion, welche die Koordinaten zurück-
  *                               gibt des entsprechenden Punktes

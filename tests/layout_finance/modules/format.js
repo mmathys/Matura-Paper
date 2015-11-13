@@ -8,7 +8,7 @@ var id = require('./id')
  */
 
 /**
- * Konvertiert die Zeichenketten (Strings) in dem Datensatz in Javascript-
+ * Konvertiert die Zeichenketten (Strings) im Datensatz in Javascript-
  * Objekte, wie zum Beispiel Zahlen (Float) oder Daten (Date).
  * @param  {[Array]} data   Unformatierter Datensatz
  * @param  {{Array}} config Array von Config-Objekten
@@ -31,7 +31,7 @@ module.exports.data_types = function (data, config) {
 
 /**
  * Fügt das Attribut 'rowId' für jedes Objekt hinzu. 'rowId' ist eine aus dem
- * Reihennamen und Pfad des Datensatzes generierte einzigartie ID.
+ * Reihennamen und dem Pfad des Datensatzes generierte einzigartige ID.
  * @param  {[Array]} data   Datensatz ohne rowIds
  * @param  {{Array}} config Array von Config-Objekten
  * @return {[Array]}        Datensatz mit rowIds

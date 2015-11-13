@@ -26,12 +26,12 @@ var config,           // Config-Array für _alle_ Elemente
   v_accessor_scaled,  // Funktion, die den skalierten Wert zurückgibt.
   v_bundle,           // Objekt, das die drei v-Funktionen enthält.
 
-  xScale,             // X-Skala
-  yScale,             // Y-Skala
-  zScale,             // Z-Skala
-  xWertebereich,      // Bereich der X-Werte
-  yWertebereich,      // Bereich der Y-Werte
-  zWertebereich       // Bereich der Z-Werte
+  xScale,             // x-Skala
+  yScale,             // y-Skala
+  zScale,             // z-Skala
+  xWertebereich,      // Bereich der x-Werte
+  yWertebereich,      // Bereich der y-Werte
+  zWertebereich       // Bereich der z-Werte
 
 /**
  * Laden der Konfigurationsdatei
@@ -62,7 +62,7 @@ d3.json('meta.json', function (err, res) {
       var c = dataset.config[j]
       c.url = url
 
-      // Generiere id
+      // ID generieren
       c.rowId = id.get(c)
 
       config.push(c)
@@ -74,7 +74,7 @@ d3.json('meta.json', function (err, res) {
         // Spaltenspezifische Farbe generieren
         c.color = colors(values.length + 1)
 
-        // Wenn das Attribut activated nicht gesetzt ist, setze es auch true.
+        // Wenn das Attribut activated nicht gesetzt ist, setze es auf true.
         if (typeof c.activated === 'undefined') {
           c.activated = true
         }
@@ -125,12 +125,12 @@ d3.json('meta.json', function (err, res) {
     return d[index.row]
   }
 
-  // ..._scaled: Gibt den Skalierten Wert von accessor zurück.
+  // ..._scaled: Gibt den skalierten Wert von accessor zurück.
   index.accessor_scaled = function (d) {
     return xScale(d[index.row])
   }
 
-  // Funktion, die die Werte-Accessor-Funktion zurückgibt. Da sich die Werte-
+  // Funktion, welche die Werte-Accessor-Funktion zurückgibt. Da sich die Werte-
   // Accessor-Funktionen im Gegensatz zum statischen Index-Accessor unterschei-
   // den, müssen sie für jede Spalte neu generiert werden. Diese Funktion ist
   // dafür zuständig.
@@ -174,7 +174,7 @@ d3.json('meta.json', function (err, res) {
  */
 
 /**
- * Die Funktion, die den Datensatz lädt und vorbereitet.
+ * Die Funktion, die den Datensatz lädt und vorbereitet
  *
  * Vorgehen:  1. Laden der Daten
  * 						2. Formatieren des Datensatzes (data_types und id)
@@ -183,7 +183,7 @@ d3.json('meta.json', function (err, res) {
  * 						5. Die gemergten Datensätze weitergeben
  */
 function loadFiles () {
-  // Anzahl von Dateien, die schon heruntergeladen wurden
+  // Anzahl von Dateien, die schon heruntergeladen wurde
   var loaded = 0
 
   // Die Variable für die gemergten Datensätze
@@ -196,11 +196,11 @@ function loadFiles () {
 
   /**
    * Funktion, die die Callback-Funktion für einen bestimmten Datensatz-Meta-
-   * daten-Objekt mit Index i zurückgibt. Siehe auch: MKCB-Problem.
+   * daten-Objekt mit Index i zurückgibt. Siehe auch: MKCB-Problem
    * @param  {[Number]} i   Index des Datensatz-Metadaten-Objekts aus
-   *                        datasetsMeta.
+   *                        datasetsMeta
    * @return {[Function]}   Das generierte Callback, das nach dem Laden der
-   *                        Datei ausgeführt wird.
+   *                        Datei ausgeführt wird
    */
   function mkcb (i) {
     return function (err, resp) {

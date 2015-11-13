@@ -22,9 +22,9 @@ var config,           // Config-Array für _alle_ Elemente
   index,              // Config-Objekt für die Index-Spalte (X-Wert)
   values,             // Config-Array für Werte-Spalten (Y-Werte)
   v_accessor,         // Funktion, die den Werteaccessor zurückgibt
-  v_accessor_scaled,  // Funktion, die den Skalierten Werteaccessor zurückgibt
+  v_accessor_scaled,  // Funktion, die den skalierten Werteaccessor zurückgibt
   v_accessor_cord,    // Funktion, die den Koordinatenaccessor zurückgibt
-  v_bundle,           // Objekt, das die drei v-Funktionen enthält.
+  v_bundle,           // Objekt, das die drei v-Funktionen enthält
 
   xScale,             // X-Skala
   yScale,             // Y-Skala
@@ -76,7 +76,7 @@ d3.json('meta.json', function (err, res) {
         // Spaltenspezifische Farbe generieren
         c.color = colors(values.length + 1)
 
-        // Wenn das Attribut activated nicht gesetzt ist, setze es auch true.
+        // Wenn das Attribut activated nicht gesetzt ist, setze es auf true.
         if (typeof c.activated === 'undefined') {
           c.activated = true
         }
@@ -129,7 +129,7 @@ d3.json('meta.json', function (err, res) {
     return d[index.row]
   }
 
-  // ..._scaled: Gibt den Skalierten Wert von accessor zurück.
+  // ..._scaled: Gibt den skalierten Wert von accessor zurück.
   index.accessor_scaled = function (d) {
     return xScale(d[index.row])
   }
@@ -249,12 +249,7 @@ function loadFiles () {
  * @param  {[Array]} data Die gemergten Datensätze
  */
 function loadVisualization (data) {
-  /**
-   * Keine Achsen
-   * Jede Untereinander
-   * Anzahl Spalten -> Höhe, Lage der Kasten
-   * Für jede Datenreihe: Wertebereich
-   */
+
 
   // SVG-Element mit id 'visualization' extrahieren aus html
   var v = d3.select('#visualization')
@@ -268,7 +263,7 @@ function loadVisualization (data) {
   // Domains
   xScale.domain(domain.overflowX(data, index, 1.1))
 
-  // testen, ob alle datensätze die gleiche länge haben.
+  // testen, ob alle Datensätze die gleiche Länge haben.
   var buf
   for (var i = 0; i < values.length; i++) {
     if (!buf) {
@@ -385,7 +380,7 @@ function loadVisualization (data) {
           var data_to_merge = []
           data_to_merge = filter.row(data, values[j - 1].rowId)
 
-          // Daten unlinken, Referenz zum Original-Objekt zerstören
+          // Daten "unlinken", Referenz zum Original-Objekt zerstören
           var here = JSON.parse(JSON.stringify(copy))
 
           // Zusammenführen
@@ -400,7 +395,7 @@ function loadVisualization (data) {
           }
         }
 
-        // Die berechneten Attribute in ein Objekt speichern und graphConfArray
+        // Die berechneten Attribute in einem Objekt speichern und graphConfArray
         // übergeben.
         var obj = {
           xConfig: xConfig,
@@ -463,7 +458,7 @@ function loadVisualization (data) {
    * Zeichnet die einzelnen Graphen in der Matrix an der Position x, y
    */
   function items (x, y, config, graphId) {
-    // Container für die Visualisation hinzufügen und zu der Maske linken
+    // Container für die Visualisation hinzufügen und zur Maske "linken"
     // Transformation nach den definierten Angaben mit transform, translate
 
     var graph = v.append('g')
@@ -481,10 +476,10 @@ function loadVisualization (data) {
       // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
       // entsprechende Reihe besitzen. Siehe Merge-Problem.
       // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
-      // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
+      // ausgeführt werden, werden auch bei allen anderen Datenreihen ausgeführt.
       .data(config.data).enter()
 
-    // Aktionen an Datengebundener Selektion ausführen
+    // Aktionen an datengebundener Selektion ausführen
     circles.append('circle')
       .attr('class', 'data-point')
       .attr('cx', function (d) {

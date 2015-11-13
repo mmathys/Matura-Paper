@@ -1,7 +1,7 @@
 /**
  * Modul: Sort
  * -----------
- * Sortiert Datensatz nach der Index-Spalte
+ * Sortiert einen Datensatz nach der Index-Spalte
  */
 
 /**

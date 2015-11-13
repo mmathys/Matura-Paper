@@ -28,9 +28,9 @@ module.exports.max = function (data, accessor) {
  * Gibt das Minimum für mehrere Datenspalten zurück.
  * @param  {[Array]} data           Der Datensatz
  * @param  {[Array]} values         Der Config-Array für die zu untersuchenden
- *                          				Datenreihen.
+ *                          				Datenreihen
  * @param  {{Function}} v_accessor  Die Funktion, die für eine bestimmte value-
- *                                  Reihe den Accessor zurückgibt.
+ *                                  Reihe den Accessor zurückgibt
  * @return {[Object]}               Das Minimum
  */
 module.exports.minMultipleSets = function (data, values, v_bundle) {
@@ -53,10 +53,10 @@ module.exports.minMultipleSets = function (data, values, v_bundle) {
 /**
  * Gibt das Maximum für mehrere Datenspalten zurück.
  * @param  {[Array]} data           Der Datensatz
- * @param  {[Array]} values         Der Config-Array für die zu untersuchenden Datenrei-
- *                                  hen.
+ * @param  {[Array]} values         Der Config-Array für die zu untersuchenden
+ *                                  Datenreihen.
  * @param  {{Function}} v_accessor  Die Funktion, die für eine bestimmte value-
- *                                   Reihe den Accessor zurückgibt.
+ *                                  Reihe den Accessor zurückgibt.
  * @return {[Object]}               Das Maximum
  */
 module.exports.maxMultipleSets = function (data, values, v_bundle) {
@@ -74,15 +74,15 @@ module.exports.maxMultipleSets = function (data, values, v_bundle) {
   return max
 }
 
-//  Wertebereich der Daten bestimmen mit d3: Um einen kleinen Abstand zwischen
-//  den maximalen Punkten und dem Ende des Rändern des Diagrammes zu bewahren,
+//  Wertebereich, der Daten bestimmen mit d3: Um einen kleinen Abstand zwischen
+//  den maximalen Punkten und den Rändern des Diagrammes zu bewahren,
 //  wird der Unterschied (Δ) des Minimums und dem untersuchten Wert mit 1.1
 //  mulitpliziert. Anschliessend wird die Summe des Minimums und des
 //  multiplizierten Wertes an d3 zurückgegeben.
 
 /**
- * Gibt die Summe der Minimums und des mit dem Faktor factor multiplizierten
- * Unterschied von min und max zurück.
+ * Gibt die Summe des Minimums und des mit dem Faktor factor multiplizierten
+ * Unterschieds von min und max zurück.
  * Wird verwendet, damit oben und rechts von Graphen Platz ausgelassen wird.
  * @param  {[Number]} min       Minimum ohne Overflow
  * @param  {[Number]} max       Maximum ohne Overflow

@@ -3,13 +3,13 @@ var range = require('./range')
 /**
  * Modul: Domain
  * -------------
- * Gibt einen überhöhten Wertbereich zurück für X und Y.
+ * Gibt einen überhöhten Wertbereich zurück für x und x.
  * Überhöhte Wertebereiche werden hier benutzt, damit ein wenig Platz links und
  * oberhalb der Linie entsteht.
  */
 
 /**
- * Gibt überhöhten Wertebereich für X zurück.
+ * Gibt überhöhten Wertebereich für x zurück.
  * @param  {[Array]} data             Gemergter Datensatz, ungefiltert
  * @param  {[Object]} index           Config-Objekt für die Index-Spalte
  * @param  {[Number]} overflowFactor  Überhöhungsfaktor
@@ -24,7 +24,7 @@ module.exports.overflowX = function (data, index, overflowFactor) {
   return xWertebereich
 }
 /**
- * Gibt überhöhten Wertebereich für Y zurück.
+ * Gibt überhöhten Wertebereich für y zurück.
  * @param  {[Array]} data             Gemergter Datensatz, ungefiltert
  * @param  {[Array]} values           Array von Config-Objekten der Wertespalten
  * @param  {[Object]} v_bundle        Accessor-Bundle

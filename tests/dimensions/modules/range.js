@@ -6,9 +6,9 @@
 
 /**
  * Gibt das Minimum einer einzelnen Datenspalte zurück
- * @param  {[Array]} data         Der Datensatz
- * @param  {{Function}} accessor  Der Accessor für die zu untersuchende Datenreihe
- * @return {[Number]}             Das Minimum
+ * @param  {[Array]} data           Der Datensatz
+ * @param  {{Function}} accessor    Der Accessor für die zu untersuchende Datenreihe
+ * @return {[Number]}               Das Minimum
  */
 module.exports.min = function (data, accessor) {
   return d3.min(data, accessor)
@@ -16,9 +16,9 @@ module.exports.min = function (data, accessor) {
 
 /**
  * Gibt das Maximum einer einzelnen Datenspalte zurück
- * @param  {[Array]} data     Der Datensatz
- * @param  {{Function}} index Der Accessor für die zu untersuchende Datenreihe
- * @return {[Object]}         Das Maximum
+ * @param  {[Array]} data           Der Datensatz
+ * @param  {{Function}} index       Der Accessor für die zu untersuchende Datenreihe
+ * @return {[Object]}               Das Maximum
  */
 module.exports.max = function (data, accessor) {
   return d3.max(data, accessor)
@@ -30,7 +30,7 @@ module.exports.max = function (data, accessor) {
  * @param  {[Array]} values         Der Config-Array für die zu untersuchenden
  *                          				Datenreihen.
  * @param  {{Function}} v_accessor  Die Funktion, die für eine bestimmte value-
- *                                  Reihe den Accessor zurückgibt.
+ *                                  Reihe den Accessor zurückgibt
  * @return {[Object]}               Das Minimum
  */
 module.exports.minMultipleSets = function (data, values, v_bundle) {
@@ -56,7 +56,7 @@ module.exports.minMultipleSets = function (data, values, v_bundle) {
  * @param  {[Array]} values         Der Config-Array für die zu untersuchenden Datenrei-
  *                                  hen.
  * @param  {{Function}} v_accessor  Die Funktion, die für eine bestimmte value-
- *                                   Reihe den Accessor zurückgibt.
+ *                                  Reihe den Accessor zurückgibt.
  * @return {[Object]}               Das Maximum
  */
 module.exports.maxMultipleSets = function (data, values, v_bundle) {
@@ -75,13 +75,13 @@ module.exports.maxMultipleSets = function (data, values, v_bundle) {
 }
 
 //  Wertebereich der Daten bestimmen mit d3: Um einen kleinen Abstand zwischen
-//  den maximalen Punkten und dem Ende des Rändern des Diagrammes zu bewahren,
+//  den maximalen Punkten und den Rändern des Diagrammes zu bewahren,
 //  wird der Unterschied (Δ) des Minimums und dem untersuchten Wert mit 1.1
 //  mulitpliziert. Anschliessend wird die Summe des Minimums und des
 //  multiplizierten Wertes an d3 zurückgegeben.
 
 /**
- * Gibt die Summe der Minimums und des mit dem Faktor factor multiplizierten
+ * Gibt die Summe des Minimums und des mit dem Faktor factor multiplizierten
  * Unterschied von min und max zurück.
  * Wird verwendet, damit oben und rechts von Graphen Platz ausgelassen wird.
  * @param  {[Number]} min       Minimum ohne Overflow

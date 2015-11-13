@@ -5,7 +5,7 @@
  */
 
 /**
- * Gibt generierte ID zurück.
+ * Gibt generierte ID zurück
  * @param  {[Object]} config Config-Objekt
  * @return {[String]}        ID
  */
@@ -28,7 +28,7 @@ module.exports.invert = function (id, values) {
 }
 
 /**
- * Gibt ID für benutzerdefinierte Attribute zurück.
+ * Gibt ID für benutzerdefinierte Attribute zurück
  * @param  {[String]} attr Benutzerdefiniertes Attribut
  * @param  {[String]} url  URL des Datensatzes
  * @return {[String]}      ID

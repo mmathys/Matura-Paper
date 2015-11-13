@@ -21,7 +21,7 @@ var domain = require('./domain')
  * @param  {[Object]} yScale        D3-Skalierung
  * @param  {[Object]} yAxis         D3-Achse
  * @param  {[Function]} draw        Funktion, die aufgerufen wird, wenn der
- *                                  Graph neu gezeichnet werden soll.
+ *                                  Graph neu gezeichnet werden soll
  */
 module.exports.add = function (data, index, values, config, v_bundle, zoom, yWertebereich, yScale, yAxis, draw) {
   // Der Container für die Toggles hat die id select-row
@@ -63,7 +63,7 @@ module.exports.add = function (data, index, values, config, v_bundle, zoom, yWer
       removeTooltipDetail(config)
     }
 
-    // und aktualisiere die Y-Achse und Skalierung.
+    // Aktualisiere die y-Achse und Skalierung.
     module.exports.updateYDomain(data, values, v_bundle, zoom, yWertebereich, yScale, yAxis, function () {
       draw()
     })
@@ -71,7 +71,7 @@ module.exports.add = function (data, index, values, config, v_bundle, zoom, yWer
 }
 
 /**
- * Funktion, um den Wertebereich und Skalierung bei einem Toggle zu
+ * Funktion, um den Wertebereich und die Skalierung bei einem Toggle zu
  * aktualisieren
  * @param  {[Array]} data           Datensatz
  * @param  {[Array]} values         Config-Objekte der Wertespalten
@@ -87,7 +87,7 @@ module.exports.updateYDomain = function (data, values, v_bundle, zoom, yWerteber
   zoom.scale(1)
   zoom.translate([0, 0])
 
-  // Y-Wertebereich und Y-Skalierung aktualisieren.
+  // y-Wertebereich und y-Skalierung aktualisieren.
   yWertebereich = domain.overflowY(data, values, v_bundle, 1.1)
   yScale.domain(yWertebereich)
   zoom.y(yScale)

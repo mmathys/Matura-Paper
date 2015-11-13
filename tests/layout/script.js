@@ -292,7 +292,7 @@ function loadVisualization (data) {
     .scaleExtent([0.9, 50])
     .on('zoom', draw)
 
-  // Die variable graph initialiseren, damit sie in der Funktion zoomed() ver-
+  // Die Variable graph initialiseren, damit sie in der Funktion zoomed() ver-
   // wendet werden kann, obwohl sie erst später definiert wird.
   var graph
 
@@ -342,7 +342,7 @@ function loadVisualization (data) {
     .attr('height', h - graphTransform.ytop - graphTransform.ybottom)
     .attr('fill', 'white')
 
-  // Container für die Visualisation hinzufügen und zu der Maske linken
+  // Container für die Visualisation hinzufügen und zu der Maske "linken"
   // Transformation nach den definierten Angaben mit transform, translate
   graph = v.append('g')
     .attr('id', 'graph')
@@ -358,11 +358,11 @@ function loadVisualization (data) {
 
       // Aus dem gesamten gemergten Datensatz die Elemente extrahieren, die die
       // entsprechende Reihe besitzen. Siehe Merge-Problem.
-      // Daten an Selektion binden: Alle Aktionen, die an diesem einem Element
+      // Daten an Selektion binden: Alle Aktionen, die an diesem Element
       // ausgeführt werden, werden auch auf alle anderen Datenreihen ausgeführt.
       .data(filter.row(data, values[i].rowId)).enter()
 
-    // Aktionen an Datengebundener Selektion ausführen
+    // Aktionen an datengebundener Selektion ausführen
     circles.append('circle')
       .attr('class', 'data-point')
       .attr('data-row', values[i].rowId)

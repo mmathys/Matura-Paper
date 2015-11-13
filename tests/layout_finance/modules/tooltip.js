@@ -45,7 +45,7 @@ function nextIndex (data, index, item) {
 /**
  * Funktion für den Tooltip-Kreis und die Werteanzeige
  * @param  {[Array]} data           Datenarray
- * @param  {{String}} rowId       Name der Reihe
+ * @param  {{String}} rowId         Name der Reihe
  * @param  {[Function]} accessor    Funktion, die das Koordinatenpaar den Punktes
  *                                	zurückgibt.
  * @param  {[Number]} index         Index des Datenarray, die den zu "tooltippenden"
@@ -103,8 +103,8 @@ module.exports.tooltip = function (data, index, config, v_bundle, pos, indexText
  * @param  {[Object]} index     Config-Objekt für den Index
  * @param  {[Object]} config    Die Config für das Value-Objekt
  * @param  {[Object]} v_bundle  Accessor-Bundle
- * @param  {[Object]} xScale    X-Skalierung (d3)
- * @param  {[Object]} yScale    Y-Skalierung (d3)
+ * @param  {[Object]} xScale    x-Skalierung (d3)
+ * @param  {[Object]} yScale    y-Skalierung (d3)
  */
 module.exports.updateTooltip = function (data, index, config, v_bundle, xScale, yScale) {
   var x = module.exports.mouse[0] - module.exports.opt.graphTransform.xstart
@@ -137,8 +137,8 @@ module.exports.updateTooltip = function (data, index, config, v_bundle, xScale, 
  * @param  {[Object]} index     Config-Objekt für den Index
  * @param  {[Array]} values     Die Config für die Values
  * @param  {[Object]} v_bundle  Accessor-Bundle
- * @param  {[Object]} xScale    X-Skalierung (d3)
- * @param  {[Object]} yScale    Y-Skalierung (d3)
+ * @param  {[Object]} xScale    x-Skalierung (d3)
+ * @param  {[Object]} yScale    y-Skalierung (d3)
  */
 module.exports.updateAll = function (data, index, values, v_bundle, xScale, yScale) {
   if (!module.exports.mouse) {
