@@ -16,7 +16,7 @@ Es wurde entschieden, eine weitere Applikation zu entwickeln, die einen Datensat
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{images/3d}
-	\caption{Oberfläche der Applikation (dreidimensionales Punktdiagramm), perspektivische Projektion}
+	\caption{Oberfläche der Applikation (dreidimensionales Punktdiagramm), Zentralprojektion}
 	\label{fig:3d}
 \end{figure}
 
@@ -45,28 +45,42 @@ Eine Funktion für das Zoomen wurde nicht implementiert, weil sie sich als kontr
 
 \subsection{Reduktion auf zweidimensionale Punktdiagramme durch Projektion}
 
-Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist das Erkennen des Potentials von orthographischen Projektionen innerhalb des dreidimensionalen Punktdiagramms.
+Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist das Erkennen des Potentials von Parallelprojektionen innerhalb des dreidimensionalen Punktdiagramms.
 
 Das Punktdiagramm kann durch Verschieben der Kamera und Verwendung der orthographischen Projektion auf ein zweidimensionales Punktdiagramm reduziert werden.
 
-Zum Beispiel führt die Projektion der zy-Fläche zur Darstellung eines zweidimensionalen Punktdiagramms: Die \textit{neue Abszisse}\footnote{Mit dem Begriff "`\textit{neue Abszisse}"' ist die Abszisse des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} ist die y-Achse, die \textit{neue Ordinate}\footnote{Mit dem Begriff "`\textit{neue Ordinate}"' ist ebenfalls die Ordinate des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} die z-Achse. Der Effekt kann in diesem Beispiel erzielt werden, wenn die Kamera auf negativer x-Achsen-Position, halber y-Achsen-Position und halber z-Achsen-Position ist und in die Richtung der Mitte des Diagramms ausgerichtet ist.
+Zum Beispiel führt die Projektion der zy-Fläche (Abbildung \ref{fig:compare_projections} rechts) zur Darstellung eines zweidimensionalen Punktdiagramms: 
+Die \textit{neue Abszisse}\footnote{Mit dem Begriff "`\textit{neue Abszisse}"' ist die Abszisse des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} ist die y-Achse, die \textit{neue Ordinate}\footnote{Mit dem Begriff "`\textit{neue Ordinate}"' ist ebenfalls die Ordinate des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} die z-Achse. 
+Der Effekt kann in diesem Beispiel erzielt werden, wenn die Kamera auf negativer x-Achsen-Position, halber y-Achsen-Position und halber z-Achsen-Position ist und in die Richtung der Mitte des Diagramms ausgerichtet ist. Kurz gesagt, die Kamera ist in die Richtung der x-Achse ausgerichtet.
 
-Abbildung \ref{fig:3dmath} erklärt Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse (x), Ordinatenachse (y) und Applikatenachse (z), $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{xz}}$, $P_{\text{zy}}$ die Position der Kamera für die entsprechende Projektion:
+Abbildung \ref{fig:compare_projections} veranschaulicht die Funktionsweise der xy-, xz- und zy-Projektion.
 
-\begin{figure}[H]
-$$S = (0|0|0)$$
-
-$$M = (\frac{a}{2} | \frac{a}{2} | \frac{a}{2})$$
-
-$$P_{\text{xy}} = (\frac{a}{2} | \frac{a}{2}| a + a)$$
-
-$$P_{\text{xz}} = (\frac{a}{2} | -a | \frac{a}{2})$$
-
-$$P_{\text{zy}} = (-a | \frac{a}{2}| \frac{a}{2})$$
-
-\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktdiagramm.}
-\label{fig:3dmath}
+\begin{figure}[!htbp]
+	\centering
+	\begin{minipage}{\textwidth}
+		\includegraphics[width=\linewidth]{images/compare_projections}
+	\end{minipage}
+	\caption[Funktionweise der xy-, xz- und zy-Projektion]{Funktionsweise der Projektionen, von links nach rechts: xy, xz und zy.}
+	\label{fig:compare_projections}
 \end{figure}
+
+Die Gleichungen in \ref{eqn:3dmath} erklären die Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse (x), Ordinatenachse (y) und Applikatenachse (z), $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{xz}}$, $P_{\text{zy}}$ die Position der Kamera für die entsprechende Projektion:
+
+\begin{equation}
+\begin{gathered}
+S = (0|0|0)
+\\
+M = (\frac{a}{2} | \frac{a}{2} | \frac{a}{2})
+\\
+P_{\text{xy}} = (\frac{a}{2} | \frac{a}{2}| a + a)
+\\
+P_{\text{xz}} = (\frac{a}{2} | -a | \frac{a}{2})
+\\
+P_{\text{zy}} = (-a | \frac{a}{2}| \frac{a}{2})
+\end{gathered}
+%\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktdiagramm.}
+\label{eqn:3dmath}
+\end{equation}
 
 Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{zy}}$ senkrecht, die verbleibende Achse steht parallel zur Kamerarichtung; in Abbildung \ref{fig:3dtable} werden die neue Abszisse und Ordinate des projizierten zweidimensionalen Punktdiagramms und die Kamerarichtung nach Projektion aufgelistet.
 
@@ -83,11 +97,7 @@ Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{
 	\label{fig:3dtable}
 \end{figure}
 
-In Abbildung \ref{fig:projections} wird die Projektion der xz-Ebene angezeigt. Bei dem linken Beispiel wird die \textit{perspektivische Projektion} verwendet. Die perspektivische Projektion wird in den meisten 3D-Applikationen verwendet. Die Geraden verlaufen durch einen festen Punkt. Das Auge verwendet ebenfalls die perspektivische Projektion: Strahlen werden so auf der Netzhaut abgebildet.
-
-Die perspektivische Projektion hat den Nachteil, dass sie Objekte verzerrt, je nachdem, wie weit sie entfernt sind. Sie ist für unsere Zwecke (der Reduktion des dreidimensionalen Punktdiagramm auf ein zweidimensionales) nicht geeignet.
-
-Bei der orthographischen Projektion hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} ist somit das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
+In Abbildung \ref{fig:projections} wird die Projektion der xz-Ebene angezeigt. Bei dem linken Beispiel wird die \textit{Zentralprojektion} verwendet. Die Zentralprojektion wird in den meisten 3D-Applikationen verwendet. Die Geraden verlaufen durch einen festen Punkt. Das Auge verwendet ebenfalls die Zentralprojektion: Strahlen werden so auf der Netzhaut abgebildet.
 
 \begin{figure}[!htbp]
 	\centering
@@ -97,10 +107,14 @@ Bei der orthographischen Projektion hingegen werden Punkte auf einer Ebene abgeb
 	\begin{minipage}{.45\textwidth}
 		\includegraphics[width=\linewidth]{images/ortho}
 	\end{minipage}
-	\caption[Projektion der xz-Ebene]{Projektion der XZ-Ebene. Links: Perspektivische Projektion. Rechts: Orthographische Projektion.}
+	\caption[Projektion der xz-Ebene]{Projektion der XZ-Ebene. Links: Zentralprojektion. Rechts: Parallelprojektion.}
 	\label{fig:projections}
 \end{figure}
 
-Es ist in der Applikation möglich, zwischen der perspektivischen und orthographischen Projektion, sowie zwischen der xy-, xz- und zy-Projektion umzuschalten. Der Benutzer kann sich so besser mit dem Datensatz auseinandersetzen, indem er einfach zwischen dreidimensionalem und zweidimensionalem Punktdiagramm navigieren kann.
+Die Zentralprojektion hat den Nachteil, dass sie Objekte verzerrt, je nachdem, wie weit sie entfernt sind. Sie ist für unsere Zwecke (der Reduktion des dreidimensionalen Punktdiagramm auf ein zweidimensionales) nicht geeignet.
+
+Bei der Parallelprojektion hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} ist somit das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
+
+Es ist in der Applikation möglich, zwischen der Zentralprojektion und Parallelprojektion, sowie zwischen der xy-, xz- und zy-Projektion umzuschalten. Der Benutzer kann sich so besser mit dem Datensatz auseinandersetzen, indem er einfach zwischen dreidimensionalem und zweidimensionalem Punktdiagramm navigieren kann.
 
 Damit der Benutzer die Orientierung behält, wird die Kamerabewegung zwischen $P_{\text{xy}}$, $P_{\text{xz}}$ und $P_{\text{zy}}$ animiert. Dazu wird die JavaScript-Bibliothek \textit{tween.js} \cite{tween} verwendet.

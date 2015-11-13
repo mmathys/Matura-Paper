@@ -5,11 +5,11 @@ Die Diagramme in Abbildung \ref{fig:scatterplot} benutzen einen Datensatz der We
 
 %TODO beschreiben wieso ich diesen teil so ausführlich beschreibe. weil die datenverarbeitung überraschend schwierig umzusetzen war.darum will ich zeigen wieso.
 
-Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspipeline} durchlaufen \cite{viz}. Diese Pipeline stellt drei wesentliche Schritte des Prozesses dar: Die Datenaufbereitung (\textit{Filtering}), die Erzeugung des Geometriemodells (\textit{Mapping}) und die Bildgenerierung (\textit{Rendering}).
+Beim Prozess zur Veranschaulichung von Daten wird die \textit{Visualisierungspipeline} durchlaufen \cite[Kapitel 2.1]{viz}. Diese Pipeline stellt drei wesentliche Schritte des Prozesses dar: Die Datenaufbereitung (\textit{Filtering}), die Erzeugung des Geometriemodells (\textit{Mapping}) und die Bildgenerierung (\textit{Rendering}).
 
 \subsection{Rohdaten}
 
-\subsubsection{Comma-separated values (CSV)}
+\subsubsection*{Comma-separated values (CSV)}
 
 Die Applikation verwendet als Datenformat \textit{Comma-separated values} (\textit{CSV}). Das CSV-Format wird verwendet, um Tabellendaten zwischen Programmen auszutauschen \cite{csv}. Tabellenzeilen werden in der CSV-Datei durch einen Umbruch dargestellt, Spaltenwerte durch Kommas. Optional steht in der ersten Zeile (Abbildung \ref{fig:csv} links, Zeile 1) der Datei die Beschriftung der Spalten.
 
@@ -53,9 +53,9 @@ Die Applikation lädt die Datei durch eine \textit{Ajax}-Anfrage (\textit{Asynch
 
 \subsection{Filtering}
 
-Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filtering sind zum Beispiel die Vervollständigung, Reduzierung oder Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisierungspipeline verwendet werden können \cite{viz}.
+Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die Aufgaben des Filtering sind zum Beispiel die Vervollständigung, Reduzierung oder Korrektur der Daten, sodass sie in den folgenden Schritten der Visualisierungspipeline verwendet werden können \cite[Kapitel 2.1]{viz}.
 
-\subsubsection{Konvertierung in JavaScript-Objekte}
+\subsubsection*{Konvertierung in JavaScript-Objekte}
 
 Als erster Schritt wird in der Applikation die CSV-Datei in \textit{JavaScript-Objekte} umgewandelt. Das Laden und \textit{Parsing} der Datei von CSV zu Objekten ist von D3 implementiert.
 
@@ -103,7 +103,7 @@ Date,Value
 	\label{fig:csv-json}
 \end{figure}
 
-\subsubsection{Formatierung}
+\subsubsection*{Formatierung}
 
 Die Applikation benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu formatieren, damit er im Diagramm verwendet werden kann. Der Prozess muss folgende Aufgaben erledigen (diese Strategie wurde selber entwickelt):
 
@@ -113,13 +113,13 @@ Die Applikation benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu 
 	\item Den gesamten gemergten Datensatz nach der unabhängigen Variable aufsteigend sortieren
 \end{itemize}
 
-\textbf{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
+\paragraph{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
 
 Im Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3, wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring; damit ist eine Umwandlung in das JavaScript Date-Objekt, das ein Datum darstellt, sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Gegebenheiten entspricht: 28.10.2015 (Schweiz), 10/28/2015 (USA).
 
 Zahlen, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem Namen "`Value"' definiert, werden zunächst von JavaScript als Zeichenstring behandelt. Diese Strings müssen in Zahlen-Objekte umgewandelt werden, denn nur mit Zahlen-Objekten können Rechenoperationen durchgeführt werden.
 
-\textbf{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Applikation geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in einen JavaScript-Array umgewandelt.
+\paragraph{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Applikation geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in einen JavaScript-Array umgewandelt.
 
 Es wurde entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil die Umsetzung aus Sicht der Programmierlogik einfacher ist. 
 
@@ -179,9 +179,9 @@ In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-c
 	\label{fig:merge}
 \end{figure}
 
-\textbf{Sortieren des gemergten Datensatzes.} Der Datensatz wird nach der unabhängigen Variable ansteigend sortiert, damit die Berechnung von Interpolationen ermöglicht wird.
+\paragraph{Sortieren des gemergten Datensatzes.} Der Datensatz wird nach der unabhängigen Variable ansteigend sortiert, damit die Berechnung von Interpolationen ermöglicht wird.
 
-\subsubsection{Datensatzspezifische Filteringkonfiguration und Hard Coding}
+\subsubsection*{Datensatzspezifische Filteringkonfiguration und Hard Coding}
 
 Die Applikation soll fähig sein, mehrere Formate von CSV-Datensätzen verarbeiten zu können. Der Benutzer sollte die Anweisungen zum Filtering anpassen können.
 
@@ -192,11 +192,11 @@ Die Implementation dieser Anweisungen zum Filtering (Spezifikation der URLs, abh
 	\item Die Anweisungen zum Filtering sind in einer \textit{Konfiguration} abgelegt (\textit{Soft Coding})
 \end{itemize}
 
-\textbf{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden sollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
+\paragraph{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden sollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
 
-\textbf{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei oder Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so möglich, die Funktionsweise der Applikation anzupassen. Soft Coding wird in dieser Applikation verwendet.
+\paragraph{Soft Coding.} Beim Soft Coding sind die Anweisungen (Konfiguration) für das Filtering in einer externen Ressource abgelegt, zum Beispiel in einer Datei oder Datenbank. Die Applikation liest die Konfiguration und führt das Filtering dementsprechend aus. Dem Benutzer ist es so möglich, die Funktionsweise der Applikation anzupassen. Soft Coding wird in dieser Applikation verwendet.
 
-\subsubsection{meta.json}
+\subsubsection*{meta.json}
 
 Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor dem Filtering in ein JavaScript-Objekt umgewandelt werden kann. In Abbildung \ref{fig:meta} ist ein Beispiel der Konfigurationsdatei meta.json aufgelistet:
 
@@ -249,7 +249,7 @@ Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor d
 
 \subsection{Mapping}
 
-Das Mapping ist der Prozess der Umwandlung von aufbereiteten Daten zu Geometriedaten, es ist das Kernstück der Diagrammerstellung. Es wird eine \textit{Daten-zu-Geometrie-Abbildung} realisiert \cite{viz}.
+Das Mapping ist der Prozess der Umwandlung von aufbereiteten Daten zu Geometriedaten, es ist das Kernstück der Diagrammerstellung. Es wird eine \textit{Daten-zu-Geometrie-Abbildung} realisiert \cite[Kapitel 2.1]{viz}.
 
 In der Applikation, die in dieser Arbeit entwickelt wird, stellen die Geometriedaten die SVG-Elemente wie zum Beispiel Rechtecke, Kreise, Linien, Text dar.
 
@@ -259,6 +259,6 @@ Die Programmlogik des Mappings unterscheidet sich grundlegend bei jedem Diagramm
 
 % geometriedaten -> bilddaten
 
-Das Rendering ist der letzte Schritt der Diagrammerstellung, bei dem die Abbildung der Geometriedaten in Bilddaten erfolgt \cite{viz}.
+Das Rendering ist der letzte Schritt der Diagrammerstellung, bei dem die Abbildung der Geometriedaten in Bilddaten erfolgt \cite[Kapitel 2.1]{viz}.
 
 In unserem Falle sind Bilddaten das Diagramm, das im Browser angezeigt wird. Es ist die Aufgabe des Browsers, die Geometriedaten (SVG-Elemente) mit Darstellungsanweisungen (CSS) in Bilddaten (Pixel, angezeigte Grafik) zu rendern.

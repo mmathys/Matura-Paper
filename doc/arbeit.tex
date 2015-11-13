@@ -1,6 +1,10 @@
-\documentclass[12pt]{document}  % default square logo 
-%\documentclass[12pt,beltcrest]{ociamthesis} % use old belt crest logo
-%\documentclass[12pt,shieldcrest]{ociamthesis} % use older shield crest logo
+\documentclass[12pt]{document}
+
+\usepackage[ngerman]{babel}
+
+%thanks david
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
 
 %load any additional packages
 \usepackage{amssymb}
@@ -23,7 +27,9 @@
 % links across the toc
 \usepackage[linkcolor=black,colorlinks=true,citecolor=black,filecolor=black]{hyperref}
 
-\usepackage[backend=biber,style=numeric]{biblatex}
+\usepackage[sorting=none,backend=biber,style=numeric]{biblatex}
+% brauche et al. anstatt u. a.
+\DefineBibliographyStrings{german}{andothers={et al\adddot}}
 \addbibresource{refs.bib}
 
 %Deutsche Silbentrennung
@@ -34,6 +40,8 @@
 \usepackage{subscript}
 
 \usepackage{mathtools}
+
+\usepackage{amsmath}
 
 %input macros (i.e. write your own macros file called mymacros.tex 
 %and uncomment the next line)
