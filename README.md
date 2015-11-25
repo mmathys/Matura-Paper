@@ -1,7 +1,7 @@
 # Matura Paper
 Repository for the Matura paper, Max Mathys
 
-[View the paper here](https://github.com/mmathys/Matura-Paper/blob/master/doc/paper.pdf)
+[View the paper here](https://mmathys.github.io/maturapaper.pdf)
 
 Contains notes, code and history of the matura project.
 
