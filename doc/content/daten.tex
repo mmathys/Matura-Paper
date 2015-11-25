@@ -125,7 +125,7 @@ Zahlen, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem
 Es wurde entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil die Umsetzung aus Sicht der Programmierlogik einfacher ist. 
 
 Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} links). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige Identifikation ersetzt (Abbildung \ref{fig:merge} rechts). Die eindeutige Identifikation wird durch den Spaltennamen und die URL des Datensatzes generiert: Dem Spaltennamen wird ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem ursprünglichen Datensatz zuordnen kann.
-
+\newpage
 In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-co2.csv und af-co2.csv gemergt. Im rechten Beispiel wurden die Spaltennamen der abhängigen Variablen durch die eindeutige Identifikation ersetzt.
 
 \begin{figure}[H]
@@ -247,7 +247,7 @@ Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor d
 	\caption[Beispiel der Konfigurationsdatei: meta.json]{\textbf{meta.json}: Beispiel der Konfigurationsdatei, die die Applikation verwendet.}
 	\label{fig:meta}
 \end{figure}
-
+\newpage
 \subsection{Mapping}
 
 Das Mapping ist der Prozess der Umwandlung von aufbereiteten Daten zu Geometriedaten, es ist das Kernstück der Diagrammerstellung. Es wird eine \textit{Daten-zu-Geometrie-Abbildung} realisiert \cite[Kapitel 2.1]{viz}.
