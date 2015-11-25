@@ -1,7 +1,7 @@
 \section{Verarbeitung der Daten}
 
 Bevor das Diagramm im Browser dargestellt werden kann, müssen zuerst die Daten geladen und verarbeitet werden. Die Beispiele dieser Arbeit nutzen ausschliesslich Datensätze, die frei verfügbar sind \cite{worldbank}.  %hier näher erklären TODO
-Die Diagramme in Abbildung \ref{fig:scatterplot} benutzen einen Datensatz der Weltbank, der den $CO_2$-Verbrauch von Afghanistan beinhaltet.
+Die Diagramme in Abbildung \ref{fig:scatterplot} benutzen einen Datensatz der Weltbank, der den $CO_2$-Ausstoss von Afghanistan beinhaltet.
 
 %TODO beschreiben wieso ich diesen teil so ausführlich beschreibe. weil die datenverarbeitung überraschend schwierig umzusetzen war.darum will ich zeigen wieso.
 
@@ -47,7 +47,7 @@ Man verwendet das CSV-Format oft, weil es sehr einfach aufgebaut ist. Das Lesen 
 Zudem beschränkt sich das CSV-Format nur auf die Vermittlung der Daten und beinhaltet keine Informationen zur Darstellung der Tabelle. Excel-Dateien (XLS/XLSX) hingegen speichern auch Daten zur Formatierung, auch Zeilengrösse, Textgrösse, Textformat und viele mehr. Für die Zwecke dieser Applikation sind diese Informationen irrelevant.
  
  
-Wenn die Applikation die CSV-Datei laden und verarbeiten will, dann braucht sie zunächst zusätzliche Informationen zu der Datei: Die \textit{URL}, ein Zeichenstring, der eine über das Internet zugängliche Ressource repräsentiert \cite{url}.
+Wenn die Applikation die CSV-Datei laden und verarbeiten will, dann braucht sie zunächst zusätzliche Informationen zur Datei: Die \textit{URL}, ein Zeichenstring, der eine über das Internet zugängliche Ressource repräsentiert \cite{url}.
 
 Die Applikation lädt die Datei durch eine \textit{Ajax}-Anfrage (\textit{Asynchronous JavaScript and XML}) herunter, bevor sie sie weiter verarbeitet.
 
@@ -59,6 +59,7 @@ Das Filtering ist der Prozess, der Rohdaten in aufbereitete Daten umwandelt. Die
 
 Als erster Schritt wird in der Applikation die CSV-Datei in \textit{JavaScript-Objekte} umgewandelt. Das Laden und \textit{Parsing} der Datei von CSV zu Objekten ist von D3 implementiert.
 
+\newpage
 JavaScript-Objekte werden im \textit{JavaScript Object Notation}-Format (\textit{JSON}) dargestellt.
 
 Im Abbildung \ref{fig:csv-json} ist der Prozess der Umwandlung ersichtlich: Es wird ein \textit{Array} von allen Zeilen in der Tabelle (ausgenommen der ersten Zeile, wo die Spalten beschriftet werden) erstellt. Jede Zeile wird als Objekt mit den dazugehörigen Spalten dargestellt.
@@ -105,7 +106,7 @@ Date,Value
 
 \subsubsection*{Formatierung}
 
-Die Applikation benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu formatieren, damit er im Diagramm verwendet werden kann. Der Prozess muss folgende Aufgaben erledigen (diese Strategie wurde selber entwickelt):
+Die Applikation benötigt nun Anweisungen, um den Datensatz (als Array) zu formatieren, damit er im Diagramm verwendet werden kann. Der Prozess muss folgende Aufgaben erledigen (diese Strategie wurde selber entwickelt):
 
 \begin{itemize}
 	\item (Zeichenstring-) Elemente gegebenfalls in JavaScript-Objekte umwandeln
@@ -115,19 +116,19 @@ Die Applikation benötigt nun Anweisungen, um den Datensatz (im JSON-Format) zu 
 
 \paragraph{Umwandlung zu JavaScript-Objekten.} Das CSV-Format unterscheidet nicht zwischen Datentypen. Alle Werte in CSV-Dateien sind Zeichenstrings.
 
-Im Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3, wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring; damit ist eine Umwandlung in das JavaScript Date-Objekt, das ein Datum darstellt, sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Gegebenheiten entspricht: 28.10.2015 (Schweiz), 10/28/2015 (USA).
+Im Beispiel in der Abbildung \ref{fig:csv-json} rechts, Zeile 3, wird für das erste Objekt im Array das Attribut mit dem Namen "`Date"' definiert. Der Datentyp ist hier ein Zeichenstring; damit ist eine Umwandlung in das JavaScript Date-Objekt, das ein Datum darstellt, sinnvoll: Das JavaScript Date-Objekt beherrscht viele Funktionen, wie zum Beispiel die Ausgabe der Anzahl Millisekunden, die seit dem 1. Januar 1970 vergangen sind \cite{date-mozilla}. Dies ist beim Vergleichen von verschiedenen Date-Objekten nützlich. Das Date-Objekt ist zum Beispiel auch fähig, das Datum in einem Format auszugeben, das den lokalen Gegebenheiten entspricht: 28.10.2015 (Schweiz), 10/28/2015 (USA).
 
 Zahlen, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem Namen "`Value"' definiert, werden zunächst von JavaScript als Zeichenstring behandelt. Diese Strings müssen in Zahlen-Objekte umgewandelt werden, denn nur mit Zahlen-Objekten können Rechenoperationen durchgeführt werden.
 
-\paragraph{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Applikation geladen. Ein Beispiel ist der $CO_2$-Verbrauch von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in einen JavaScript-Array umgewandelt.
+\paragraph{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Applikation geladen. Ein Beispiel ist der $CO_2$-Ausstoss von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in einen JavaScript-Array umgewandelt.
 
 Es wurde entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil die Umsetzung aus Sicht der Programmierlogik einfacher ist. 
 
-Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} oben). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige Identifikation ersetzt (Abbildung \ref{fig:merge} unten). Die eindeutige Identifikation wird durch den Spaltennamen und die URL des Datensatzes generiert: Dem Spaltennamen wird ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem ursprünglichen Datensatz zuordnen kann.
+Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} links). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige Identifikation ersetzt (Abbildung \ref{fig:merge} rechts). Die eindeutige Identifikation wird durch den Spaltennamen und die URL des Datensatzes generiert: Dem Spaltennamen wird ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem ursprünglichen Datensatz zuordnen kann.
 
-In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-co2.csv und af-co2.csv gemergt. Im unteren Beispiel wurden die Spaltennamen der abhängigen Variablen durch die eindeutige Identifikation ersetzt.
+In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-co2.csv und af-co2.csv gemergt. Im rechten Beispiel wurden die Spaltennamen der abhängigen Variablen durch die eindeutige Identifikation ersetzt.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}{0.40\textwidth}
 		\centering
@@ -175,7 +176,7 @@ In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-c
 ]
 		\end{minted}
 	\end{minipage}
-	\caption[Merge-Strategie]{Demonstration der Merge-Strategie und Anwendung der ID-Generierung. Oben: Gemergter Datensatz, ohne eindeutige IDs. Unten: Gemergter Datensatz, mit eindeutigen IDs.}
+	\caption[Merge-Strategie]{Demonstration der Merge-Strategie und Anwendung der ID-Generierung. Links: Gemergter Datensatz, ohne eindeutige IDs. Rechts: Gemergter Datensatz, mit eindeutigen IDs.}
 	\label{fig:merge}
 \end{figure}
 
@@ -201,16 +202,16 @@ Die Implementierung dieser Anweisungen zum Filtering (Spezifikation der URLs, ab
 Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor dem Filtering in ein JavaScript-Objekt umgewandelt werden kann. In Abbildung \ref{fig:meta} ist ein Beispiel der Konfigurationsdatei meta.json aufgelistet:
 
 \begin{itemize}
-	\item \texttt{dataset} (Zeile 3-22) beschreibt ein Datensatz
+	\item \texttt{datasets} (Zeile 2-23) beschreibt einen Array für Datensätze
 	\item \texttt{url} (Zeile 4) gibt die URL des Datensatzes an
 	\item \texttt{config} (Zeile 5-21) ist ein Array, in dem die Spalten des Datensatzes konfiguriert werden
 	\item \texttt{row} (Zeile 7, 14) gibt die zu konfigurierende Spalte an
 	\item \texttt{type} (Zeile 8, 15) hat entweder den Wert \texttt{index} oder \texttt{value}. \texttt{index} bedeutet, dass die Spalte eine unabhängige, \texttt{value} bedeutet, dass die Spalte eine abhängige Variable ist
 	\item \texttt{data\_type} (Zeile 9, 16) gibt den Datentyp der Spalte an, damit sie in das entsprechende JavaScript-Objekt umgewandelt werden kann. Er kann den Wert \texttt{Date} oder \texttt{Number} haben
 	\item \texttt{date\_format} (Zeile 10) gibt bei Spalten mit Datentyp \texttt{Date} das Format des Datums an, damit es geparst werden kann
-	\item \texttt{name} (Zeile 11, 17) setzt einen Namen für den Datensatz, der im Diagramm angezeigt werden soll
+	\item \texttt{name} (Zeile 11, 17) setzt einen Namen die Spalte, die im Diagramm angezeigt werden soll
 	\item \texttt{activated} (Zeile 18) gibt an, ob der Datensatz standardmässig im Diagramm angezeigt werden soll. Dieses Attribut spielt besonders eine Rolle bei Diagrammen, die mehrere Datensätze darstellen
-	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variablen dar. Sie wird als Information im Diagramm angezeigt
+	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variable dar. Sie wird als Information im Diagramm angezeigt
 \end{itemize}
 
 \begin{figure}[!htbp]

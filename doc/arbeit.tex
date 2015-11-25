@@ -10,8 +10,11 @@
 \usepackage{amssymb}
 % Korrektes Kodieren des in und outputs
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}    % UTF-8
 \usepackage{url}
+
+\usepackage{newunicodechar} 
+\DeclareUnicodeCharacter{FFFD}{?????}
 
 % for general code highlighting
 \usepackage{minted}
@@ -54,9 +57,9 @@
 \author{Max Mathys}             %your name
 \college{MNG Rämibühl}  %your college
 
-\renewcommand{\submittedtext}{XXXXXX DATUM XXXXXX}
+\renewcommand{\submittedtext}{4. Dezember 2015}
 \renewcommand{\supervisor}{Betreuende Lehrperson: David Sichau}
-\degree{Maturitätsarbeit 2016}     %the degree
+\degree{Maturitätsarbeit}     %the degree
 \degreedate{}         %the degree date
 
 
@@ -110,5 +113,9 @@
 
 \newpage
 \input{content/bestatigung}
+ 
+%\chapter{Code-Listing}
+%\input{codelisting}
+
 
 \end{document}

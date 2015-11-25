@@ -16,6 +16,7 @@
   "dependencies": {
     "browser-sync": "^2.9.3",
     "browserify": "^11.0.0",
+    "file": "^0.2.2",
     "glob": "isaacs/node-glob",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",

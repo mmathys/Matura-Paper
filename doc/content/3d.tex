@@ -5,8 +5,8 @@ Falls Datensätze mit einer unabhängigen und zwei abhängigen Variablen dargest
 Beispiele für Datensätze, die in dreidimensionalen Punktdiagrammen dargestellt werden können:
 
 \begin{itemize}
-	\item Zwei Attribute im Laufe der Zeit, zum Beispiel BIP und Arbeitsplätze eines Landes
-	\item Drei Attribute, die in einem bestimmten Verhältnis zueinander stehen. Zum Beispiel Geschwindigkeit, Luftwiderstand, Oberfläche
+	\item Zwei Attribute im Laufe der Zeit, zum Beispiel BIP und Arbeitsplätze eines Landes.
+	\item Drei Attribute, die in einem bestimmten Verhältnis zueinander stehen. Zum Beispiel Geschwindigkeit, Luftwiderstand, Oberfläche.
 \end{itemize}
 
 Es wurde entschieden, eine weitere Applikation zu entwickeln, die einen Datensatz mit einer unabhängigen und zwei abhängigen Variablen in einer 3D-Applikation anzeigt. Dazu wurden Daten der World Bank \cite{worldbank} zur Bevölkerung und Arbeitsplätzen der Schweiz im Verlauf der Zeit verwendet.
@@ -33,11 +33,11 @@ Abbildung \ref{fig:3d} zeigt die Oberfläche der entwickelten Applikation. Der N
 	\label{fig:vectors}
 \end{figure}
 
-Die Beschriftung und Farben der Achsen werden über dem Diagramm angezeigt. Die erste Beschriftung (rot) steht für die unabhängige Variable, die zweite und dritte Beschriftung (grün und blau) für die abhängigen Variablen.
+Die Beschriftung und Farben der Achsen werden in der Applikation über dem Diagramm angezeigt. Die erste Beschriftung (rot) steht für die unabhängige Variable, die zweite und dritte Beschriftung (grün und blau) für die abhängigen Variablen.
 
-\textbf{Punkte.} Die Datenpunkte wurden an den drei Achsen abgetragen und als schwarze Kugeln im Raum abgebildet.
+\textbf{Punkte.} Die Datenpunkte werden an den drei Achsen abgetragen und als schwarze Kugeln im Raum abgebildet.
 
-\textbf{Würfel.} Ein Würfel wurde mit gestrichelten grauen Linien um das Diagramm dargestellt. Es soll dem Benutzer helfen, sich in dem dreidimensionalen Raum zu orientieren.
+\textbf{Würfel.} Ein Würfel wird mit gestrichelten grauen Linien um das Diagramm dargestellt. Es soll dem Benutzer helfen, sich in dem dreidimensionalen Raum zu orientieren.
 
 \textbf{Rotation.} Das dreidimensionale Punktdiagramm ist mit der Maus rotierbar. Die Kamera bleibt während der Rotation stets auf die Mitte des Diagramms gerichtet. Die Rotation ermöglicht eine bessere Erkundung des Datensatzes und bietet die Ansicht aus verschiedenen Winkeln dar.
 
@@ -47,7 +47,7 @@ Eine Funktion für das Zoomen wurde nicht implementiert, weil sie sich als kontr
 
 Eine besondere Erkenntnis bei der Entwicklung dieser Applikation ist das Erkennen des Potentials von Parallelprojektionen innerhalb des dreidimensionalen Punktdiagramms.
 
-Das Punktdiagramm kann durch Verschieben der Kamera und Verwendung der orthographischen Projektion auf ein zweidimensionales Punktdiagramm reduziert werden.
+Das Punktdiagramm kann durch Verschieben der Kamera und Verwendung der Parallelprojektion auf ein zweidimensionales Punktdiagramm reduziert werden.
 
 Zum Beispiel führt die Projektion der zy-Fläche (Abbildung \ref{fig:compare_projections} rechts) zur Darstellung eines zweidimensionalen Punktdiagramms: 
 Die \textit{neue Abszisse}\footnote{Mit dem Begriff "`\textit{neue Abszisse}"' ist die Abszisse des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} ist die y-Achse, die \textit{neue Ordinate}\footnote{Mit dem Begriff "`\textit{neue Ordinate}"' ist ebenfalls die Ordinate des neu dargestellten, zweidimensionalen Punktdiagramms gemeint.} die z-Achse. 
@@ -64,25 +64,31 @@ Abbildung \ref{fig:compare_projections} veranschaulicht die Funktionsweise der x
 	\label{fig:compare_projections}
 \end{figure}
 
-Die Gleichungen in \ref{eqn:3dmath} erklären die Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse (x), Ordinatenachse (y) und Applikatenachse (z), $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{xz}}$, $P_{\text{zy}}$ die Position der Kamera für die entsprechende Projektion:
+Die Gleichungen in \ref{eqn:3dmath} erklären die Funktionsweise der Projektion: Sei $S$ der Schnittpunkt der Abszissenachse (x), Ordinatenachse (y) und Applikatenachse (z), $a$ die Länge einer Achse, $M$ der Mittelpunkt des Diagramms und $P_{\text{xy}}$, $P_{\text{xz}}$, $P_{\text{zy}}$ die Position der Kamera für die entsprechende Projektion:
 
 \begin{equation}
 \begin{gathered}
 S = (0|0|0)
+\vspace{0.7\baselineskip}
 \\
 M = (\frac{a}{2} | \frac{a}{2} | \frac{a}{2})
+\vspace{0.7\baselineskip}
 \\
 P_{\text{xy}} = (\frac{a}{2} | \frac{a}{2}| a + a)
+\vspace{0.7\baselineskip}
 \\
 P_{\text{xz}} = (\frac{a}{2} | -a | \frac{a}{2})
+\vspace{0.7\baselineskip}
 \\
 P_{\text{zy}} = (-a | \frac{a}{2}| \frac{a}{2})
+\vspace{0.7\baselineskip}
 \end{gathered}
 %\caption{Positionen der Kamera für Projektionen im dreidimensionalen Punktdiagramm.}
 \label{eqn:3dmath}
 \end{equation}
 
-Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{zy}}$ senkrecht, die verbleibende Achse steht parallel zur Kamerarichtung; in Abbildung \ref{fig:3dtable} werden die neue Abszisse und Ordinate des projizierten zweidimensionalen Punktdiagramms und die Kamerarichtung nach Projektion aufgelistet.
+\newpage
+Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{zy}}$ senkrecht, die verbleibende Achse parallel zur Kamerarichtung; in Abbildung \ref{fig:3dtable} werden die neue Abszisse und Ordinate des projizierten zweidimensionalen Punktdiagramms und die Kamerarichtung nach Projektion aufgelistet.
 
 \begin{figure}[H]
 	\centering
@@ -96,7 +102,7 @@ Somit stehen je zwei Achsen bei $P_{\text{xy}}$, $P_{\text{xz}}$ oder $P_{\text{
 		zy & Applikatenachse (z) & Ordinatenachse (y) & In Richtung\newline
 		Abzissenachse (x) \\ \hline
 	\end{tabular}
-	\caption{Beschreibung des projizierten zweidimensionalen Punktdiagramms nach Projektion}
+	\caption{Beschreibung des projizierten zweidimensionalen Punktdiagramms}
 	\label{fig:3dtable}
 \end{figure}
 
@@ -116,7 +122,7 @@ In Abbildung \ref{fig:projections} wird die Projektion der xz-Ebene angezeigt. B
 
 Die Zentralprojektion hat den Nachteil, dass sie Objekte verzerrt, je nachdem, wie weit sie entfernt sind. Sie ist für unsere Zwecke (der Reduktion des dreidimensionalen Punktdiagramm auf ein zweidimensionales) nicht geeignet.
 
-Bei der Parallelprojektion hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} ist somit das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
+Bei der \textit{Parallelprojektion} hingegen werden Punkte auf einer Ebene abgebildet und somit nicht verzerrt, falls sie weiter entfernt von der Projektionsfläche liegen. Beim rechten Beispiel in Abbildung \ref{fig:projections} wird die Parallelprojektion angewandt, somit ist das dreidimensionale Punktdiagramm auf ein zweidimensionales Punktdiagramm reduziert worden.
 
 Es ist in der Applikation möglich, zwischen der Zentralprojektion und Parallelprojektion, sowie zwischen der xy-, xz- und zy-Projektion umzuschalten. Der Benutzer kann sich so besser mit dem Datensatz auseinandersetzen, indem er einfach zwischen dreidimensionalem und zweidimensionalem Punktdiagramm navigieren kann.
 

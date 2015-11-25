@@ -19,6 +19,7 @@
 \RequirePackage{ifthen}   % needed for option parsing for logo
 
 \raggedbottom
+\usepackage{verbatim}
 
 %define the default submitted text insert if needed
 \newcommand{\submittedtext}{{}}
@@ -263,4 +264,16 @@
 
 % Sprache
 \usepackage[ngerman]{babel}
+
+% Code Listing Package Helper
+
+\newcommand{\listcodefile}[3]{%
+	\subsection*{#2}
+	\inputminted{#3}{#1}
+}
+
+\newenvironment{listcodesection}[1][??]
+	{\section{Test: #1}}
+	{}
+
 
