@@ -122,9 +122,9 @@ Zahlen, wie in Abbildung \ref{fig:csv-json} rechts, Zeile 4, im Attribut mit dem
 
 \paragraph{Merging von Datensätzen.} Oft werden mehrere Datensätze in der Applikation geladen. Ein Beispiel ist der $CO_2$-Ausstoss von Ländern: Für jedes Land wird eine separate CSV-Datei geladen und in einen JavaScript-Array umgewandelt.
 
-Es wurde entschieden, alle geladenen Datensätze (Arrays) in ein Datensatz (Array) zusammenzufassen (\textit{merge}), weil die Umsetzung aus Sicht der Programmierlogik einfacher ist. 
+Es wurde entschieden, alle geladenen Datensätze (Arrays) in einen Datensatz (Array) zusammenzufassen (\textit{merge}), weil die Umsetzung aus Sicht der Programmierlogik einfacher ist. 
 
-Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} links). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige Identifikation ersetzt (Abbildung \ref{fig:merge} rechts). Die eindeutige Identifikation wird durch den Spaltennamen und die URL des Datensatzes generiert: Dem Spaltennamen wird ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem ursprünglichen Datensatz zuordnen kann.
+Da Spalten von verschiedenen Datensätzen meist mit gleichem Namen beschriftet sind, könnte man nach dem Merge die Spalten nicht unterscheiden (Abbildung \ref{fig:merge} links). Darum wird die Beschriftung aller Spalten der abhängigen Variablen durch eine eindeutige Identifikation ersetzt (Abbildung \ref{fig:merge} rechts). Die eindeutige Identifikation wird durch den Spaltennamen und die URL des Datensatzes generiert: Dem Spaltennamen werden ein Rautenzeichen und die URL angehängt. Dies ermöglicht, dass man trotz Merge die Objekte dem ursprünglichen Datensatz zuordnen kann.
 \newpage
 In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-co2.csv und af-co2.csv gemergt. Im rechten Beispiel wurden die Spaltennamen der abhängigen Variablen durch die eindeutige Identifikation ersetzt.
 
@@ -187,10 +187,10 @@ In der Abbildung \ref{fig:merge} wurden zwei Datensätze mit den Dateinamen ch-c
 Die Applikation soll fähig sein, mehrere Formate von CSV-Datensätzen verarbeiten zu können. Der Benutzer sollte die Anweisungen zum Filtering anpassen können.
 
 Die Implementierung dieser Anweisungen zum Filtering (Spezifikation der URLs, abhängige und unabhängige Variablen, Datentypen der Spalten des Datensatzes) kann auf zwei Arten durchgeführt werden:
-
+\newpage
 \begin{itemize}
-	\item Die Anweisungen zum Filtering sind im Sinne des \textit{Hard Coding} implementiert
-	\item Die Anweisungen zum Filtering sind in einer \textit{Konfiguration} abgelegt (\textit{Soft Coding})
+	\item Die Anweisungen zum Filtering sind im Sinne des \textit{Hard Coding} implementiert;
+	\item Die Anweisungen zum Filtering sind in einer \textit{Konfiguration} abgelegt (\textit{Soft Coding}).
 \end{itemize}
 
 \paragraph{Hard Coding.} Die Anweisungen (Konfiguration) zum Filtering sind direkt im Programmcode abgelegt. Falls Datensätze mit anderen URLs, Spaltennamen oder Datentypen in der Applikation verwendet werden sollen, so müssen die Anweisungen direkt im Programmcode entsprechend angepasst werden.
@@ -202,16 +202,16 @@ Die Implementierung dieser Anweisungen zum Filtering (Spezifikation der URLs, ab
 Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor dem Filtering in ein JavaScript-Objekt umgewandelt werden kann. In Abbildung \ref{fig:meta} ist ein Beispiel der Konfigurationsdatei meta.json aufgelistet:
 
 \begin{itemize}
-	\item \texttt{datasets} (Zeile 2-23) beschreibt einen Array für Datensätze
-	\item \texttt{url} (Zeile 4) gibt die URL des Datensatzes an
-	\item \texttt{config} (Zeile 5-21) ist ein Array, in dem die Spalten des Datensatzes konfiguriert werden
-	\item \texttt{row} (Zeile 7, 14) gibt die zu konfigurierende Spalte an
-	\item \texttt{type} (Zeile 8, 15) hat entweder den Wert \texttt{index} oder \texttt{value}. \texttt{index} bedeutet, dass die Spalte eine unabhängige, \texttt{value} bedeutet, dass die Spalte eine abhängige Variable ist
+	\item \texttt{datasets} (Zeile 2-23) beschreibt einen Array für Datensätze;
+	\item \texttt{url} (Zeile 4) gibt die URL des Datensatzes an;
+	\item \texttt{config} (Zeile 5-21) ist ein Array, in dem die Spalten des Datensatzes konfiguriert werden;
+	\item \texttt{row} (Zeile 7, 14) gibt die zu konfigurierende Spalte an;
+	\item \texttt{type} (Zeile 8, 15) hat entweder den Wert \texttt{index} oder \texttt{value}. \texttt{index} bedeutet, dass die Spalte eine unabhängige, \texttt{value} bedeutet, dass die Spalte eine abhängige Variable ist;
 	\item \texttt{data\_type} (Zeile 9, 16) gibt den Datentyp der Spalte an, damit sie in das entsprechende JavaScript-Objekt umgewandelt werden kann. Er kann den Wert \texttt{Date} oder \texttt{Number} haben
-	\item \texttt{date\_format} (Zeile 10) gibt bei Spalten mit Datentyp \texttt{Date} das Format des Datums an, damit es geparst werden kann
-	\item \texttt{name} (Zeile 11, 17) setzt einen Namen die Spalte, die im Diagramm angezeigt werden soll
-	\item \texttt{activated} (Zeile 18) gibt an, ob der Datensatz standardmässig im Diagramm angezeigt werden soll. Dieses Attribut spielt besonders eine Rolle bei Diagrammen, die mehrere Datensätze darstellen
-	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variable dar. Sie wird als Information im Diagramm angezeigt
+	\item \texttt{date\_format} (Zeile 10) gibt bei Spalten mit Datentyp \texttt{Date} das Format des Datums an, damit es geparst werden kann;
+	\item \texttt{name} (Zeile 11, 17) setzt einen Namen die Spalte, die im Diagramm angezeigt werden soll;
+	\item \texttt{activated} (Zeile 18) gibt an, ob der Datensatz standardmässig im Diagramm angezeigt werden soll. Dieses Attribut spielt besonders eine Rolle bei Diagrammen, die mehrere Datensätze darstellen;
+	\item \texttt{unit} (Zeile 19) stellt die Einheit einer abhängigen Variable dar. Sie wird als Information im Diagramm angezeigt.
 \end{itemize}
 
 \begin{figure}[!htbp]
@@ -244,7 +244,7 @@ Die Applikation verwendet als Konfiguration eine Datei im JSON-Format, die vor d
 	\end{minted}
 	
 	
-	\caption[Beispiel der Konfigurationsdatei: meta.json]{\textbf{meta.json}: Beispiel der Konfigurationsdatei, die die Applikation verwendet.}
+	\caption[Beispiel der Konfigurationsdatei: meta.json]{\textbf{meta.json}: Beispiel der Konfigurationsdatei, welche die Applikation verwendet.}
 	\label{fig:meta}
 \end{figure}
 \newpage

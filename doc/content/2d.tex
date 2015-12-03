@@ -10,29 +10,29 @@ Aus diesem Grund wurde als erstes Beispiel das zweidimensionale Punktdiagramm (b
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=\linewidth]{images/2dline}
-	\caption{Screenshot der Oberfläche der Applikation (zweidimensionales Liniendiagramm/Punktdiagramm)}
+	\caption{Screenshot der Oberfläche der Applikation (zweidimensionales Liniendiagramm / Punktdiagramm)}
 	\label{fig:screenshot}
 \end{figure}
 
 Der Screenshot in Abbildung \ref{fig:screenshot} zeigt die entwickelte Applikation. Es sind Datensätze \cite{worldbank} zum $CO_2$-Ausstoss von 15 Ländern vorhanden, drei davon sind im Diagramm eingeblendet. Der Name des Tests in der Applikation lautet \texttt{layout}.
 
-\paragraph{Achsen.} Es wurden Achsen mit linearer Skala für die Applikation gewählt. Beschriftungen und Markierungen, sogenannte \textit{Ticks}, sind vorhanden. Die Ticks auf der Ordinatenachse (y-Achse) wurden in Richtung der Innenseite des Diagramms verlängert, so dass ein Gitter entsteht.
+\paragraph{Achsen.} Es wurden Achsen mit linearer Skala für die Applikation gewählt. Beschriftungen und Markierungen, sogenannte \textit{Ticks}, sind vorhanden. Die Ticks auf der Ordinatenachse (y-Achse) wurden in Richtung Mitte des Diagramms verlängert, so dass ein Gitter entsteht.
 
 Falls in einem Diagramm mehrere Datensätze gleichzeitig dargestellt werden sollen, wie es der Fall in Abbildung \ref{fig:screenshot} ist, so müssen die abgebildeten Werte die gleiche Einheit (zum Beispiel Meter, Kilogramm, Franken) besitzen. Bei der gleichzeitigen Darstellung von mehreren Datensätzen mit verschiedenen Einheiten in einem Diagramm müsste für jede vorhandene Einheit eine eigene Achse und Skala gezeichnet werden.
 
 \paragraph{Datenpunkte.} Die Applikation bietet an, die Daten als Punkte und/oder verbunden durch eine Linie anzuzeigen. In Abbildung \ref{fig:screenshot} unten wird durch Kontrollkästchen ermöglicht, die Anzeige zu verändern.
 
-\paragraph{Layout und Textformatierung.} Für den Schritt \textit{Übersicht} ist das Layout und auch die Formatierung des Textes von Bedeutung. Eine klare Oberflächenstruktur nach modernen Minimalismus (nach Designtrends wie \textit{Flat Design} oder \textit{Material Design}) wurde geschaffen, bei der der Inhalt im Vordergrund steht. "`Benutzer betrachten keine Details, sie benutzen Details."' \cite{minimalism}.
+\paragraph{Layout und Textformatierung.} Für den Schritt \textit{Übersicht} sind das Layout und auch die Formatierung des Textes von Bedeutung. Eine klare Oberflächenstruktur nach modernen Minimalismus (nach Designtrends wie \textit{Flat Design} oder \textit{Material Design}) wurde geschaffen, bei der der Inhalt im Vordergrund steht. "`Benutzer betrachten keine Details, sie benutzen Details."' \cite{minimalism}.
 
 Zur besseren Orientierung des Benutzers wird hier das Prinzip von "`\textit{pop}"' und "`\textit{unpop}"' von Text, das von Erik Kennedy \cite{pop} beschrieben wurde, berücksichtigt: Durch die Anpassung der Typographie kann ein Text hervorgehoben beziehungsweise in den Hintergrund gestellt werden. Folgende Eigenschaften von Texten im Diagramm werden in der Applikation entsprechend der Wichtigkeit angepasst:
 
 \begin{itemize}
-	\item Grösse (grösser bzw. kleiner)
-	\item Farbe (grösserer bzw. kleinerer Kontrast)
-	\item Schriftstärke (fetter bzw. leichter)
-	\item Schriftart (Grossschreibung bzw. Kleinschreibung)
-	\item Laufweite (kleiner bzw. grösser)
-	\item Unterstreichung (unterstrichen bzw. nicht unterstrichen)
+	\item Grösse (grösser bzw. kleiner);
+	\item Farbe (grösserer bzw. kleinerer Kontrast);
+	\item Schriftstärke (fetter bzw. leichter);
+	\item Schriftart (Grossschreibung bzw. Kleinschreibung);
+	\item Laufweite (kleiner bzw. grösser);
+	\item Unterstreichung (unterstrichen bzw. nicht unterstrichen).
 \end{itemize}
 
 \paragraph{Linien.} Der Verlauf der abgebildeten Datenwerte wird verdeutlicht, indem die Punkte im Diagramm durch eine Linie verbunden werden. Die lineare Interpolation wurde durch ein selbstgeschriebenes Modul implementiert. Weitere Interpolationen, wie der \textit{Kubisch Hermitescher Spline} oder \textit{Basis-Spline}, wurden mittels D3 implementiert und können ebenfalls auf das Diagramm angewendet werden.
@@ -62,5 +62,5 @@ Diese Zoom-Strategie verwirrt den Benutzer, weil sich die Skalierungen der Achse
 
 \paragraph{Tooltip und Detailanzeige.} Beim Tooltip wird der der Maus am nächsten liegende Datenpunkt jedes Datensatzes markiert und weiter in der Detailanzeige beschrieben: In der Detailanzeige werden genaue x- und y-Werte mit Einheit angezeigt. Dieser Vorgang entspricht dem Schritt \textit{Details auf Abruf}.
 
-\paragraph{Dynamik der Applikation.} Der Screenshot dieses Beispiels (Abbildung \ref{fig:screenshot}) ist das Resultat der Anzeige der Applikation, die für bestimmte Datensätze konfiguriert ist. Elemente des Diagramms, wie der Wertebereich der Achsen, die Datensatzauswahl, Tooltip und Detailanzeige, werden dynamisch generiert, so dass diese Elemente ohne weitere Einstellung auch für andere Datensätze funktionieren.
+\paragraph{Dynamik der Applikation.} Der Screenshot dieses Beispiels (Abbildung \ref{fig:screenshot}) ist das Resultat der Anzeige der Applikation, die für bestimmte Datensätze konfiguriert ist. Elemente des Diagramms, wie der Wertebereich der Achsen, die Datensatzauswahl, der Tooltip und die Detailanzeige, werden dynamisch generiert, so dass diese Elemente ohne weitere Einstellung auch für andere Datensätze funktionieren.
 
