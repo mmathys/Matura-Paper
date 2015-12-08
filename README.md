@@ -1,4 +1,5 @@
 # Matura Paper
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 Repository for the Matura paper, Max Mathys
 
 [View the paper here](https://mmathys.github.io/maturapaper.pdf)
