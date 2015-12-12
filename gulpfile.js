@@ -84,7 +84,7 @@ gulp.task('libs', function() {
 });
 
 gulp.task('files', function() {
-  gulp.src(['./tests/**/*.{html,png,jpg,jpeg,svg,csv,json,txt}'])
+  return gulp.src(['./tests/**/*.{html,png,jpg,jpeg,svg,csv,json,txt}'])
     .pipe(gulp.dest('./dist'))
     .pipe(bs.stream())
 });
