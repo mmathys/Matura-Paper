@@ -1,6 +1,8 @@
 # Matura Paper
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+![screenshot](https://raw.githubusercontent.com/mmathys/Matura-Paper/master/Graph%401000w.png)
+
 Repository for the Matura paper, Max Mathys
 
 [View the paper here](https://mmathys.github.io/maturapaper.pdf)
