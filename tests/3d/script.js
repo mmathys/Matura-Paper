@@ -317,9 +317,9 @@ function loadVisualization (data) {
 
   function render () {
     renderer.render(scene, camera)
-    console.log('cords: ', camera.position.x, camera.position.y, camera.position.z)
-    console.log('in scene: ', camera.position.x + 50, camera.position.y + 50, camera.position.z + 50)
-  // console.log(camera.rotation.x*180/Math.PI, camera.rotation.y*180/Math.PI, camera.rotation.z*180/Math.PI)
+    //console.log('cords: ', camera.position.x, camera.position.y, camera.position.z)
+    //console.log('in scene: ', camera.position.x + 50, camera.position.y + 50, camera.position.z + 50)
+    //console.log(camera.rotation.x*180/Math.PI, camera.rotation.y*180/Math.PI, camera.rotation.z*180/Math.PI)
   }
 
   function toScene (x, y, z) {
