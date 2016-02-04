@@ -1,0 +1,20 @@
+% !TEX TS-program = lualatex
+% !TEX option = --shell-escape
+\documentclass[a4paper]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{minted}
+
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{0394}{$\Delta$}
+
+\title{Code Listing: <%=files.title %>}
+\author{Max Mathys}
+\date{\today}
+
+\begin{document}
+\maketitle
+<% files.res.forEach(function (file) { %>
+\section{<%=file.name %>}
+\inputminted[linenos,breaklines,breakbytoken]{<%=file.lang %>}{<%=file.path %>}
+<% }) %>
+\end{document}

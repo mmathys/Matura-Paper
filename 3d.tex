@@ -1,0 +1,53 @@
+% !TEX TS-program = lualatex
+% !TEX option = --shell-escape
+\documentclass[a4paper]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{minted}
+
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{0394}{$\Delta$}
+
+\title{Code Listing: 3d}
+\author{Max Mathys}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{tests/3d/index.html}
+\inputminted[linenos,breaklines,breakbytoken]{html}{tests/3d/index.html}
+
+\section{tests/3d/meta.json}
+\inputminted[linenos,breaklines,breakbytoken]{json}{tests/3d/meta.json}
+
+\section{tests/3d/script.js}
+\inputminted[linenos,breaklines,breakbytoken]{javascript}{tests/3d/script.js}
+
+\section{tests/3d/style.scss}
+\inputminted[linenos,breaklines,breakbytoken]{scss}{tests/3d/style.scss}
+
+\section{tests/3d/data/CHE\_LE\_M.csv}
+\inputminted[linenos,breaklines,breakbytoken]{text}{tests/3d/data/CHE_LE_M.csv}
+
+\section{tests/3d/data/CHE\_LP\_M.csv}
+\inputminted[linenos,breaklines,breakbytoken]{text}{tests/3d/data/CHE_LP_M.csv}
+
+\section{tests/3d/modules/domain.js}
+\inputminted[linenos,breaklines,breakbytoken]{javascript}{tests/3d/modules/domain.js}
+
+\section{tests/3d/modules/filter.js}
+\inputminted[linenos,breaklines,breakbytoken]{javascript}{tests/3d/modules/filter.js}
+
+\section{tests/3d/modules/format.js}
+\inputminted[linenos,breaklines,breakbytoken]{javascript}{tests/3d/modules/format.js}
+
+\section{tests/3d/modules/id.js}
+\inputminted[linenos,breaklines,breakbytoken]{javascript}{tests/3d/modules/id.js}
+
+\section{tests/3d/modules/range.js}
+\inputminted[linenos,breaklines,breakbytoken]{javascript}{tests/3d/modules/range.js}
+
+\section{tests/3d/modules/sort.js}
+\inputminted[linenos,breaklines,breakbytoken]{javascript}{tests/3d/modules/sort.js}
+
+\end{document}
