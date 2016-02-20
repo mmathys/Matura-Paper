@@ -9,7 +9,7 @@ Repository for the Matura paper, Max Mathys
 
 Contains notes, code and history of the matura project.
 
-## Demos
+## Demos: Try out the diagrams
 
 [Try out the diagrams here without building the project on your own](https://maturademo.github.io/)
 
