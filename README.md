@@ -9,12 +9,14 @@ Repository for the Matura paper, Max Mathys
 
 Contains notes, code and history of the matura project.
 
-## Demos
+## Demos: Try out the diagrams
 
 [Try out the diagrams here without building the project on your own](https://maturademo.github.io/)
 
 ## Active tests
-[`layout`](https://github.com/mmathys/maturaarbeit/tree/master/tests/layout), [`3d`](https://github.com/mmathys/maturaarbeit/tree/master/tests/3d)
+[`layout`](https://github.com/mmathys/maturaarbeit/tree/master/tests/layout),
+[`layout_finance`](https://github.com/mmathys/maturaarbeit/tree/master/tests/layout_finance),
+[`3d`](https://github.com/mmathys/maturaarbeit/tree/master/tests/3d)
 
 ## Setup
 
