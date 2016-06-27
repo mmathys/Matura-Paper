@@ -142,7 +142,7 @@ d3.json('meta.json', function (err, res) {
    */
 
   // Index-Accessor-Funktion: Gibt für eine bestimmte Datenreihe den Wert der
-    // Index-Spalte zurück.
+  // Index-Spalte zurück.
 
   index.accessor = function (d) {
     return d[index.row]

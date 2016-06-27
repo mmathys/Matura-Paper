@@ -1,0 +1,120 @@
+\documentclass[12pt]{document}
+
+\usepackage[ngerman]{babel}
+
+%thanks david
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+%load any additional packages
+\usepackage{amssymb}
+% Korrektes Kodieren des in und outputs
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}    % UTF-8
+\usepackage{url}
+
+\usepackage{newunicodechar} 
+\DeclareUnicodeCharacter{FFFD}{?????}
+
+% for general code highlighting
+\usepackage{minted}
+
+% better tables
+\usepackage{tabularx} % in the preamble
+
+%% [REC] Intelligent cross reference package. This allows for nice
+%% combined references that include the reference and a hint to where
+%% to look for it.
+\usepackage{varioref}
+
+% links across the toc
+\usepackage[linkcolor=black,colorlinks=true,citecolor=black,filecolor=black]{hyperref}
+
+\usepackage[sorting=none,backend=biber,style=numeric]{biblatex}
+% brauche et al. anstatt u. a.
+\DefineBibliographyStrings{german}{andothers={et al\adddot}}
+\addbibresource{refs.bib}
+
+%Deutsche Silbentrennung
+\RequirePackage{hyphsubst}%
+\HyphSubstIfExists{ngerman-x-latest}{\HyphSubstLet{ngerman}{ngerman-x-latest}}{}
+
+%shorthand für tiefstellen
+\usepackage{subscript}
+
+\usepackage{mathtools}
+
+\usepackage{amsmath}
+
+%input macros (i.e. write your own macros file called mymacros.tex 
+%and uncomment the next line)
+%\include{mymacros}
+
+\title{Entwicklung einer Applikation \\[1ex]
+		für die Darstellung von\\[1ex]     %your thesis title,
+      interaktiven Diagrammen im Web}   %note \\[1ex] is a line break in the title
+
+\author{Max Mathys}             %your name
+\college{MNG Rämibühl}  %your college
+
+\renewcommand{\submittedtext}{4. Januar 2016}
+\renewcommand{\supervisor}{Betreuende Lehrperson: David Sichau}
+\degree{Maturitätsarbeit}     %the degree
+\degreedate{}         %the degree date
+
+
+\usepackage{biblatex}
+
+% \bibliography{<mybibfile>}% ONLY selects .bib file; syntax for version <= 1.1b
+\addbibresource{refs.bib}% Syntax for version >= 1.2
+
+
+
+%end the preamble and start the document
+\begin{document}
+
+%this baselineskip gives sufficient line spacing for an examiner to easily
+%markup the thesis with comments
+\baselineskip=18pt plus1pt
+
+%set the number of sectioning levels that get number and appear in the contents
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+
+%\maketitle                  % create a title page from the preamble info
+\input{content/abstract_en}       % include the abstract
+
+
+%\begin{romanpages}          % start roman page numbering
+%\tableofcontents            % generate and include a table of contents
+%\end{romanpages}            % end roman page numbering
+
+%now include the files of latex for each of the chapters etc
+%\input{content/einleitung}
+%\input{content/hauptteil}	
+%\input{content/schlusswort}
+
+
+%\newpage
+%now enable appendix numbering format and include any appendices
+%\appendix
+
+%next line adds the Bibliography to the contents page
+%\renewcommand{\bibname}{Literatur}
+%\chapter{Literaturverzeichnis}
+%\printbibliography[heading=none]     %use a bibtex bibliography file refs.bib
+
+%\newpage
+%\chapter{Abbildungsverzeichnis}
+%\makeatletter
+%\@starttoc{lof} % Print List of Figures
+%\makeatother
+
+%\newpage
+%\input{content/bestatigung}
+ 
+%\chapter{Code-Listing}
+%\input{codelisting}
+
+\end{document}
